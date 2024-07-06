@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    logo 
+{% endblock  %}
+
+{% block content %}
+    <h1>Logo Image</h1>
+        <img src="{{ logo.image.url }}" alt="{{ image.title }}" width="150">
+{% endblock  %}

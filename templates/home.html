@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock  %}
+
+{% block content %}
+    <h1>HOME</h1>
+    <p>Check out the <a href="/dashboard">about</a> page</p>
+{% endblock  %}
+
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Areas</p>
+
+    <section>
+        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+            <article>
+                <h2>
+                    <!-- app_name = 'posts' -->
+                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
+                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                </h2>
+            </article>
+        {% endfor %}
+    </section>
+    
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Busness</a> Plan</h2>
+    <p>Busness Area</p>
+{% endblock  %}
+

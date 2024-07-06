@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Fitness 
+{% endblock  %}
+
+{% block content %}
+    <section>
+        <h1>Fitness your Welbeing</h1>
+        {% for fitness in new_fitness %}
+            <h2>{{ fitness.date }}</h2>
+            <p>{{ fitness.name }}</p>
+            <p>{{ fitness.address }}</p>
+        {% endfor %}
+    </section>
+    <p>Back to the <a href="/posts">📰</a></p>
+{% endblock  %}
+
+<!-- add the grid container for content1 and content2 -->
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Busness</a> Plan</h2>
+    <p>Busness Area</p>
+{% endblock  %}

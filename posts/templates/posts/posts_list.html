@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    lessons
+{% endblock  %}
+
+{% block content %}
+    <h1>Lessons</h1>
+    <section>
+        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+            <article>
+                <h2>
+                    <!-- app_name = 'posts' -->
+                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
+                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                </h2>
+            </article>
+        {% endfor %}
+        <p>Back to <a href="/" arial-label="Back to Home" title="Back to Home">🏠Home</a></p>
+    </section>
+{% endblock  %}  
+
+<!-- add the grid container for content1 and content2 -->
+<!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+    <section>
+        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+            <article>
+                <h2>
+                    <!-- app_name = 'posts' -->
+                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
+                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                </h2>
+            </article>
+        {% endfor %}
+    </section>
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Busness</a> Plan</h2>
+    <p>Busness Area</p>
+{% endblock  %}

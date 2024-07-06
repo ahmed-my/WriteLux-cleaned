@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Django App
+        {% endblock  %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+</head>
+<body>
+    <nav>
+        <img src="/media/images/logo.png" alt="Logo" class="nav-logo" arial-label="logo" title="PDU Africa">
+        <a href="{% url 'home' %}"><span role="img" aria-label="Home" title="Home">🏠Home</span></a> 
+        <a href="{% url 'posts:list' %}">PDU Lessons</a>  <!-- app_name = 'posts' -->
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Dashboard</a> 
+        <a href="{% url 'image' %}">Images</a> 
+        <a href="{% url 'fitness_items' %}">Fitness</a> 
+        <a href="{% url 'posts:new_post' %}"><span role="img" aria-label="New post" title="New post">🆕 New</span></a>
+        <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
+            {% csrf_token %}
+            <button class="logout-button" aria-label="logout user" title="logout user">👋 logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'users:register_user' %}"><span role="img" aria-label="User Registration" title="User Registration">🚀Registration</span></a>
+
+        <form class="login" action="{% url 'users:login_user' %}">
+            {% csrf_token %}
+            <button class="login-button" aria-label="user login" title="user login">🔏Login</button>
+        </form>
+        
+        {% endif %}
+    </nav> 
+    <div class="grid-container">
+        <aside class="sidebar">
+            {% block content1 %}
+            
+            {% endblock %}
+        </aside>
+        <main>
+            {% block content %}
+            
+            {% endblock %}
+        </main>
+        <aside class="sidebar">
+            {% block content2 %}
+            
+            {% endblock %}
+        </aside>
+    </div>
+    <footer>
+        <p>Footer</p>
+    </footer>
+    
+</body>
+</html>

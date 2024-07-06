@@ -1,0 +1,1 @@
+console.log("Using JS. This is a cool")
