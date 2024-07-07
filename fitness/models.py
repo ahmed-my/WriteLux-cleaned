@@ -29,3 +29,13 @@ class Lesson(models.Model):
 
     def __str__(self):
         return self.name
+    
+# 07-07-24
+# create table model course
+class Course(models.Model):
+    title = models.CharField(max_length=75)
+    body = models.TextField()
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.title

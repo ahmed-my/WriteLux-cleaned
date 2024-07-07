@@ -19,12 +19,11 @@
     <h2><a href="/">Contents</a></h2>
     <p>Contents Area</p>
     <section>
-        {% for course in courses %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+        {% for course in courses %}
             <article>
                 <h2>
-                    <!-- app_name = 'posts' -->
-                    <a href="{% url 'posts:course_page' param=course.slug %}">{{ course.title }}</a>
-                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                    <!-- app_name = 'fitness' -->
+                    <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
                 </h2>
             </article>
         {% endfor %}

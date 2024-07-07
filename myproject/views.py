@@ -1,8 +1,8 @@
 # from django.http import HttpResponse "This is used when requesting response from http request"
 from django.shortcuts import render
 from fitness.models import Image
-from posts.models import Post, Course
-from fitness.models import Lesson
+from posts.models import Post
+from fitness.models import Lesson, Course
 from django.contrib.auth.decorators import login_required
 
 def home(request):

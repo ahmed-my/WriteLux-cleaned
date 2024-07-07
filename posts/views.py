@@ -15,10 +15,12 @@ from . import forms
 def posts_list(request):
     # function created posts_list
     posts = Post.objects.all().order_by('-date')
+    courses = Course.objects.all()
     lessons = Lesson.objects.all() # Fetch all lessons from the lesson model in the fitness app
     context = {
         'posts': posts,
-        'lessons': lessons
+        'lessons': lessons,
+        'courses': courses
     }
     return render(request, 'posts/posts_list.html', context)
 
@@ -30,15 +32,6 @@ def post_page(request, param):
         'lessons': lessons
     }
     return render(request, 'posts/post_page.html', context) 
-
-def course_page(request, param):
-    course = Course.objects.get(slug=param)
-    courses = Course.objects.all()
-    context = {
-        'course': course,
-        'courses': courses
-    }
-    return render(request, 'posts/course_page.html', context) 
 
 @login_required(login_url="/users/login/")
 def new_post(request):

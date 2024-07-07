@@ -9,7 +9,7 @@
         <h1>
             <p>{{ lesson.body }}</p>
         </h1>  
-        <p>Back to <a href="{% url 'posts:list' %}">📰</a></p>
+        <p>Back <a href="{% url 'posts:list' %}">📰</a></p>
     </section>
 {% endblock  %} 
 
@@ -19,14 +19,9 @@
     <h2><a href="/">Contents</a></h2>
     <p>Contents Area</p>
     <section>
-        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
-            <article>
-                <h2>
-                    <!-- app_name = 'posts' -->
-                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
-                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
-                </h2>
-            </article>
+        {% for course in courses %}
+            <!-- app_name = 'fitness' -->
+            <p><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></p>
         {% endfor %}
     </section>
 {% endblock  %}

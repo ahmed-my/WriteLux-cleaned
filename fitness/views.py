@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Fitness, Image, Lesson
+from .models import Fitness, Image, Lesson, Course
 from posts.models import Post
 
 # Create your views here.
@@ -17,3 +17,14 @@ def lesson_page(request, param):
         'lesson': lesson
     }
     return render(request, 'fitness/lesson_page.html', context)
+
+def course_page(request, param):
+    posts = Post.objects.all()
+    courses = Course.objects.all()
+    course = Course.objects.get(slug=param)
+    context = {
+        'posts': posts,
+        'courses': courses,
+        'course': course
+    }
+    return render(request, 'fitness/course_page.html', context)
