@@ -1,8 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Fitness, Image, Lesson, Course
 from posts.models import Post
 
-# Create your views here.
 def fitness_items(request):
     fitness = Fitness.objects.all()
     return render(request, 'fitness/fitness_items.html', {'fitness': fitness})
@@ -10,10 +9,12 @@ def fitness_items(request):
 def lesson_page(request, param):
     posts = Post.objects.all()
     lessons = Lesson.objects.all()
-    lesson = Lesson.objects.get(slug=param)
+    courses = Course.objects.all()
+    lesson = get_object_or_404(Lesson, slug=param)
     context = {
         'posts': posts,
         'lessons': lessons,
+        'courses': courses,
         'lesson': lesson
     }
     return render(request, 'fitness/lesson_page.html', context)
@@ -21,10 +22,12 @@ def lesson_page(request, param):
 def course_page(request, param):
     posts = Post.objects.all()
     courses = Course.objects.all()
-    course = Course.objects.get(slug=param)
+    lessons = Lesson.objects.all()
+    course = get_object_or_404(Course, slug=param)
     context = {
         'posts': posts,
         'courses': courses,
+        'lessons': lessons,
         'course': course
     }
     return render(request, 'fitness/course_page.html', context)

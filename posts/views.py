@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 # added above delete task
 
-from .models import Post, Course
-from fitness.models import Lesson
+from .models import Post
+from fitness.models import Lesson, Course
 from django.contrib.auth.decorators import login_required
 from . import forms
 
