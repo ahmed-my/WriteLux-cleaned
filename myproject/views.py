@@ -1,13 +1,21 @@
 # from django.http import HttpResponse "This is used when requesting response from http request"
 from django.shortcuts import render
 from fitness.models import Image
-from posts.models import Post
+from posts.models import Post, Course
+from fitness.models import Lesson
 from django.contrib.auth.decorators import login_required
 
 def home(request):
     # return HttpResponse("Hello World!. You are home")
+    courses = Course.objects.all() # Fetch all courses
     posts = Post.objects.all()  # Fetch all posts
-    return render(request, 'home.html', {'posts': posts})
+    lessons = Lesson.objects.all() # Fetch all lessons
+    context = {
+        'courses': courses,
+        'posts': posts,
+        'lessons': lessons
+    }
+    return render(request, 'home.html', context)
     
 def about(request):
     # return HttpResponse("The about page")

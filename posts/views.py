@@ -6,7 +6,8 @@ from django.urls import reverse_lazy
 from django.views.generic.edit import DeleteView
 # added above delete task
 
-from .models import Post
+from .models import Post, Course
+from fitness.models import Lesson
 from django.contrib.auth.decorators import login_required
 from . import forms
 
@@ -14,11 +15,30 @@ from . import forms
 def posts_list(request):
     # function created posts_list
     posts = Post.objects.all().order_by('-date')
-    return render(request, 'posts/posts_list.html', {'posts': posts})
+    lessons = Lesson.objects.all() # Fetch all lessons from the lesson model in the fitness app
+    context = {
+        'posts': posts,
+        'lessons': lessons
+    }
+    return render(request, 'posts/posts_list.html', context)
 
 def post_page(request, param):
     post = Post.objects.get(slug=param)
-    return render(request, 'posts/post_page.html', {'post': post}) 
+    lessons = Lesson.objects.all() # Fetch all lessons from the lesson model in the fitness app
+    context = {
+        'post': post,
+        'lessons': lessons
+    }
+    return render(request, 'posts/post_page.html', context) 
+
+def course_page(request, param):
+    course = Course.objects.get(slug=param)
+    courses = Course.objects.all()
+    context = {
+        'course': course,
+        'courses': courses
+    }
+    return render(request, 'posts/course_page.html', context) 
 
 @login_required(login_url="/users/login/")
 def new_post(request):

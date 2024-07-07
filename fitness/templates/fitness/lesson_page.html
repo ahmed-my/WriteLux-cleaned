@@ -1,25 +1,15 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    {{ post.title }}
+    {{ lesson.name }}
 {% endblock  %}
 
 {% block content %}
     <section>
-        <img 
-            class="banner"
-            src="{{ post.banner.url }}" alt="{{ post.title }}" 
-        />
         <h1>
-            <p>{{ post.date }}</p>
-            {{post.title}}  </br>
-            {{post.body}} by {{ post.author}}
-
+            <p>{{ lesson.body }}</p>
         </h1>  
         <p>Back to <a href="{% url 'posts:list' %}">📰</a></p>
-        {% if post.author == request.user %}
-        <a href="{% url 'posts:post_delete' post.pk %}">Delete</a>
-        {% endif %}
     </section>
 {% endblock  %} 
 

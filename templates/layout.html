@@ -20,7 +20,7 @@
         {% if user.is_authenticated %}
         <a href="{% url 'dashboard' %}">Dashboard</a> 
         <a href="{% url 'image' %}">Images</a> 
-        <a href="{% url 'fitness_items' %}">Fitness</a> 
+        <a href="{% url 'fitness:fitness_items' %}">Fitness</a> 
         <a href="{% url 'posts:new_post' %}"><span role="img" aria-label="New post" title="New post">🆕 New</span></a>
         <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
             {% csrf_token %}

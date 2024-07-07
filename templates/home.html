@@ -14,15 +14,16 @@
     <p>Contents Areas</p>
 
     <section>
-        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+        {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <article>
                 <h2>
                     <!-- app_name = 'posts' -->
-                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
-                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                    <a href="{% url 'posts:course_page' param=course.slug %}">{{ course.title }}</a>
+                    <!-- 'posts:course_page' This means the function course_page in views.py in the app posts -->
                 </h2>
             </article>
         {% endfor %}
+
     </section>
     
 {% endblock  %}
@@ -30,5 +31,13 @@
 {% block content2 %}
     <h2><a href="/">Busness</a> Plan</h2>
     <p>Busness Area</p>
+
+    <section>
+        <h1>Fitness your Welbeing</h1>
+        {% for lesson in lessons %}
+            <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
+        {% endfor %}
+    </section>
+
 {% endblock  %}
 

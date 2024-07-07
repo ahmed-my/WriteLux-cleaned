@@ -7,10 +7,10 @@
 {% block content %}
     <section>
         <h1>Fitness your Welbeing</h1>
-        {% for fitness in new_fitness %}
-            <h2>{{ fitness.date }}</h2>
-            <p>{{ fitness.name }}</p>
-            <p>{{ fitness.address }}</p>
+        {% for wellbeing in fitness %}
+            <h2>{{ wellbeing.date }}</h2>
+            <p>{{ wellbeing.name }}</p>
+            <p>{{ wellbeing.address }}</p>
         {% endfor %}
     </section>
     <p>Back to the <a href="/posts">📰</a></p>
