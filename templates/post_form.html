@@ -16,9 +16,10 @@
             New Post
         {% endif %}
     </h1>
-    <form method="post">
+
+    <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save</button>
+        <button class="form-submit">Save</button>
     </form>
 {% endblock %}
