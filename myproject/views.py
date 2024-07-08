@@ -48,7 +48,7 @@ def contact(request):
 class PostCreateView(CreateView):
     model = Post
     form_class = CustomForm
-    template_name = 'posts/post_form.html'
+    template_name = 'posts/new_post.html'
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
