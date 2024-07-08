@@ -11,13 +11,17 @@
         {% for post in posts %}
             <li>
                 <h3>{{ post.title }} - posted on {{ post.date }}</h3>
+                <p>{{ post.body }}</p>
                 <p><a href="{% url 'posts:post_page' param=post.slug %}">Read more</a></p>
+                <p><a href="{% url 'post_create' %}">Create New Post</a></p>
+                <p><a href="{% url 'post_update' post.pk %}">Edit</a></p>
+                <p><a href="{% url 'post_delete' post.pk %}">Delete</a></p>
             </li>
         {% empty %}
             <li>You have no posts yet.</li>
         {% endfor %}
     </ul>
-{% endblock  %}
+{% endblock %}
 
 {% block content1 %}
     <h2><a href="/">Contents</a></h2>

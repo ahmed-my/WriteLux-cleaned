@@ -20,6 +20,7 @@ from django.urls import path, include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from .views import PostCreateView, PostDetailView, PostUpdateView, PostDeleteView, dashboard
 
 
 urlpatterns = [
@@ -31,6 +32,11 @@ urlpatterns = [
     path("posts/", include('posts.urls')),
     path('fitness/', include('fitness.urls')),
     path('users/', include('users.urls')),
+
+    path('post/new/', PostCreateView.as_view(), name='post_create'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
 ]
 
 if settings.DEBUG:
