@@ -16,13 +16,18 @@ def home(request):
         'lessons': lessons
     }
     return render(request, 'home.html', context)
-    
-def about(request):
-    # return HttpResponse("The about page")
-    return render(request, 'about.html')
 
 # use decorator to grant access to only logged in users
 @login_required(login_url="/users/login/")
+def dashboard(request):
+    user = request.user
+    posts = Post.objects.filter(author=user)
+    context = {
+        'user': user,
+        'posts': posts,
+    }
+    return render(request, 'dashboard.html', context)
+
 def image_list(request):
     images = Image.objects.all()
     return render(request, 'image_list.html', {'images': images})

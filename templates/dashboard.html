@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock  %}
+
+{% block content %}
+    <h1>Dashboard: Welcome {{ user.username }}</h1>
+    <h2>Your Posts</h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h3>{{ post.title }} - posted on {{ post.date }}</h3>
+                <p><a href="{% url 'posts:post_page' param=post.slug %}">Read more</a></p>
+            </li>
+        {% empty %}
+            <li>You have no posts yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock  %}
+
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Business</a> Plan</h2>
+    <p>Business Area</p>
+    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+{% endblock  %}

@@ -25,7 +25,7 @@ from django.conf import settings
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name='home'), 
-    path("dashboard/", views.about, name='dashboard'),
+    path("dashboard/", views.dashboard, name='dashboard'),
     path("image/", views.image_list, name='image'),
     path("image-logo", views.image_logo, name='image-logo'),
     path("posts/", include('posts.urls')),
