@@ -14,8 +14,8 @@
                 <p>{{ post.body }}</p>
                 <p><a href="{% url 'posts:post_page' param=post.slug %}">Read more</a></p>
                 <p><a href="{% url 'post_create' %}">Create New Post</a></p>
-                <p><a href="{% url 'post_update' post.pk %}">Edit</a></p>
-                <p><a href="{% url 'post_delete' post.pk %}">Delete</a></p>
+                <p><a href="{% url 'post_update' post.pk %}">Edit Post</a></p>
+                <p><a href="{% url 'post_delete' post.pk %}">Delete Post</a></p>
             </li>
         {% empty %}
             <li>You have no posts yet.</li>
