@@ -5,7 +5,12 @@
 {% endblock  %}
 
 {% block content %}
-    <h1>Lessons for Today</h1>
+    <!-- Search form -->
+    <form action="{% url 'fitness:search' %}" method="get">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    <h1>Current Post</h1>
     <section>
         {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
             <article>

@@ -20,9 +20,13 @@
     <p>Contents Area</p>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
-            <!-- app_name = 'posts' -->
-            <p><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></p>
-            <!-- 'posts:course_page' This means the function course_page in views.py in the app posts -->
+            <article>
+                <h2>
+                    <!-- app_name = 'fitness' -->
+                    <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                </h2>
+            </article>
         {% endfor %}
     </section>
 {% endblock  %}

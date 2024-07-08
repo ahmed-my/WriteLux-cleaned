@@ -7,6 +7,13 @@
 {% block content %}
     <section>
         <h1>Fitness your Welbeing</h1>
+
+        <!-- Search form -->
+        <form action="{% url 'fitness:search' %}" method="get">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+
         {% for wellbeing in fitness %}
             <h2>{{ wellbeing.date }}</h2>
             <p>{{ wellbeing.name }}</p>

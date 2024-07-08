@@ -5,6 +5,11 @@
 {% endblock  %}
 
 {% block content %}
+    <!-- Search form -->
+    <form action="{% url 'fitness:search' %}" method="get">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
     <h1>HOME</h1>
     <p>Check out the <a href="/dashboard">about</a> page</p>
 {% endblock  %}
@@ -12,14 +17,18 @@
 {% block content1 %}
     <h2><a href="/">Contents</a></h2>
     <p>Contents Areas</p>
-
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
-            <!-- app_name = 'posts' -->
-            <p><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></p>
-            <!-- 'posts:course_page' This means the function course_page in views.py in the app posts -->
+            <article>
+                <h2>
+                    <!-- app_name = 'fitness' -->
+                    <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+                </h2>
+            </article>
         {% endfor %}
-
+        <img src="/media/images/logo.png" alt="Logo" class="course-image" arial-label="logo" title="PDU Africa">
+        <img src="/media/images/helicopter.jpg" alt="Logo" class="course-image" arial-label="logo" title="PDU Africa">
     </section>
     
 {% endblock  %}
@@ -27,13 +36,16 @@
 {% block content2 %}
     <h2><a href="/">Busness</a> Plan</h2>
     <p>Busness Area</p>
-
     <section>
         <h1>Fitness your Welbeing</h1>
         {% for lesson in lessons %}
-            <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
+            <article>
+                <h2>
+                    <!-- app_name = 'fitness' -->
+                    <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
+                    <!-- 'fitness:lesson_page' This means the function lesson_page in views.py in the app fitness -->
+                </h2>
+            </article>
         {% endfor %}
     </section>
-
 {% endblock  %}
-

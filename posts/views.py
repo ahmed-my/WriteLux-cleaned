@@ -26,10 +26,12 @@ def posts_list(request):
 
 def post_page(request, param):
     post = Post.objects.get(slug=param)
+    courses = Course.objects.all()
     lessons = Lesson.objects.all() # Fetch all lessons from the lesson model in the fitness app
     context = {
         'post': post,
-        'lessons': lessons
+        'lessons': lessons,
+        'courses': courses
     }
     return render(request, 'posts/post_page.html', context) 
 
