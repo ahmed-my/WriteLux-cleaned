@@ -6,11 +6,11 @@
 
 {% block content %}
     <!-- Search form -->
-    <form action="{% url 'fitness:search' %}" method="get">
+    <form action="{% url 'posts:search' %}" method="get">
         <input type="text" name="q" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-    <h1>Current Post</h1>
+    <h1>Current Post on WriteLux</h1>
     <section>
         {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
             <article>
@@ -21,7 +21,7 @@
                 </h2>
             </article>
         {% endfor %}
-        <p>Back <a href="/" arial-label="Back to Home" title="Back to Home">🏠Home</a></p>
+        <p>Back <a href="/" arial-label="Back to Home" title="Back to Home">Home</a></p>
     </section>
 {% endblock  %}  
 

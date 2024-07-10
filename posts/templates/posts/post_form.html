@@ -2,7 +2,7 @@
 
 {% block title %}
     {% if form.instance.pk %}
-        Edit Post
+        Update Post
     {% else %}
         New Post
     {% endif %}
@@ -11,14 +11,41 @@
 {% block content %}
     <h1>
         {% if form.instance.pk %}
-            Edit Post
+            Update Post
         {% else %}
             New Post
         {% endif %}
     </h1>
-    <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form class="form-with-validation" action="{% if form.instance.pk %}{% url 'post_update' pk=form.instance.pk %}{% else %}{% url 'post_create' %}{% endif %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="form-submit">Save</button>
+        <button class="form-submit">
+            {% if form.instance.pk %}
+                Update
+            {% else %}
+                Create
+            {% endif %}
+        </button>
     </form>
+{% endblock %}
+
+{% block content1 %}
+    <h2><a href="/">Business Plan</a></h2>
+    <p>Business Area</p>
+    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+{% endblock %}
+
+{% block content2 %}
+    <h2><a href="/">Business Plan</a></h2>
+    <p>Business Area</p>
+    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
 {% endblock %}

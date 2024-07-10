@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }} - Author: {{ post.author }}</h1>
+    <p>{{ post.body }}</p>
+    <p><a href="{% url 'dashboard' %}">Back</a></p>
+{% endblock %}

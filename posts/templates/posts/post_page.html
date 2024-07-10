@@ -16,7 +16,7 @@
             {{post.body}} by {{ post.author}}
 
         </h1>  
-        <p>Back to <a href="{% url 'posts:list' %}">📰</a></p>
+        <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
         {% if post.author == request.user %}
         <a href="{% url 'posts:post_delete' post.pk %}">Delete</a>
         {% endif %}

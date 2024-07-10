@@ -26,6 +26,7 @@ from .views import PostCreateView, PostDetailView, PostUpdateView, PostDeleteVie
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name='home'), 
+    path('search/', views.search, name='search'),  # Add this line
     path("dashboard/", views.dashboard, name='dashboard'),
     path("image/", views.image_list, name='image'),
     path("image-logo", views.image_logo, name='image-logo'),
@@ -33,10 +34,11 @@ urlpatterns = [
     path('fitness/', include('fitness.urls')),
     path('users/', include('users.urls')),
 
-    path('post/new/', PostCreateView.as_view(), name='post_create'),
-    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
-    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),
-    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+    path('dashboard/post/new/', PostCreateView.as_view(), name='post_create'),
+    path('dashboard/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('dashboard/post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),
+    path('dashboard/post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+
 ]
 
 if settings.DEBUG:
