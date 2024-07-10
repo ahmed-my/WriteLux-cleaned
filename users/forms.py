@@ -3,16 +3,34 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, help_text='', label='Email Address')
 
     class Meta:
         model = User
         fields = ('username', 'email', 'password1', 'password2')
-
-    def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-        self.fields['username'].widget.attrs.update({'class': 'custom-class'})
-        self.fields['email'].widget.attrs.update({'class': 'custom-class'})
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'custom-class'}),
+            'email': forms.EmailInput(attrs={'class': 'custom-class'}),
+            'password1': forms.PasswordInput(attrs={'class': 'custom-class'}),
+            'password2': forms.PasswordInput(attrs={'class': 'custom-class'}),
+        }
+        help_texts = {
+            'username': None,  # Remove help text for username
+            'password1': None,  # Remove help text for password1
+            'password2': None,  # Remove help text for password2
+        }
+        error_messages = {
+            'username': {
+                'required': 'Please enter your username.',
+                'invalid': 'Enter a valid username. This value may contain only letters, numbers, and @/./+/-/_ characters.',
+            },
+            'password1': {
+                'required': 'Please enter a password.',
+            },
+            'password2': {
+                'required': 'Please confirm your password.',
+            },
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
