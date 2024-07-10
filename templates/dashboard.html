@@ -5,8 +5,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Dashboard: Welcome {{ user.username }}</h1>
-    <h2>WriteLux Posts</h2>
+    <h1>WriteLux Posts by {{ user.username }}</h1>
     <ul>
         {% for post in posts %}
             <li>
