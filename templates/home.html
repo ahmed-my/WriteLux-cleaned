@@ -5,45 +5,52 @@
 {% endblock  %}
 
 {% block content %}
+    <img 
+        class="home-image"
+        src="/media/images/Blog-Cover-Photos-6.png" alt="home image"  arial-label="home image" title="Home image"
+    />  
+    <p>Check out the <a href="/home">User Dashboard</a> page</p>
+{% endblock  %}
+
+{% block content1 %}
     <!-- Search form -->
     <form action="{% url 'search' %}" method="get">
         <input type="text" name="q" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-    <h1>HOME</h1>
-    <p>Check out the <a href="/dashboard">User Dashboard</a> page</p>
-{% endblock  %}
-
-{% block content1 %}
-    <h2><a href="/">Contents</a></h2>
-    <p>Contents Areas</p>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <article>
-                <h2>
-                    <!-- app_name = 'fitness' -->
-                    <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
-                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
-                </h2>
+                <!-- app_name = 'fitness' -->
+                <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
             </article>
         {% endfor %}
     </section>
+    <div class="content1-container">
+        <img 
+            class="image-animation-home-content1" 
+            src="/media/images/Blog-Cover-Photos-2.png" alt="home image" aria-label="home image" title="home image"
+        >
+    </div>
     
 {% endblock  %}
 
 {% block content2 %}
-    <h2><a href="/">Busness</a> Plan</h2>
-    <p>Busness Area</p>
+    <h1 class="text-animation-home-content2">Busness Plan</h1>
     <section>
-        <h1>Fitness your Welbeing</h1>
         {% for lesson in lessons %}
             <article>
-                <h2>
-                    <!-- app_name = 'fitness' -->
-                    <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
-                    <!-- 'fitness:lesson_page' This means the function lesson_page in views.py in the app fitness -->
-                </h2>
+                <!-- app_name = 'fitness' -->
+                <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
+                <!-- 'fitness:lesson_page' This means the function lesson_page in views.py in the app fitness -->
             </article>
         {% endfor %}
     </section>
+    <div class="content2-container">
+        <img 
+            class="image-animation-home-content2" 
+            src="/media/images/Blog-Cover-Photos-3.png" alt="home image" aria-label="home image" title="home image"
+        >
+    </div>
 {% endblock  %}

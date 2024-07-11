@@ -10,15 +10,13 @@
         <input type="text" name="q" placeholder="Search...">
         <button type="submit">Search</button>
     </form>
-    <h1>Current Post on WriteLux</h1>
+    <h2>Current Post on WriteLux</h2>
     <section>
         {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
             <article>
-                <h2>
-                    <!-- app_name = 'posts' -->
-                    <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
-                    <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
-                </h2>
+                <!-- app_name = 'posts' -->
+                <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
+                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
             </article>
         {% endfor %}
         <p>Back <a href="/" arial-label="Back to Home" title="Back to Home">Home</a></p>
@@ -28,8 +26,7 @@
 <!-- add the grid container for content1 and content2 -->
 <!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
 {% block content1 %}
-    <h2><a href="/">Contents</a></h2>
-    <p>Contents Area</p>
+    <h1><a href="/">Contents Area</a></h1>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <!-- app_name = 'posts' -->
@@ -40,10 +37,8 @@
 {% endblock  %}
 
 {% block content2 %}
-    <h2><a href="/">Busness</a> Plan</h2>
-    <p>Busness Area</p>
+    <h1><a href="/">Busness</a> Plan</h1>
     <section>
-        <h1>Fitness your Welbeing</h1>
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
         {% endfor %}

@@ -7,22 +7,40 @@
 {% block content %}
     <section>
         <h1>Available Images</h1>
-        <div class="image-gallery">
+        
             {% for image in images %}
-                <img src="{{ image.image.url }}" alt="{{ image.title }}" width="150">
+                <img 
+                    class="image-gallery"
+                    src="{{ image.image.url }}" alt="{{ image.title }}"
+                />
             {% endfor %}
-        </div>
     </section>
     <p>check the logo <a href="{% url "image-logo" %}">click</a></p>
 {% endblock  %}
 
 <!-- add the grid container for content1 and content2 -->
 {% block content1 %}
-    <h2><a href="/">Contents</a></h2>
-    <p>Contents Area</p>
+<h1>WriteLux Images</h1>
+<section>
+    {% for post in posts %} 
+        <img 
+            class="banner-images-content1"
+            src="{{ post.banner.url }}" alt="{{ post.title }}" 
+        />
+    {% endfor %}
+    <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
+</section>
 {% endblock  %}
 
 {% block content2 %}
-    <h2><a href="/">Busness</a> Plan</h2>
-    <p>Busness Area</p>
+<h1>WriteLux Images</h1>
+<section>
+    {% for post in posts %} 
+    <img 
+        class="banner-images-content2"
+        src="{{ post.banner.url }}" alt="{{ post.title }}" 
+    />
+    {% endfor %}
+    <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
+</section>
 {% endblock  %}
