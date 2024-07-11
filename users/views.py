@@ -30,4 +30,4 @@ def login_user(request):
 def logout_user(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('posts:posts_list')
+        return redirect('home')

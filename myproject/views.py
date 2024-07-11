@@ -53,8 +53,13 @@ def dashboard(request):
     return render(request, 'dashboard.html', context)
 
 def image_list(request):
+    posts = Post.objects.all()
     images = Image.objects.all()
-    return render(request, 'image_list.html', {'images': images})
+    context = {
+        'images': images,
+        'posts': posts
+    }
+    return render(request, 'image_list.html', context)
 
 def image_logo(request):
     logo = Image.objects.all()[0]
