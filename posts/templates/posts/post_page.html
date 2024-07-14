@@ -2,45 +2,54 @@
 
 {% block title %}
     {{ post.title }}
-{% endblock  %}
+{% endblock %}
 
 {% block content %}
+    <h1 class="text-animation-home-content2">{{ post.title }}</h1>
     <section>
         <img 
             class="banner"
             src="{{ post.banner.url }}" alt="{{ post.title }}" 
         />
         <h1>
-            <p>{{ post.date }} {{post.title}} </p>
-        </h1>  
-        <p>{{post.body}} by {{ post.author}}</p>
+            <p>{{ post.date }} {{ post.title }}</p>
+        </h1>
+        <div>
+            <!-- Render the body content safely -->
+            {{ post.body|safe }}
+        </div>
+        <p>by {{ post.author }}</p>
         <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
         {% if post.author == request.user %}
         <a href="{% url 'posts:post_delete' post.pk %}">Delete</a>
         {% endif %}
     </section>
-{% endblock  %} 
+{% endblock %}
 
-<!-- add the grid container for content1 and content2 -->
-<!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
+<!-- Add the grid container for content1 and content2 -->
 {% block content1 %}
     <h2><a href="/">Contents Area</a></h2>
     <section>
-        {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
+        {% for course in courses %}
             <article>
-                <!-- app_name = 'fitness' -->
                 <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
-                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
             </article>
         {% endfor %}
     </section>
-{% endblock  %}
+{% endblock %}
 
 {% block content2 %}
-    <h2><a href="/">Busness</a> Plan</h2>
+    <h2><a href="/">Business</a> Plan</h2>
     <section>
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
         {% endfor %}
     </section>
-{% endblock  %}
+    <div class="content2-container">
+        <img 
+            class="image-animation" 
+            src="{{ post.banner.url }}" alt="{{ post.title }}"
+        >
+        <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+    </div>
+{% endblock %}

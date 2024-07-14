@@ -25,7 +25,7 @@ class Lesson(models.Model):
     body = models.TextField()
     slug = models.SlugField()
     # add this for the image below
-    # banner = models.ImageField(default='fallback.png', blank=True)
+    banner = models.ImageField(default='fallback.png', blank=True)
 
     def __str__(self):
         return self.name
@@ -36,6 +36,7 @@ class Course(models.Model):
     title = models.CharField(max_length=75)
     body = models.TextField()
     slug = models.SlugField()
+    banner = models.ImageField(default='fallback.png', blank=True)
 
     def __str__(self):
         return self.title
