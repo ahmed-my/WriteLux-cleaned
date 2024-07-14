@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 50vh;
+    background-color: #FFFFFF;
+    color: #333333; /* Dark gray text for good contrast */
+    font-size: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes hoverEffect {
+    0% {
+        color: white;
+        transform: scale(1);
+    }
+    50% {
+        color: #FFD700;
+        transform: scale(1.1);
+    }
+    100% {
+        color: green;
+        transform: scale(2);
+    }
+}
+
+.navbar {
+    padding: 1rem;
+    background-color: #44B78B;
+    color: white;
+    font-size: 1.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    margin-left: 1rem;
+    color: white; /* Default text color */
+    text-decoration: none; /* Remove underline from links */
+    transition: color 2s ease-in-out, text-shadow 2s ease-in-out; /* Add transition for smooth color change */
+}
+
+.navbar a:hover {
+    animation: hoverEffect 3s ease-in-out;
+    color: green; /* Change to the color you want on hover */
+}
+
+.nav-logo {
+    display: inline-block; /* Ensures it behaves like a block for width/height */
+    margin-right: 1rem;
+    vertical-align: middle; /* Aligns the logo vertically with the text */
+    max-width: 50px; /* Optional: restrict the maximum width of the logo container */
+}
+
+.nav-logo img {
+    width: 50px;
+    height: auto;
+    display: block; /* Ensures no extra space under the image */
+    max-width: 100%; /* Ensures the image does not overflow its container */
+    height: auto; /* Maintains aspect ratio */
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+.sidebar {
+    background-color: #f4f4f4;
+    padding: 1rem;
+}
+
+main {
+    padding: 1rem;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+.login {
+    display: inline-block;
+}
+
+.login-button {
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    position: absolute; /* Added */
+    right: 1rem; /* Added */
+    top: 50%; /* Added */
+    transform: translateY(-50%); /* Added */
+}
+
+.logout {
+    display: inline-block;
+}
+
+.logout-button {
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    position: absolute; /* Added */
+    right: 1rem; /* Added */
+    top: 50%; /* Added */
+    transform: translateY(-50%); /* Added */
+}
+
+.logout-button:hover {
+    opacity: .45;
+}

@@ -6,9 +6,9 @@
 
 {% block content %}
     <img 
-        class="home-image"
-        src="/media/images/Blog-Cover-Photos-6.png" alt="home image"  arial-label="home image" title="Home image"
-    /> 
+    class="banner"
+    src="{{ course.banner.url }}" alt="{{ course.title }}" 
+    />
     <section>
         <p>{{ course.body }}</p>
         <p>Back to <a href="{% url 'posts:posts_list' %}">📰</a></p>

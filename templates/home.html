@@ -6,10 +6,10 @@
 
 {% block content %}
     <img 
-        class="home-image"
-        src="/media/images/Blog-Cover-Photos-6.png" alt="home image"  arial-label="home image" title="Home image"
-    />  
-    <p>Check out the <a href="/home">User Dashboard</a> page</p>
+    class="home-image"
+    src="/media/Blog-Cover-Photos-6.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
+    >
+    <p>Check out the <a href="/dashboard">User Dashboard</a> page</p>
 {% endblock  %}
 
 {% block content1 %}
@@ -27,13 +27,15 @@
             </article>
         {% endfor %}
     </section>
-    <div class="content1-container">
-        <img 
-            class="image-animation-home-content1" 
-            src="/media/images/Blog-Cover-Photos-2.png" alt="home image" aria-label="home image" title="home image"
-        >
+    <div class="slider-container">
+        <div class="slider content1-slider">
+            <img src="/media/Blog-Cover-Photos-6.png" alt="Blog image 1" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-2.png" alt="Blog image 2" arial-label="Blog image" title="Blog image">
+            <img src="/media/images/Blog-Cover-Photos-3.png" alt="Blog image 3" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-4.jpg" alt="Blog image 4" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-1.png" alt="Blog image 5" arial-label="Blog image" title="Blog image">
+        </div>
     </div>
-    
 {% endblock  %}
 
 {% block content2 %}
@@ -47,10 +49,14 @@
             </article>
         {% endfor %}
     </section>
-    <div class="content2-container">
-        <img 
-            class="image-animation-home-content2" 
-            src="/media/images/Blog-Cover-Photos-3.png" alt="home image" aria-label="home image" title="home image"
-        >
-    </div>
+    <div class="slider-container">
+        <div class="slider">
+            <img src="/media/Blog-Cover-Photos-1.jpg" alt="Blog image 1" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-4.jpg" alt="Blog image 4" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-2.png" alt="Blog image 2" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-5.png" alt="Blog image 5" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-3.png" alt="Blog image 3" arial-label="Blog image" title="Blog image">
+        </div>
+    </div> 
 {% endblock  %}
+    
