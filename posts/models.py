@@ -3,8 +3,16 @@ from django.contrib.auth.models import User
 from tinymce.models import HTMLField
 import bleach
 
-allowed_tags = ['a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 'strong', 'bold', 'ul', 'p', 'h1', 'h2']
-allowed_attrs = {'a': ['href', 'title']}
+# Update allowed tags and attributes
+allowed_tags = [
+    'a', 'abbr', 'acronym', 'b', 'blockquote', 'code', 'em', 'i', 'li', 'ol', 
+    'strong', 'bold', 'ul', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img', 'span'
+]
+allowed_attrs = {
+    'a': ['href', 'title'],
+    'img': ['src', 'alt', 'width', 'height'],
+    'span': ['style']
+}
 
 # Create your models here.
 class Post(models.Model):
@@ -25,8 +33,6 @@ class Post(models.Model):
         self.body = bleach.clean(self.body, tags=allowed_tags, attributes=allowed_attrs)
         super(Post, self).save(*args, **kwargs)
 
-# 07-07-24
-# create table model course
 class Course(models.Model):
     title = models.CharField(max_length=75)
     body = HTMLField()
