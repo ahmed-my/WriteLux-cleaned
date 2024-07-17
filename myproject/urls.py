@@ -33,6 +33,7 @@ urlpatterns = [
     path("posts/", include('posts.urls')),
     path('fitness/', include('fitness.urls')),
     path('users/', include('users.urls')),
+    path('tinymce/', include('tinymce.urls')),
 
     path('dashboard/post/new/', PostCreateView.as_view(), name='post_create'),
     path('dashboard/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
