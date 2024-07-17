@@ -5,11 +5,13 @@
 {% endblock  %}
 
 {% block content %}
+    <img 
+    class="banner"
+    src="{{ lesson.banner.url }}" alt="{{ lesson.title }}" 
+    />
     <section>
-        <h1>
-            <p>{{ lesson.body }}</p>
-        </h1>  
-        <p>Back <a href="{% url 'posts:posts_list' %}">📰</a></p>
+        <p>{{ lesson.body|safe }}</p>
+        <p>Back to <a href="{% url 'home' %}">Home</a></p>
     </section>
 {% endblock  %} 
 
@@ -17,7 +19,6 @@
 <!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
 {% block content1 %}
     <h2><a href="/">Contents</a></h2>
-    <p>Contents Area</p>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <!-- app_name = 'posts' -->
@@ -29,11 +30,16 @@
 
 {% block content2 %}
     <h2><a href="/">Busness</a> Plan</h2>
-    <p>Busness Area</p>
     <section>
-        <h1>Fitness your Welbeing</h1>
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
         {% endfor %}
+        <div class="content2-container">
+            <img 
+                class="image-animation" 
+                src="{{ lesson.banner.url }}" alt="{{ lesson.title }}"
+            >
+            <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+        </div>
     </section>
 {% endblock  %}

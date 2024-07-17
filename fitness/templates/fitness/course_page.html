@@ -10,8 +10,8 @@
     src="{{ course.banner.url }}" alt="{{ course.title }}" 
     />
     <section>
-        <p>{{ course.body }}</p>
-        <p>Back to <a href="{% url 'posts:posts_list' %}">📰</a></p>
+        <p>{{ course.body|safe }}</p>
+        <p>Back to <a href="{% url 'home' %}">Home</a></p>
     </section>
 {% endblock  %} 
 
@@ -26,6 +26,12 @@
                 <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
             </article>
         {% endfor %}
+        <div class="content2-container">
+            <img 
+                class="image-animation" 
+                src="{{ course.banner.url }}" alt="{{ course.title }}"
+            >
+        </div> 
     </section>
 {% endblock  %}
 
@@ -35,5 +41,11 @@
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
         {% endfor %}
+        <div class="content2-container">
+            <img 
+                class="image-animation" 
+                src="/media/Blog-fashion2.png" alt="fashion 2" aria-label="fashion image" title="fashion image"
+            >
+        </div>
     </section>
 {% endblock  %}
