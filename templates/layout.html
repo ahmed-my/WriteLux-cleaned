@@ -30,7 +30,7 @@
             <button class="logout-button" aria-label="logout user" title="logout user">logout</button>
         </form>
         {% else %}
-        <a href="{% url 'users:register_user' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
+        <a href="{% url 'users:register' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
 
         <form class="login" action="{% url 'users:login_user' %}">
             {% csrf_token %}

@@ -5,12 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <h1 class="text-animation-home-content2">{{ post.title }}</h1>
     <section>
         <img 
             class="banner"
             src="{{ post.banner.url }}" alt="{{ post.title }}" 
         />
+        <h1 class="text-animation-home-content2">{{ post.title }}</h1>
         <h1>
             <p>{{ post.date }} {{ post.title }}</p>
         </h1>
