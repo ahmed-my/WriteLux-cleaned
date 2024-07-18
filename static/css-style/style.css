@@ -172,6 +172,15 @@ a:hover {
     width: 300px;
 }
 
+.content1 {
+    max-height: 400px; /* Set the maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 10px; /* Optional: add some padding */
+    border: 1px solid #ccc; /* Optional: add a border */
+}
+
+
 .content1-container {
     padding: 1px;
 }
