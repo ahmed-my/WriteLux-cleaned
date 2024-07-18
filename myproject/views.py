@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from fitness.models import Image
 from posts.models import Post
-from fitness.models import Lesson, Course, Fitness
+from fitness.models import Lesson, Course, Fitness, Home
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
@@ -13,10 +13,12 @@ def home(request):
     courses = Course.objects.all()
     posts = Post.objects.all()
     lessons = Lesson.objects.all()
+    home_content = Home.objects.all()
     context = {
         'courses': courses,
         'posts': posts,
-        'lessons': lessons
+        'lessons': lessons,
+        'home_content': home_content
     }
     return render(request, 'home.html', context)
 

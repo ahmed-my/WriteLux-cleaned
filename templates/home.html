@@ -9,6 +9,11 @@
     class="home-image"
     src="/media/Blog-Cover-Photos-6.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
     >
+    {% for blog in home_content %}
+        <section>
+            <p>{{ blog.body|safe }}</p>
+        </section>
+    {% endfor %}
     <p>Check out the <a href="/users/registration">User Dashboard</a> page</p>
 {% endblock  %}
 

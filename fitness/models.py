@@ -33,6 +33,13 @@ class Image(models.Model):
 
     def __str__(self):
         return self.title
+    
+class Home(models.Model):
+    title = models.CharField(max_length=75)
+    body = HTMLField()
+
+    def __str__(self):
+        return self.title
 
 class Lesson(models.Model):
     name = models.CharField(max_length=75)
