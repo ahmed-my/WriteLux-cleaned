@@ -35,14 +35,12 @@ def lesson_page(request, param):
     posts = Post.objects.all()
     lessons = Lesson.objects.all()
     courses = Course.objects.all()
-    home_content = Home.objects.all()
     lesson = get_object_or_404(Lesson, slug=param)
     context = {
         'posts': posts,
         'lessons': lessons,
         'courses': courses,
-        'lesson': lesson,
-        'home_content': home_content
+        'lesson': lesson
     }
     return render(request, 'fitness/lesson_page.html', context)
 
@@ -50,13 +48,11 @@ def course_page(request, param):
     posts = Post.objects.all()
     courses = Course.objects.all()
     lessons = Lesson.objects.all()
-    home_content = Home.objects.all()
     course = get_object_or_404(Course, slug=param)
     context = {
         'posts': posts,
         'courses': courses,
         'lessons': lessons,
-        'course': course,
-        'home_content': home_content
+        'course': course
     }
     return render(request, 'fitness/course_page.html', context)
