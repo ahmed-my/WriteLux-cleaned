@@ -41,9 +41,18 @@
     </nav> 
     <div class="grid-container">
         <aside class="sidebar">
-            {% block content1 %}
-            
-            {% endblock %}
+            <div class="content1">
+                {% block content1 %}
+                
+                {% endblock %}
+            </div>
+
+            <div class="content1A">
+                {% block content1A %}
+                
+                {% endblock %}
+            </div>
+
         </aside>
         <main>
             {% if messages %}
