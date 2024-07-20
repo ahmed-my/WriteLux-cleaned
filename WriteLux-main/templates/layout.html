@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+            Django App
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
+    <script src="{% static 'js/main.js' %}" defer></script>
+    {% block extra_scripts %}
+
+    {% endblock %}
+</head>
+<body>
+    <nav>
+        <img src="/media/Blog-logo-2.png" alt="Logo" class="nav-logo" arial-label="logo" title="WriteLux logo">
+        <a href="{% url 'home' %}"><span role="img" aria-label="Home" title="Home">Home</span></a> 
+        <a href="{% url 'posts:posts_list' %}">WriteLux</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}">Dashboard</a> 
+        <a href="{% url 'image' %}">Images</a> 
+        <a href="{% url 'fitness:fitness_items' %}">Fitness</a> 
+        <a href="{% url 'posts:new_post' %}"><span role="img" aria-label="New post" title="New post">🆕 New</span></a>
+        <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
+            {% csrf_token %}
+            <button class="logout-button" aria-label="logout user" title="logout user">logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'users:register' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
+
+        <form class="login" action="{% url 'users:login_user' %}">
+            {% csrf_token %}
+            <button class="login-button" aria-label="user login" title="user login">Login</button>
+        </form>
+        
+        {% endif %}
+    </nav> 
+    <div class="grid-container">
+        <aside class="sidebar">
+            <div class="content1">
+                {% block content1 %}
+                
+                {% endblock %}
+            </div>
+
+            <div class="content1A">
+                {% block content1A %}
+                
+                {% endblock %}
+            </div>
+
+        </aside>
+        <main>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            {% block content %}
+            
+            {% endblock %}
+        </main>
+        <aside class="sidebar">
+            {% block content2 %}
+            
+            {% endblock %}
+        </aside>
+    </div>
+    <footer>
+        <p>Copy right:</p>
+    </footer>
+    
+</body>
+</html>

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    User Login
+{% endblock  %}
+
+{% block content %}
+    <h1>User Login</h1>
+    <!-- form -->
+    <form class="form-with-validation" action="/users/login/" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button class="form-submit">login</button>
+    </form>
+{% endblock  %}
+
+{% block content1 %}
+<div class="content2-container">
+    <img 
+    class="home-image"
+    src="/media/image/skylight2.jpeg" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
+    >
+</div>
+{% endblock  %}
+
+{% block content2 %}
+<div class="content2-container">
+    <img 
+    class="home-image"
+    src="/media/image/login_new.jpg" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
+    >
+</div>
+{% endblock  %}

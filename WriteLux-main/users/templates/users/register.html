@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    User Registration
+{% endblock  %}
+
+{% block content %}
+    <h1>User Registration</h1>
+    <form class="form-with-validation" method="post" action="{% url 'users:register' %}">
+        {% csrf_token %}
+        {{ form }}
+        <button class="form-submit">Register</button>
+    </form>
+{% endblock  %}
+
+{% block content1 %}
+    <img 
+    class="home-image"
+    src="/media/Blog-user-registration1.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
+    >
+{% endblock  %}
+
+{% block content2 %}
+    <div class="content2-container">
+        <img 
+            class="image-animation" 
+            src="/media/Blog-user-registration2.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
+        >
+    </div>
+{% endblock  %}

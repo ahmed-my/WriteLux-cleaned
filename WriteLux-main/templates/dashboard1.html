@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <h1>Dashboard: Welcome {{ user.username }}</h1>
+    <h2>Your WriteLux Posts</h2>
+    <ul id="post-list">
+        {% for post in posts %}
+            <li data-id="{{ post.id }}" data-title="{{ post.title }}">
+                <h3>{{ post.title }}</h3>
+            </li>
+        {% empty %}
+            <li>You have no posts yet.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block content1 %}
+    <h1>Dashboard Area</h1>
+    <p><a href="#" id="create-post">Create Post</a></p>
+    <p><a href="#" id="read-post">Read Post</a></p>
+    <p><a href="#" id="update-post">Update Post</a></p>
+    <p><a href="#" id="delete-post">Delete Post</a></p>
+{% endblock %}
+
+{% block content2 %}
+    <h2><a href="/">Business Plan</a></h2>
+    <p>Business Area</p>
+    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
+    
+    const createPostLink = document.getElementById('create-post');
+    const readPostLink = document.getElementById('read-post');
+    const updatePostLink = document.getElementById('update-post');
+    const deletePostLink = document.getElementById('delete-post');
+
+    if (createPostLink) {
+        createPostLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log('Create Post clicked');
+            window.location.href = "{% url 'post_create' %}";
+        });
+    }
+
+    if (readPostLink) {
+        readPostLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log('Read Post clicked');
+            const postId = prompt('Enter the ID of the post to read:');
+            if (postId) {
+                window.location.href = `/posts/${postId}/`;
+            }
+        });
+    }
+
+    if (updatePostLink) {
+        updatePostLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log('Update Post clicked');
+            const postId = prompt('Enter the ID of the post to update:');
+            if (postId) {
+                window.location.href = `/posts/update/${postId}/`;
+            }
+        });
+    }
+
+    if (deletePostLink) {
+        deletePostLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            console.log('Delete Post clicked');
+            const postId = prompt('Enter the ID of the post to delete:');
+            if (postId) {
+                window.location.href = `/posts/delete/${postId}/`;
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

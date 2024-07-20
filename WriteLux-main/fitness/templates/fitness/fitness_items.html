@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Fitness 
+{% endblock  %}
+
+{% block content %}
+    <section>
+        <h1>Fitness your Welbeing</h1>
+
+        <!-- Search form -->
+        <form action="{% url 'fitness:search' %}" method="get">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+
+        {% for wellbeing in fitness %}
+            <h2>{{ wellbeing.date }}</h2>
+            <p>{{ wellbeing.name }}</p>
+            <p>{{ wellbeing.address }}</p>
+        {% endfor %}
+    </section>
+    <p>Back to the <a href="/posts">📰</a></p>
+{% endblock  %}
+
+<!-- add the grid container for content1 and content2 -->
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Busness</a> Plan</h2>
+    <p>Busness Area</p>
+{% endblock  %}

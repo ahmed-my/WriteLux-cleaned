@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    New Post
+{% endblock  %}
+
+{% block content %}
+    <section>
+        <h1>
+            <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form }}
+                <button class="form-submit">Add Post</button>
+            </form>
+        </h1>  
+    </section>
+{% endblock  %}  
+
+<!-- add the grid container for content1 and content2 -->
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock  %}
+
+{% block content2 %}
+    <h2><a href="/">Busness</a> Plan</h2>
+    <p>Busness Area</p>
+{% endblock  %}

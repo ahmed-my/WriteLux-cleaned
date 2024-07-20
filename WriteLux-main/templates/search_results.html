@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Search Results for "{{ query }}"</h1>
+
+        {% if fitness %}
+            <h2>Fitness</h2>
+            <ul>
+                {% for item in fitness %}
+                    <li>{{ item.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if lessons %}
+            <h2>Lessons</h2>
+            <ul>
+                {% for lesson in lessons %}
+                    <li><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if courses %}
+            <h2>Courses</h2>
+            <ul>
+                {% for course in courses %}
+                    <li><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if posts %}
+            <h2>Posts</h2>
+            <ul>
+                {% for post in posts %}
+                    <li><a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if not fitness and not lessons and not courses and not posts %}
+            <p>No results found</p>
+        {% endif %}
+    </section>
+    <p>Back to <a href="{% url 'home' %}">Home</a></p>
+{% endblock %}
+
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock %}
+
+{% block content2 %}
+    <h2><a href="/">Business</a> Plan</h2>
+    <p>Business Area</p>
+{% endblock %}

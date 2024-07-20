@@ -1,0 +1,46 @@
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    margin: auto;
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+}
+
+.slider img {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    filter: blur(10px);
+    animation: crossfadeBlur 16s infinite;
+}
+
+.slider img:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.slider img:nth-child(2) {
+    animation-delay: 4s;
+}
+
+.slider img:nth-child(3) {
+    animation-delay: 8s;
+}
+
+.slider img:nth-child(4) {
+    animation-delay: 12s;
+}
+
+@keyframes crossfadeBlur {
+    0%, 100% {
+        opacity: 0;
+        filter: blur(10px);
+    }
+    25%, 75% {
+        opacity: 1;
+        filter: blur(0);
+    }
+}
