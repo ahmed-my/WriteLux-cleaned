@@ -47,7 +47,7 @@ body {
 }
 
 .dropdown-toggle::after {
-    border-top-color: var(--PRIMARY-COLOUR) !important;
+    border-top-color: white;
 }
 
 .navbar.active .nav-link:hover,

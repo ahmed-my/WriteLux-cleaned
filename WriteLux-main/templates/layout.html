@@ -4,9 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block title %}
-            Django App
-        {% endblock %}
     <!-- STYLE SHEETS -->
     
     <link
@@ -29,6 +26,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="{% static 'css-style/layout.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
 
     <script src="{% static 'js/main.js' %}" defer></script>
     {% block extra_scripts %}
@@ -83,7 +81,7 @@
                   </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <button class="write">
+                    <div class="write">
                       <a
                         class="nav-link dropdown-toggle no_arrow"
                         href="{% url 'posts:new_post' %}"
@@ -93,7 +91,7 @@
                       >
                         CREATE
                       </a>
-                    </button>
+                    </div>
                 </li>
                 <li class="nav-item dropdown">
                   <a
@@ -169,7 +167,7 @@
         </aside>
     </div>
     <footer>
-        <p>Copyright@cpy:</p>
+        <p>&copy; 2024 WriteLux. All rights reserved.</p>
     </footer>
 
 <script
