@@ -47,10 +47,10 @@
     padding: 1rem;
 }
 
-main {
+/* main {
     padding: 1rem;
     flex: 1;
-}
+} */
 
 footer {
     background-color: #000000;
@@ -162,30 +162,38 @@ a:hover {
 .form-with-validation {
     max-width: 600px;
     font-size: 1rem;
-    padding: 0rem;
-    display: flex;
-    flex-flow: column;
+    font-weight: bold;
+    /* padding: 0rem; */
+    /* display: flex;
+    flex-flow: column; */
     gap: 0.5rem;
 }
 
-.form-with-validation div {
+/* .form-with-validation div {
     display: flex;
     flex-flow: column;
     gap: 0.5rem;
-}
+} */
 
 .form-with-validation input {
     padding: 0.25rem;
     border-radius: 20px;
-    max-width: 150px;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
     background-color: none;
-    margin-left: 0rem;
 }
 
 .form-submit {
-    padding: 0.25rem;
-    border-radius: 20px;
-    width: 350px;
+    padding: 0.50rem;
+    border-radius: 5px;
+    width: 305px;
+}
+
+.form-submit_login {
+    padding: 0.50rem;
+    border-radius: 5px;
+    width: 215px;
 }
 
 
@@ -254,7 +262,7 @@ button {
     background-color: #4CAF50;
     cursor: pointer;
     border: none;
-    width: 100%;
+    width: 80px;
     min-width: 6rem;
     padding: .75rem 2rem;
     justify-content: center;

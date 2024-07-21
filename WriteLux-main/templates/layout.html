@@ -57,6 +57,27 @@
                       >WRITELUX</a
                     >
                 </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="{% url 'fitness:fitness_items' %}"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    More
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#"> FAQS</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Whats New</a></li>
+                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                  </ul>
+                </li>
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle no_arrow" href="{% url 'users:register' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
+                </li>
                 {% if user.is_authenticated %} 
                 <li class="nav-item dropdown">
                   <a
@@ -93,25 +114,6 @@
                       </a>
                     </div>
                 </li>
-                <li class="nav-item dropdown">
-                  <a
-                    class="nav-link dropdown-toggle"
-                    href="{% url 'fitness:fitness_items' %}"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                  >
-                    More
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#"> FAQS</a>
-                    </li>
-                    <li><a class="dropdown-item" href="#">Whats New</a></li>
-                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
-                  </ul>
-                  
-                </li>
                 <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'users:logout_user' %}"
@@ -119,20 +121,19 @@
                         LOGOUT
                       </button></a
                     >
-                </form>
                 </li>
                 </ul>
+              </form>
               </div>
             </div>
-        {% else %}
-        <a href="{% url 'users:register' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
+        <!-- {% else %}
 
         <form class="login" action="{% url 'users:login_user' %}">
             {% csrf_token %}
             <button class="login-button" aria-label="user login" title="user login">Login</button>
         </form>  
     
-        {% endif %} 
+        {% endif %}  -->
 
     </nav>
 

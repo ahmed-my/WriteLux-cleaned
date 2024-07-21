@@ -44,7 +44,7 @@ h3{
     font-size: 2rem;
     font-weight: 600;
     line-height: 2rem; 
-    margin-top: 0.5px;
+    margin-top: 2px;
 }
 h4{
     color: var(--Secondary-Colour, #006167);
@@ -175,10 +175,10 @@ input[type='button']{
       justify-content: center;
       align-items: center;
       margin: 70px auto;
-      padding: 25px;
+      padding: 5px;
       background: linear-gradient(180deg, rgba(215, 229, 239, 0.548) 0%, #D7EFDA 100%);
       border-radius: 5px;
-      width: 60%;
+      width: 40%;
       position: relative;
       transition: all 1s ease-in-out;
       color:  #121212;

@@ -25,16 +25,14 @@
                       <p>Forgot Password?</p>
                     </a>
                   </div>
-                  <button class="form-submit">login</button> 
+                  <button class="form-submit_login">login</button>
                   <!-- <input type="submit" value="Login" formaction="{% url 'dashboard' %}"> -->
               </form>
               <div id="message"></div>
-
           </div>
-       
           <p id="account">
             Don't have an account?
-            <span><a href="register.html">Sign Up</a></span>
+            <span><b><a href="{% url 'users:register' %}">Sign Up</a></span>
           </p>
       </div>
   </main>
