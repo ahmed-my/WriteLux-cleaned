@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+from django.utils.text import slugify
 import bleach
 
 # Update allowed tags and attributes
@@ -18,19 +19,27 @@ allowed_attrs = {
 class Post(models.Model):
     title = models.CharField(max_length=75)
     body = HTMLField()
-    slug = models.SlugField()
+    slug = models.SlugField(unique=True, blank=True)
     date = models.DateTimeField(auto_now_add=True)
-    # add this for the image below
     banner = models.ImageField(default='fallback.png', blank=True)
-    # to know a specific user who added a post
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None)
 
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
-        # Clean the body content using bleach before saving
         self.body = bleach.clean(self.body, tags=allowed_tags, attributes=allowed_attrs)
+        
+        if not self.slug:
+            self.slug = slugify(self.title)
+            original_slug = self.slug
+            queryset = Post.objects.filter(slug__iexact=self.slug).exclude(pk=self.pk)
+            counter = 1
+            while queryset.exists():
+                self.slug = f'{original_slug}-{counter}'
+                counter += 1
+                queryset = Post.objects.filter(slug__iexact=self.slug).exclude(pk=self.pk)
+
         super(Post, self).save(*args, **kwargs)
 
 class Course(models.Model):

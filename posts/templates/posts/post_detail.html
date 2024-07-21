@@ -7,3 +7,20 @@
     <p>{{ post.body }}</p>
     <p><a href="{% url 'dashboard' %}">Back</a></p>
 {% endblock %}
+
+{% block content1 %}
+    <h2>Dashboard Area:</h2>
+    <ul>
+        {% for post in posts %}
+            <li>
+                {{ post.title }}
+                <p>
+                    <a href="{% url 'post_create' %}">Create</a> |
+                    <a href="{% url 'post_detail' pk=post.pk %}">Read</a> | 
+                    <a href="{% url 'post_update' pk=post.pk %}">Update</a> | 
+                    <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+                </p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

@@ -25,7 +25,7 @@
         </ul>
     {% endif %}
 
-    <form class="form-with-validation" action="{% if form.instance.pk %}{% url 'post_update' pk=form.instance.pk %}{% else %}{% url 'post_create' %}{% endif %}" method="post" enctype="multipart/form-data">
+    <form class="form-with-validation" action="{% if form.instance.pk %}{% url 'posts:post_update' pk=form.instance.pk %}{% else %}{% url 'posts:post_create' %}{% endif %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="form-submit">
@@ -36,16 +36,42 @@
             {% endif %}
         </button>
     </form>
+    <p>Back to <a href="{% url 'dashboard' %}">dashboard</a></p>
 {% endblock %}
 
 {% block content1 %}
-    <h2><a href="/">Business Plan</a></h2>
-    <p>Business Area</p>
-    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+    <!-- Search form -->
+    <form action="{% url 'search' %}" method="get">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    <section>
+        {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
+            <article>
+                <!-- app_name = 'fitness' -->
+                <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+            </article>
+        {% endfor %}
+    </section>
+{% endblock %}
+
+{% block content1A %}
+        <div class="slider content1-slider">
+            <img src="/media/bag1.png" alt="Bag image 1" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-basket-ball2.png" alt="Blog image 2" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-compter-science1.png" alt="Blog image 3" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-compter-science2.jpg" alt="Blog image 4" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-entertainment2.png" alt="Blog image 5" arial-label="Blog image" title="Blog image">
+        </div>
 {% endblock %}
 
 {% block content2 %}
     <h2><a href="/">Business Plan</a></h2>
-    <p>Business Area</p>
-    <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
+    <div class="content2-container">
+        <img 
+            class="image-animation" 
+            src="/media/images/Blog-Cover-Photos-6.png" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+        >
+    </div>
 {% endblock %}

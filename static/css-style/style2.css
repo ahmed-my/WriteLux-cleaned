@@ -1,14 +1,22 @@
+/* General styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
+html, body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background-color: #FFFFFF;
-    color: #333333; /* Dark gray text for good contrast */
-    font-size: 3rem;
+    color: #333333;
+    font-size: 1rem;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    flex: 1;
 }
 
 @keyframes hoverEffect {
@@ -31,38 +39,79 @@ nav {
     background-color: #44B78B;
     color: white;
     font-size: 1.5rem;
-    position: relative; /* Added */
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 nav a {
-    margin-left: 0rem;
-    color: white; /* Default text color */
-    text-decoration: none; /* Remove underline from links */
-    transition: color 2s ease-in-out, text-shadow 2s ease-in-out; /* Add transition for smooth color change */
+    margin-left: 1rem;
+    color: white;
+    text-decoration: none;
+    transition: color 2s ease-in-out, text-shadow 2s ease-in-out;
 }
 
 nav a:hover {
     animation: hoverEffect 3s ease-in-out;
-    color: green; /* Change to the color you want on hover */
+    color: green;
 }
 
 .nav-logo {
-    display: inline-block; /* Ensures it behaves like a block for width/height */
-    margin-right: 0rem;
-    vertical-align: middle; /* Aligns the logo vertically with the text */
-    max-width: 50px; /* Optional: restrict the maximum width of the logo container */
+    display: inline-block;
+    margin-right: 1rem;
+    vertical-align: middle;
+    max-width: 50px;
 }
 
 .nav-logo img {
-    width: 100px;
+    width: 50px;
     height: auto;
-    display: block; /* Ensures no extra space under the image */
-    max-width: 100%; /* Ensures the image does not overflow its container */
-    height: auto; /* Maintains aspect ratio */
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.course-image {
+    display: inline-block;
+    margin-right: 1rem;
+    vertical-align: middle;
+    max-width: 200px;
+}
+
+.home-image {
+    display: inline-block; 
+    margin-right: 1rem;
+    vertical-align: middle; 
+    max-width: 600px; 
+    margin-bottom: 10px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+.sidebar {
+    background-color: #FCFCFC;
+    padding: 1rem;
 }
 
 main {
     padding: 1rem;
+    flex: 1;
+}
+
+footer {
+    background-color: #000000;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    width: 100%;
+    margin-top: auto;
+    position: relative;
 }
 
 section {
@@ -71,15 +120,23 @@ section {
     gap: 1rem;
 }
 
-h1,
+h1 {
+    font-size: 2rem;
+    margin-left: 0rem;
+    margin-bottom: 5px;
+}
+
 h2 {
     font-size: 1.5rem;
     margin-left: 0rem;
+    margin-bottom: 2px;
 }
 
 p {
     font-size: 1rem;
     margin-left: 0rem;
+    margin-bottom: 2px;
+    text-align: justify;
 }
 
 a {
@@ -93,16 +150,64 @@ a:hover {
 
 .banner {
     display: block;
-    width: 50%;
-    max-width: 400px;
+    width: 600px;
+    margin-bottom: 20px;
+}
+
+.custom-style li {
+    color: #81dbb8;
+}
+
+.custom-style ul {
+    color: #4a1bb6;
+}
+
+.banner-images-content1 {
+    display: block;
+    width: 300px;
+}
+
+.banner-images-content2 {
+    display: block;
+    width: 300px;
+}
+
+.content1 {
+    max-height: 400px; /* Set the maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 10px; /* Optional: add some padding */
+    border: 1px solid #ccc; /* Optional: add a border */
+}
+
+.content1-container {
+    padding: 1px;
+}
+
+.content1-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
+}
+
+.content2-container {
+    padding: 1px;
+}
+
+.content2-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
 }
 
 .image-gallery {
-    display: flex;
-    overflow-x: scroll;
-}
-.image-gallery img {
-    margin-right: 10px;
+    display: block;
+    margin-right: 5px;
+    width: 600px;
 }
 
 .form-with-validation {
@@ -161,10 +266,10 @@ a:hover {
     background-color: rgba(0, 0, 0, 0);
     border: none;
     color: white;
-    position: absolute; /* Added */
-    right: 1rem; /* Added */
-    top: 50%; /* Added */
-    transform: translateY(-50%); /* Added */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .logout {
@@ -175,32 +280,190 @@ a:hover {
     font-size: 1.5rem;
     background-color: rgba(0, 0, 0, 0);
     border: none;
-    position: absolute; /* Added */
-    right: 1rem; /* Added */
-    top: 50%; /* Added */
-    transform: translateY(-50%); /* Added */
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .logout-button:hover {
     opacity: .45;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    flex: 1;
+form {
+    margin-bottom: 20px;
 }
 
-.sidebar {
-    background-color: #d5d5d5;
-    padding: 1rem;
+input[type="text"] {
+    padding: 5px;
+    font-size: 14px;
 }
-footer {
-    background-color: #333;
+
+button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #4CAF50;
     color: white;
-    padding: 1rem;
-    text-align: center;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes imageZoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+.text-animation {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.text-animation-home-content1 {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.text-animation-home-content2 {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation {
+    animation: imageZoomIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation-home-content1 {
+    animation: imageZoomIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation-home-content2 {
+    animation: imageZoomIn 10s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+/* Slider container */
+.slider-container {
+    width: 100%;
+    overflow: hidden;
     position: relative;
+    margin: auto;
+}
+
+/* Separate sliding animation for general slider class */
+.slider {
+    display: flex;
+    width: 400%;
+    animation: slide 16s linear infinite;
+}
+
+.slider img {
+    width: 25%;
+    flex-shrink: 0;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-25%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    75% {
+        transform: translateX(-75%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Remove sliding animation from content1-slider */
+.content1-slider {
+    display: flex;
+    width: 100%;
+    animation: none;
+}
+
+.content1-slider img {
+    flex-shrink: 0;
+    opacity: 0;
+    animation: content1DropIn 0.5s forwards;
+    animation-delay: calc(var(--i) * 0.5s); /* Adjust delay for sequential appearance */
+}
+
+/* Ken Burns effect for Content2 */
+@keyframes content2KenBurns {
+    0% {
+        opacity: 0;
+        transform: scale(1.2) translate(10%, 10%);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2) translate(-10%, -10%);
+    }
+}
+
+.content2-slider img {
+    flex-shrink: 0;
+    opacity: 0;
+    animation: content2KenBurns 20s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 5s); /* Adjust delay for better staggering */
+}
+
+/* Instant Appearance Animation for Content1 */
+@keyframes content1DropIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

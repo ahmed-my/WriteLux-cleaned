@@ -17,21 +17,24 @@
         {% endfor %}
     </ul>
 </div>
-    
+<p>&nbsp;</p>
+<p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
 {% endblock %}
 
 {% block content1 %}
     <h2>Dashboard Area:</h2>
+    <p>&nbsp;</p> <!-- leave empty space -->
     <ul>
         {% for post in posts %}
             <li>
-                {{ post.title }}
+               <h3>{{ post.title }}</h3>
                 <p>
-                    <a href="{% url 'post_create' %}">Create</a> |
-                    <a href="{% url 'post_detail' pk=post.pk %}">Read</a> | 
-                    <a href="{% url 'post_update' pk=post.pk %}">Update</a> | 
-                    <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
+                    <a href="{% url 'posts:post_create' %}">Create</a> |
+                    <a href="{% url 'posts:post_detail' pk=post.pk %}">Read</a> | 
+                    <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 
+                    <a href="{% url 'posts:post_delete' pk=post.pk %}">Delete</a>
                 </p>
+                <p>&nbsp;</p> <!-- leave empty space -->
             </li>
         {% endfor %}
     </ul>

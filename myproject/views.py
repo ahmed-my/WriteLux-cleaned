@@ -48,18 +48,24 @@ def search(request):
 def dashboard(request):
     user = request.user
     posts = Post.objects.filter(author=user)
+    courses = Course.objects.all()  # Include courses here
     context = {
         'user': user,
         'posts': posts,
+        'courses': courses, # Add courses to the context
     }
     return render(request, 'dashboard.html', context)
 
 def image_list(request):
     posts = Post.objects.all()
+    courses = Course.objects.all()
+    lessons = Lesson.objects.all()
     images = Image.objects.all()
     context = {
         'images': images,
-        'posts': posts
+        'posts': posts,
+        'courses': courses,
+        'lessons': lessons,
     }
     return render(request, 'image_list.html', context)
 
