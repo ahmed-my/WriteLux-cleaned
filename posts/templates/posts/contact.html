@@ -1,0 +1,19 @@
+<!-- templates/contact.html -->
+{% extends "layout.html" %}
+
+{% block title %}
+    Contact Us
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Contact Us</h1>
+    <form action="{% url 'posts:contact' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" placeholder="Your Message" required></textarea>
+        <button type="submit">Send</button>
+    </form>
+</section>
+{% endblock %}

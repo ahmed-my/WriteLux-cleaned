@@ -22,7 +22,7 @@ env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Debug: Print environment variable
-print(f"EMAIL_BACKEND from .env: {env('EMAIL_BACKEND')}")
+# print(f"EMAIL_BACKEND from .env: {env('EMAIL_BACKEND')}")
 
 # Email settings
 EMAIL_BACKEND = env('EMAIL_BACKEND')
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'fitness',
     'users',
     'tinymce',
+    'utils',
 ]
 
 TINYMCE_DEFAULT_CONFIG = {

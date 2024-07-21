@@ -11,6 +11,7 @@
         <button type="submit">Search</button>
     </form>
     <h2>Current Post on WriteLux</h2>
+    <p>&nbsp;</p> <!-- leave empty space -->
     <section>
         {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
             <article>
@@ -26,7 +27,8 @@
 <!-- add the grid container for content1 and content2 -->
 <!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
 {% block content1 %}
-    <h1><a href="/">Contents Area</a></h1>
+    <h1>Content Area</h1>
+    <p>&nbsp;</p>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <!-- app_name = 'posts' -->
@@ -37,7 +39,8 @@
 {% endblock  %}
 
 {% block content2 %}
-    <h1><a href="/">Busness</a> Plan</h1>
+    <h1>Busness Plan</h1>
+    <p>&nbsp;</p>
     <section>
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>

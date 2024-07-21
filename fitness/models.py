@@ -29,7 +29,6 @@ class Image(models.Model):
     title = models.CharField(max_length=75)
     image = models.ImageField(upload_to='images/')
     # add this for the image below
-    banner = models.ImageField(default='fallback.png', blank=True)
 
     def __str__(self):
         return self.title

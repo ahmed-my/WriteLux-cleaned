@@ -21,14 +21,14 @@
         <p>by {{ post.author }}</p>
         <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
         {% if post.author == request.user %}
-        <a href="{% url 'posts:post_delete' post.pk %}">Delete</a>
         {% endif %}
     </section>
 {% endblock %}
 
 <!-- Add the grid container for content1 and content2 -->
 {% block content1 %}
-    <h2><a href="/">Contents Area</a></h2>
+    <h2>Contents Area</h2>
+    <p>&nbsp;</p>
     <section>
         {% for course in courses %}
             <article>
@@ -39,7 +39,8 @@
 {% endblock %}
 
 {% block content2 %}
-    <h2><a href="/">Business</a> Plan</h2>
+    <h2>Business Plan</h2>
+    <p>&nbsp;</p>
     <section>
         {% for lesson in lessons %}
             <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
@@ -50,6 +51,5 @@
             class="image-animation" 
             src="{{ post.banner.url }}" alt="{{ post.title }}"
         >
-        <p>Visit the <a href="/posts">📰</a> update. Back to <a href="/">🏠</a> Good bye</p>
     </div>
 {% endblock %}
