@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Nunito+Sans:opsz,wght@6..12,200;6..12,300;6..12,400;6..12,500&family=Public+Sans:wght@200;300;400&family=Roboto:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ROOT VARIABLES */
+:root {
+    --Secondary-Colour: #152238;
+    --PRIMARY-COLOUR: #FABF00;
+    --Unsecondary-Colour: #FFF;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+/* NAVIGATION BAR */
+.navbar {
+    width: 100%;
+    background: var(--Secondary-Colour);
+}
+
+.navbar .nav-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: var(--PRIMARY-COLOUR);
+    text-decoration: none;
+}
+
+.home {
+    color: var(--PRIMARY-COLOUR) !important;
+}
+
+.navbar.active .nav-link {
+    color: #555;
+}
+
+.no_arrow::after {
+    display: none !important;
+}
+
+.dropdown-toggle::after {
+    border-top-color: var(--PRIMARY-COLOUR) !important;
+}
+
+.navbar.active .nav-link:hover,
+.navbar.active .nav-link:focus {
+    color: #555;
+    text-decoration: none;
+}
+
+.write {
+    background: rgb(0, 110, 255);
+    border-radius: 10px;
+    padding: 2px;
+    box-shadow: none;
+    border: none;
+    font-family: 'Lucida Sans', Verdana, sans-serif;
+    font-weight: bold;
+    outline: none; /* Remove outline */
+}
+
+.navbar.active .navbar-brand {
+    color: #555;
+}
+
+.dropdown-menu .dropdown-item {
+    color: var(--Secondary-Colour) !important;
+}
+
+.navbar .navbar-nav {
+    display: flex;
+    margin-left: 30px;
+    justify-content: space-evenly;
+    gap: 15px;
+    width: 100%;
+}
+
+.navbar .navbar-nav .nav-item a {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    color: var(--Unsecondary-Colour);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 300;
+}
+
+ /* RESPONSIVNESS */
+ @media(max-width: 1024px){
+    main {
+        width: 60%; /* Adjust width for tablet screens */
+    }
+
+  }
+  @media (max-width: 768px) {
+    main {
+      width: 90%; /* Adjust width for smaller screens */
+      height: auto; /* Allow height to adjust based on content */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    main {
+      width: 90%;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    main {
+      width: 90%;
+      padding: 1%;
+      overflow-x: hidden;
+    }
+  }
+  

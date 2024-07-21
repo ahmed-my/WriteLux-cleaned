@@ -4,27 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
         {% block title %}
             Django App
         {% endblock %}
-    </title>
-    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
+    <!-- STYLE SHEETS -->
+    
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+      integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <!-- BOOTSTRAP -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="{% static 'css-style/layout.css' %}">
+
     <script src="{% static 'js/main.js' %}" defer></script>
     {% block extra_scripts %}
 
     {% endblock %}
 </head>
 <body>
-    <nav>
-        <img src="/media/Blog-logo-2.png" alt="Logo" class="nav-logo" arial-label="logo" title="WriteLux logo">
-        <a href="{% url 'home' %}"><span role="img" aria-label="Home" title="Home">Home</span></a> 
-        <a href="{% url 'posts:posts_list' %}">WriteLux</a>
-        {% if user.is_authenticated %}
-        <a href="{% url 'dashboard' %}">Dashboard</a> 
-        <a href="{% url 'image' %}">Images</a> 
-        <a href="{% url 'fitness:fitness_items' %}">Fitness</a> 
-        <a href="{% url 'posts:new_post' %}"><span role="img" aria-label="New post" title="New post">🆕 New</span></a>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <button
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+            class="navbar-toggler navbar-toggler-right"
+            >
+            <i class="fa fa-bars"></i>
+            </button>
+            <div id="navbarSupportedContent" class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active home"
+                      aria-current="page"
+                      href="{% url 'posts:posts_list' %}"
+                      >WRITELUX</a
+                    >
+                </li>
+                {% if user.is_authenticated %} 
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle no_arrow"
+                    href="{% url 'dashboard' %}"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle no_arrow"
+                    href="{% url 'image' %}"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    images
+                  </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <button class="write">
+                      <a
+                        class="nav-link dropdown-toggle no_arrow"
+                        href="{% url 'posts:new_post' %}"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                      >
+                        CREATE
+                      </a>
+                    </button>
+                </li>
+                <li class="nav-item dropdown">
+                  <a
+                    class="nav-link dropdown-toggle"
+                    href="{% url 'fitness:fitness_items' %}"
+                    role="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    More
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'users:register' %}"
+                      ><button class="btn text-light me-1" type="button">
+                        LOGOUT
+                      </button></a
+                    >
+                </li>
+                </ul>
+              </div>
+            </div>
+
+        <!-- <a href="{% url 'home' %}">WriteLux</a>
         <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
             {% csrf_token %}
             <button class="logout-button" aria-label="logout user" title="logout user">logout</button>
@@ -37,8 +130,11 @@
             <button class="login-button" aria-label="user login" title="user login">Login</button>
         </form>
         
-        {% endif %}
-    </nav> 
+    
+        {% endif %} -->
+    </nav>
+
+
     <div class="grid-container">
         <aside class="sidebar">
             <div class="content1">
@@ -73,8 +169,18 @@
         </aside>
     </div>
     <footer>
-        <p>Copy right:</p>
+        <p>Copyright@cpy:</p>
     </footer>
-    
+
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"
+></script>
 </body>
 </html>
