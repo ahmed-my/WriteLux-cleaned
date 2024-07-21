@@ -21,6 +21,7 @@ body {
 .navbar {
     width: 100%;
     background: var(--Secondary-Colour);
+    position: fixed;
 }
 
 .navbar .nav-link {
