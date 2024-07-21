@@ -89,7 +89,7 @@
                         data-bs-toggle="dropdown"
                         aria-expanded="false"
                       >
-                        CREATE
+                    NEW POST
                       </a>
                     </div>
                 </li>
@@ -103,33 +103,37 @@
                   >
                     More
                   </a>
+                  <ul class="dropdown-menu">
+                    <li>
+                      <a class="dropdown-item" href="#"> FAQS</a>
+                    </li>
+                    <li><a class="dropdown-item" href="#">Whats New</a></li>
+                    <li><a class="dropdown-item" href="#">Contact Us</a></li>
+                  </ul>
+                  
                 </li>
+                <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:register' %}"
+                    <a class="nav-link" href="{% url 'users:logout_user' %}"
                       ><button class="btn text-light me-1" type="button">
                         LOGOUT
                       </button></a
                     >
+                </form>
                 </li>
                 </ul>
               </div>
             </div>
-
-        <!-- <a href="{% url 'home' %}">WriteLux</a>
-        <form class="logout" action="{% url 'users:logout_user' %}" method='POST'>
-            {% csrf_token %}
-            <button class="logout-button" aria-label="logout user" title="logout user">logout</button>
-        </form>
         {% else %}
         <a href="{% url 'users:register' %}"><span role="img" aria-label="User Registration" title="User Registration">Registration</span></a>
 
         <form class="login" action="{% url 'users:login_user' %}">
             {% csrf_token %}
             <button class="login-button" aria-label="user login" title="user login">Login</button>
-        </form>
-        
+        </form>  
     
-        {% endif %} -->
+        {% endif %} 
+
     </nav>
 
 

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static '/WriteLux-main/static/css-style/login.css' %}">
     <link rel="stylesheet" href="{% static 'css-style/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
 
 {% block content %}
 <main>
@@ -14,31 +15,18 @@
           <div class="top_div">
             <h3>Welcome</h3>
             <h4>Login to your account</h4>
- 
             <!-- form -->
               <form id="myForm" action="/users/login/" method="post">
                 {% csrf_token %}
-                  <div class="full_width">
-                  <input
-                      type="email"
-                      name="email"
-                      id="email"
-                      placeholder="Email Address"
-                  />
-                  <input
-                      type="password"
-                      name="Password"
-                      id="Password"
-                      placeholder="Password"
-                  />
+                {{form}}
                   </div>
                   <div class="forgot">
                     <a href="#popup1">
                       <p>Forgot Password?</p>
                     </a>
                   </div>
-                  <!-- <button class="form-submit">login</button> -->
-                  <input type="button" type="submit" value="Login" onclick="window.location.href='Home.html'"/>
+                  <button class="form-submit">login</button> 
+                  <!-- <input type="submit" value="Login" formaction="{% url 'dashboard' %}"> -->
               </form>
               <div id="message"></div>
 

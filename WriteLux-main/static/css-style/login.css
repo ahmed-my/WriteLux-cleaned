@@ -148,21 +148,8 @@ input[type='button']{
   }
   input[type='check']{
     border-radius: 3px;
-  }
-  .horizontal{
-    display: flex;
-    margin-top: 0.5%;
-    justify-content: space-evenly;
-  }
+  } 
  
-  .social img:nth-child(1), .social img:nth-child(2){
-    border: 1px solid var(--Secondary-Colour, #006167);
-    border-radius: 10px;
-    margin-right: 5%;
-    padding: 0.5%;
-    margin-top: 1%;
-    
-  }
 
   /* pop up */
   

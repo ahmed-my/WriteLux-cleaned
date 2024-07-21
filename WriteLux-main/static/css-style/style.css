@@ -185,8 +185,9 @@ a:hover {
 .form-submit {
     padding: 0.25rem;
     border-radius: 20px;
-    width: 150px;
+    width: 350px;
 }
+
 
 .helptext {
     font-size: 1rem;
@@ -249,16 +250,30 @@ input[type="text"] {
 }
 
 button {
-    padding: 5px 10px;
     font-size: 14px;
     background-color: #4CAF50;
-    color: white;
-    border: none;
     cursor: pointer;
+    border: none;
+    width: 100%;
+    min-width: 6rem;
+    padding: .75rem 2rem;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100px;
+    margin: 0;
+    color: #fff;
+    font-size: 1.06666667em;
+    text-align: center;
+    font-weight: 400;
+    text-shadow: none;
+    text-decoration: none;
+    position: relative;
 }
 
+
 button:hover {
-    background-color: #45a049;
+    color: var(--secondary);
+    background: #FABF00;
 }
 
 @keyframes textFadeIn {
