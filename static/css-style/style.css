@@ -477,4 +477,7 @@ button:hover {
 .forgot a p {
     margin: 10px 0; /* Adjust as needed */
 }
-
+.drop-down {
+    background-color: #000000;
+    color: #ccc;
+}
