@@ -1,30 +1,9 @@
-/* General styles */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html, body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #FFFFFF;
-    color: #333333;
-    font-size: 1rem;
-    font-family: 'Arial', sans-serif;
-}
-
-body {
-    flex: 1;
-}
-
 @keyframes hoverEffect {
     0% {
         color: white;
         transform: scale(1);
     }
-    50% {
+    10% {
         color: #FFD700;
         transform: scale(1.1);
     }
@@ -34,42 +13,11 @@ body {
     }
 }
 
-nav {
-    padding: 1rem;
-    background-color: #44B78B;
-    color: white;
-    font-size: 1.5rem;
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-nav a {
-    margin-left: 1rem;
-    color: white;
-    text-decoration: none;
-    transition: color 2s ease-in-out, text-shadow 2s ease-in-out;
-}
-
-nav a:hover {
+/* nav a:hover {
     animation: hoverEffect 3s ease-in-out;
     color: green;
-}
+} */
 
-.nav-logo {
-    display: inline-block;
-    margin-right: 1rem;
-    vertical-align: middle;
-    max-width: 50px;
-}
-
-.nav-logo img {
-    width: 50px;
-    height: auto;
-    display: block;
-    max-width: 100%;
-    height: auto;
-}
 
 .course-image {
     display: inline-block;
@@ -84,28 +32,6 @@ nav a:hover {
     vertical-align: middle; 
     max-width: 600px; 
     margin-bottom: 10px;
-}
-
-.image-gallery-container {
-    width: 100%;
-    overflow-y: auto; /* Enable horizontal scrolling */
-    white-space: nowrap; /* Prevent line breaks */
-}
-
-.gallery-image {
-    display: inline-block;
-    width: 550px; /* Adjust the width as needed */
-    height: 400px; /* Set a fixed height */
-    object-fit: cover; /* Maintain aspect ratio and cover the area */
-    margin-right: 2px; /* Space between images */
-}
-
-.image-gallery {
-    display: inline-block; 
-    margin-right: 1rem;
-    vertical-align: middle; 
-    max-width: 520px; 
-    margin-bottom: 0px;
 }
 
 .grid-container {
@@ -127,13 +53,16 @@ main {
 }
 
 footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     background-color: #000000;
     color: white;
-    padding: 1rem;
-    text-align: center;
-    width: 100%;
-    margin-top: auto;
-    position: relative;
+    text-align: center; /* Center the text */
+    padding: 10px; /* Adjust padding as needed */
+    z-index: 1000; /* Ensure it's above other elements */
+    height: 50px; /* Ensure this height matches the padding added to the content */
 }
 
 section {
@@ -149,15 +78,9 @@ h1 {
 }
 
 h2 {
-    font-size: 1.5rem;
-    margin-left: 0rem;
-    margin-bottom: 2px;
-}
-
-h3 {
     font-size: 1rem;
     margin-left: 0rem;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
 }
 
 p {
@@ -177,11 +100,9 @@ a:hover {
 }
 
 .banner {
-    display: inline-block;
-    width: 600px; /* Adjust the width as needed */
-    height: 325px; /* Set a fixed height */
-    object-fit: cover; /* Maintain aspect ratio and cover the area */
-    margin-right: 2px; /* Space between images */
+    display: block;
+    width: 600px;
+    margin-bottom: 20px;
 }
 
 .custom-style li {
@@ -202,8 +123,7 @@ a:hover {
     width: 300px;
 }
 
-.content1,
-.content2 {
+.content1 {
     max-height: 400px; /* Set the maximum height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
@@ -211,18 +131,53 @@ a:hover {
     border: 1px solid #ccc; /* Optional: add a border */
 }
 
-.content1-container,
+
+.content1-container {
+    padding: 1px;
+}
+
+.content1-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
+}
+
 .content2-container {
     padding: 1px;
 }
 
-.content1-container img,
 .content2-container img {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;
     padding: 1px;
+}
+
+.image-gallery {
+    display: block;
+    margin-right: 5px;
+    width: 600px;
+}
+
+.image-gallery-container {
+    width: 550px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.image-gallery {
+    display: inline-block;
+}
+
+.gallery-image {
+    width: 600px;
+    display: inline-block;
+    height: 335px; /* Set a fixed height */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    margin-right: 5px; /* Space between images */
 }
 
 .form-with-validation {
@@ -234,6 +189,12 @@ a:hover {
     gap: 0.5rem;
 }
 
+.form-with-validation textarea {
+    width: 100%; /* Ensure the textarea takes full width of its container */
+    height: 200px; /* Adjust the height as needed */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
 .form-with-validation div {
     display: flex;
     flex-flow: column;
@@ -242,8 +203,8 @@ a:hover {
 
 .form-with-validation input {
     padding: 0.25rem;
-    border-radius: 20px;
-    max-width: 150px;
+    border-radius: 5px;
+    max-width: 200px;
     background-color: none;
     margin-left: 0rem;
 }
@@ -483,3 +444,11 @@ button:hover {
     }
 }
 
+.dashboard-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-list li {
+    margin-bottom: 2px;
+}

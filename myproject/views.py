@@ -69,10 +69,6 @@ def image_list(request):
     }
     return render(request, 'image_list.html', context)
 
-def image_logo(request):
-    logo = Image.objects.all()[0]
-    return render(request, 'layout.html', {'logo': logo})
-
 def contact(request):
     post_contact = Post.objects.all()
     return render(request, 'contact.html', {'post_contact': post_contact})

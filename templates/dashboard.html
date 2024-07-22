@@ -24,11 +24,11 @@
 {% block content1 %}
     <h2>Dashboard Area:</h2>
     <p>&nbsp;</p> <!-- leave empty space -->
-    <ul>
+    <ul class="dashboard-list">
         {% for post in posts %}
             <li>
-               <h3>{{ post.title }}</h3>
-                <p>
+                {{ post.title }}
+                <p class="crud-links">
                     <a href="{% url 'posts:post_create' %}">Create</a> |
                     <a href="{% url 'posts:post_detail' pk=post.pk %}">Read</a> | 
                     <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 

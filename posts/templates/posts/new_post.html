@@ -30,130 +30,21 @@
 
 <!-- Grid container for content1 and content2 -->
 {% block content1 %}
-<section class="featured-posts">
     <h2>Featured Posts</h2>
-    <ul class="post-list">
-        {% for post in featured_posts %}
-        <li class="post-item">
-            <a href="{{ post.get_absolute_url }}">
-                <img src="{{ post.banner.url }}" alt="{{ post.title }}">
-                <h3>{{ post.title }}</h3>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
-
-<section class="popular-tags">
-    <h2>Popular Tags</h2>
-    <ul class="tag-list">
-        {% for tag in popular_tags %}
-        <li class="tag-item">
-            <a href="{% url 'posts:tag' tag.slug %}">{{ tag.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
-
-<section class="categories">
-    <h2>Categories</h2>
-    <ul class="category-list">
-        {% for category in categories %}
-        <li class="category-item">
-            <a href="{% url 'posts:category' category.slug %}">{{ category.name }}</a>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
-
-<!-- Comment out or remove this section if not needed -->
-<!--
-<section class="newsletter-signup">
-    <h2>Subscribe to our Newsletter</h2>
-    <form action="{% url 'posts:newsletter_signup' %}" method="post">
-        {% csrf_token %}
-        <input type="email" name="email" placeholder="Enter your email">
-        <button type="submit">Subscribe</button>
-    </form>
-</section>
--->
+    <div class="content2-container">
+        <img 
+            class="image-animation" 
+            src="/media/blogger/blogger3.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+        >
+    </div>
 {% endblock %}
 
 {% block content2 %}
-<section class="ad-banner">
     <h2>Advertisement</h2>
-    <a href="#"><img src="/path/to/ad-banner.jpg" alt="Ad Banner"></a>
-</section>
-
-<section class="upcoming-events">
-    <h2>Upcoming Events</h2>
-    <ul class="event-list">
-        {% for event in upcoming_events %}
-        <li class="event-item">
-            <a href="{{ event.link }}">
-                <h3>{{ event.name }}</h3>
-                <p>{{ event.date }}</p>
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
-</section>
-
-<section class="social-media">
-    <h2>Follow Us</h2>
-    <ul class="social-media-list">
-        <li><a href="https://facebook.com"><img src="/media/social-media/facebook.png" alt="Facebook"></a></li>
-        <li><a href="https://twitter.com"><img src="/media/social-media/twitter.png" alt="Twitter"></a></li>
-        <li><a href="https://instagram.com"><img src="/media/social-media/instagram.png" alt="Instagram"></a></li>
-        <!-- Add more social media links as needed -->
-    </ul>
-</section>
-
-<section class="author-bio">
-    <h2>About the Author</h2>
-    <p>{{ author.bio }}</p>
-</section>
-
-<!-- Comment out or remove this section if not needed -->
-<!--
-<section class="contact-form">
-    <h2>Contact Us</h2>
-    <form action="{% url 'posts:contact' %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="name" placeholder="Your Name">
-        <input type="email" name="email" placeholder="Your Email">
-        <textarea name="message" placeholder="Your Message"></textarea>
-        <button type="submit">Send</button>
-    </form>
-</section>
--->
-{% endblock %}
-
-<!-- Add the CSS style for social media icons -->
-{% block extra_css %}
-<style>
-.social-media-list {
-    display: flex;
-    justify-content: space-around;
-    padding: 0;
-    list-style-type: none;
-}
-
-.social-media-list li {
-    display: inline-block;
-    margin: 0 10px;
-}
-
-.social-media-list li a {
-    display: block;
-    width: 4px;
-    height: 4px;
-}
-
-.social-media-list li a img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-</style>
+    <div class="content2-container">
+        <img 
+            class="image-animation" 
+            src="/media/blogger/blogger5.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+        >
+    </div>
 {% endblock %}
