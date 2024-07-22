@@ -66,6 +66,9 @@ input{
     height: 60px;
     border-radius: 5px;
 }
+.logincolor{
+    background-color: rgb(94, 206, 94);
+}
 ::placeholder{
     color: var(--Subwords, rgba(18, 18, 18, 0.70));
     font-family: 'Roboto', sans-serif;
