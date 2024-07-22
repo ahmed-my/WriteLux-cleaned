@@ -15,9 +15,15 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView
+from django.contrib.auth import views as auth_views
 from django.urls import reverse_lazy
 
 UserModel = get_user_model()
+
+class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+    success_url = reverse_lazy('users:password_reset_complete')
+
 
 class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'registration/password_reset_email.html'
@@ -52,6 +58,7 @@ def password_reset_request(request):
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
+
 
 def password_reset_confirm(request, uidb64=None, token=None):
     try:
