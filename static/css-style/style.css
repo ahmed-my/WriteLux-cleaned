@@ -452,3 +452,29 @@ button:hover {
 .dashboard-list li {
     margin-bottom: 2px;
 }
+
+/* Ensure the container div takes the same width as the input fields */
+.account-forgot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+/* Style for the "Don't have an account? Sign Up" section */
+#account {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0; /* Adjust as needed */
+}
+
+/* Style for the "Forgot Password?" link */
+.forgot {
+    width: 100%;
+    text-align: center;
+}
+
+.forgot a p {
+    margin: 10px 0; /* Adjust as needed */
+}
+
