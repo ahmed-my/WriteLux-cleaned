@@ -6,8 +6,14 @@ from django import forms
 from .email_utils import send_registration_confirmation_email  # Import the utility function
 
 class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(required=True, help_text='', label='Email Address',
-                             widget=forms.EmailInput(attrs={'class': 'custom-class'}))
+    email = forms.EmailField(
+        required=True, 
+        help_text='',
+        widget=forms.EmailInput(attrs={
+            'class': 'custom-class',
+            'placeholder': 'Enter your email'
+        })
+    )
 
     class Meta:
         model = User
@@ -15,10 +21,34 @@ class CustomUserCreationForm(UserCreationForm):
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm, self).__init__(*args, **kwargs)
+        
+        # Remove labels and add placeholders for each field
+        self.fields['username'].label = ''
+        self.fields['username'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'username'
+        })
         self.fields['username'].help_text = ''
-        self.fields['password1'].widget.attrs.update({'class': 'custom-class'})
-        self.fields['password2'].widget.attrs.update({'class': 'custom-class'})
+
+        self.fields['email'].label = ''  # Remove the label for email
+        self.fields['email'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'email'
+        })
+        self.fields['email'].help_text = ''
+        
+        self.fields['password1'].label = ''
+        self.fields['password1'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Password'
+        })
         self.fields['password1'].help_text = ''
+
+        self.fields['password2'].label = ''
+        self.fields['password2'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Confirm Password'
+        })
         self.fields['password2'].help_text = ''
 
     def clean_email(self):

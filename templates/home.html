@@ -18,11 +18,8 @@
 {% endblock  %}
 
 {% block content1 %}
-    <!-- Search form -->
-    <form action="{% url 'search' %}" method="get">
-        <input type="text" name="q" placeholder="Search...">
-        <button type="submit">Search</button>
-    </form>
+    <h1>Amazing Content</h1>
+    <p>&nbsp;</p>
     <section>
         {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
             <article>
