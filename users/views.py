@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login, logout
-
-# custom password reset view
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
@@ -14,21 +12,28 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib import messages
-from django.contrib.auth.views import PasswordResetView
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 UserModel = get_user_model()
-
-class CustomPasswordResetConfirmView(auth_views.PasswordResetConfirmView):
-    template_name = 'registration/password_reset_confirm.html'
-    success_url = reverse_lazy('users:password_reset_complete')
-
 
 class CustomPasswordResetView(PasswordResetView):
     email_template_name = 'registration/password_reset_email.html'
     success_url = reverse_lazy('users:password_reset_done')
     template_name = 'registration/password_reset.html'
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+    template_name = 'registration/password_reset_confirm.html'
+    success_url = reverse_lazy('users:password_reset_complete')
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = 'registration/password_reset_done.html'
+
 
 def password_reset_request(request):
     if request.method == "POST":
@@ -85,6 +90,25 @@ def password_reset_confirm(request, uidb64=None, token=None):
         "form": set_password_form,
         "validlink": validlink,
     })
+
+@csrf_exempt
+def resend_password_reset_email(request):
+    if request.method == "POST":
+        email = request.POST['email']
+        user = User.objects.filter(email=email).first()
+        if user:
+            token = default_token_generator.make_token(user)
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            reset_url = f"{request.scheme}://{request.get_host()}/reset/{uid}/{token}/"
+            send_mail(
+                "Password Reset",
+                f"Click the link to reset your password: {reset_url}",
+                "from@example.com",
+                [email],
+                fail_silently=False,
+            )
+        return JsonResponse({"status": "success"})
+    return JsonResponse({"status": "failed"})
 
 def register(request):
     if request.method == 'POST':
