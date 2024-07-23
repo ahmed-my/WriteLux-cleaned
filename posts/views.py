@@ -89,7 +89,7 @@ def new_post(request):
             new_form = form.save(commit=False)
             new_form.author = request.user
             new_form.save()
-            return redirect('posts:post_list')
+            return redirect('posts:posts_list')
         else:
             print(form.errors)  # Add this line to print form errors
     else:
@@ -150,7 +150,7 @@ class PostUpdateView(UpdateView):
 class PostDeleteView(DeleteView):
     model = Post
     template_name = 'posts/post_confirm_delete.html'
-    success_url = reverse_lazy('posts:post_list')
+    success_url = reverse_lazy('dashboard')
 
 class PostDetailView(DetailView):
     model = Post

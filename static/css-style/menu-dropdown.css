@@ -1,0 +1,40 @@
+/* Container for the dropdown menu */
+ul.dropdown-menu {
+    list-style: none; /* Remove bullet points */
+    padding: 0;
+    margin: 0;
+    position: absolute; /* Position it absolutely to the parent */
+    display: none; /* Initially hide the dropdown */
+    background-color: #fff; /* White background */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Add a shadow for a nice effect */
+    z-index: 1000; /* Ensure it appears above other elements */
+    width: 200px; /* Set a fixed width */
+}
+
+/* Dropdown items */
+ul.dropdown-menu .drop-down {
+    padding: 10px 0; /* Add padding for the dropdown */
+}
+
+/* Each article in the dropdown */
+ul.dropdown-menu .drop-down article {
+    padding: 10px 20px; /* Add padding for each item */
+    transition: background-color 0.3s ease; /* Smooth transition for background color */
+}
+
+/* Links in the dropdown */
+ul.dropdown-menu .drop-down article a {
+    text-decoration: none; /* Remove underline from links */
+    color: #333; /* Dark color for text */
+    display: block; /* Make the link cover the entire area */
+}
+
+/* Hover effect for dropdown items */
+ul.dropdown-menu .drop-down article:hover {
+    background-color: #f0f0f0; /* Light grey background on hover */
+}
+
+/* Display the dropdown on hover of the parent */
+.parent-element:hover ul.dropdown-menu {
+    display: block; /* Show the dropdown when the parent is hovered */
+}

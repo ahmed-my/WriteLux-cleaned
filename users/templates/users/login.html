@@ -18,9 +18,9 @@
                         {% csrf_token %}
                         <div class="full_width">
                             {{ form.non_field_errors }}
-                            <input type="username" name="username" id="username" placeholder="Username" required />
+                            <input type="text" name="username" id="username" placeholder="Username" required />
                             {{ form.username.errors }}
-                            <input type="password" name="password" id="Password" placeholder="Password" required />
+                            <input type="password" name="password" id="password" placeholder="Password" required />
                             {{ form.password.errors }}
                         </div>
                         <input type="submit" value="Login" />
@@ -33,7 +33,11 @@
                         <span><a href="{% url 'users:register' %}">Sign Up</a></span>
                     </p>
                     <div class="forgot">
+<<<<<<< HEAD
                         <a href="#popup1">
+=======
+                        <a href="{% url 'users:password_reset' %}">
+>>>>>>> Origin/main
                             <p>Forgot Password?</p>
                         </a>
                     </div>
@@ -41,6 +45,7 @@
             </div>
         </div>
     </main>
+<<<<<<< HEAD
 
     <!-- forgot password popup -->
     <div id="popup1" class="overlay">
@@ -120,5 +125,7 @@
     </div>
     <script src="{% static 'js/login.js' %}"></script>
     <script src="{% static 'js/password.js' %}"></script>
+=======
+>>>>>>> Origin/main
 </body>
 </html>

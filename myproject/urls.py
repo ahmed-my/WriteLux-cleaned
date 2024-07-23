@@ -29,15 +29,16 @@ urlpatterns = [
     path('search/', views.search, name='search'),  # Add this line
     path("dashboard/", views.dashboard, name='dashboard'),
     path("image/", views.image_list, name='image'),
-    path("posts/", include('posts.urls')),
-    path('fitness/', include('fitness.urls')),
-    path('users/', include('users.urls')),
+    path("posts/", include('posts.urls')), # Include the URLs from the postss app
+    path('fitness/', include('fitness.urls')), # Include the URLs from the fitness app
+    path('users/', include('users.urls')),  # Include the URLs from the users app
     path('tinymce/', include('tinymce.urls')),
 
     path('dashboard/post/new/', PostCreateView.as_view(), name='post_create'),
     path('dashboard/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('dashboard/post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),
     path('dashboard/post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+    
 
 ]
 
