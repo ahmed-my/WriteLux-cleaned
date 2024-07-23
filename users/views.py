@@ -16,6 +16,7 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 UserModel = get_user_model()
 
@@ -40,7 +41,10 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             email = password_reset_form.cleaned_data['email']
+            print(f"Entered email: {email}")  # Debug statement
             associated_users = UserModel.objects.filter(email=email)
+            print(f"Number of associated users found: {associated_users.count()}")  # Debug statement
+            
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -54,15 +58,18 @@ def password_reset_request(request):
                         "token": default_token_generator.make_token(user),
                         "protocol": "http",
                     }
-                    email = render_to_string(email_template_name, context)
-                    send_mail(subject, email, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
+                    email_content = render_to_string(email_template_name, context)
+                    send_mail(subject, email_content, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
                 messages.success(request, "Password reset email has been sent.")
                 return redirect("users:password_reset_done")
             else:
                 messages.error(request, "No user is associated with this email.")
+        else:
+            messages.error(request, "Invalid email address.")
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
+
 
 
 def password_reset_confirm(request, uidb64=None, token=None):
