@@ -173,7 +173,7 @@ a:hover {
 }
 
 .gallery-image {
-    width: 600px;
+    width: 550px;
     display: inline-block;
     height: 335px; /* Set a fixed height */
     object-fit: cover; /* Maintain aspect ratio and cover the area */

@@ -6,7 +6,7 @@
 
 {% block content %}
 <div class="custom-style">
-    <h2 class="text-animation">WriteLux Posts by {{ user.username }}</h2>
+    <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
     <ul>
         {% for post in posts %}
             <li>
@@ -41,11 +41,10 @@
 {% endblock %}
 
 {% block content2 %}
-    <h2><a href="/">Business Plan</a></h2>
     <div class="content2-container">
         <img 
             class="image-animation" 
-            src="/media/images/Blog-Cover-Photos-6.png" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+            src="/media/dashboard1.png" alt="dashboard image"  arial-label="dashboard image" title="dashboard image"
         >
     </div>
 {% endblock %}
