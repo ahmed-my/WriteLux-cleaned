@@ -165,7 +165,7 @@ def upload_image(request):
             portfolio_image = form.save(commit=False)
             portfolio_image.user = request.user
             portfolio_image.save()
-            return redirect('users:portfolio')
+            return redirect('dashboard')
     else:
         form = PortfolioForm()
     return render(request, 'portfolio/upload_image.html', {'form': form})

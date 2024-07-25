@@ -1,15 +1,20 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-  <h2>Add Image to your Portfolio</h2>
-  <div>
-    {% for image in portfolio %}
-      <div>
-        <img src="{{ image.image.url }}" alt="{{ image.description }}">
-        <p>{{ image.description }}</p>
-        <p>Uploaded on: {{ image.uploaded_at }}</p>
-      </div>
-    {% endfor %}
+  <div class="container mt-4">
+    <h2 class="mb-4">Your Portfolio</h2>
+    <div class="row">
+      {% for image in portfolio %}
+        <div class="col-md-4 mb-4">
+          <div class="card">
+            <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.description }}">
+            <div class="card-body">
+              <p class="card-text">{{ image.description }}</p>
+              <p class="card-text"><small class="text-muted">Uploaded on: {{ image.uploaded_at }}</small></p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
   </div>
-  <a href="{% url 'users:upload_image' %}">Upload New Image</a>
 {% endblock %}
