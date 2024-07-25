@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h2>Your Portfolio</h2>
+  <div>
+    {% for image in portfolio %}
+      <div>
+        <img src="{{ image.image.url }}" alt="{{ image.description }}">
+        <p>{{ image.description }}</p>
+        <p>Uploaded on: {{ image.uploaded_at }}</p>
+      </div>
+    {% endfor %}
+  </div>
+  <a href="{% url 'users:upload_image' %}">Upload New Image</a>
+{% endblock %}
