@@ -1,4 +1,5 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block title %}
     Dashboard
@@ -6,10 +7,10 @@
 
 {% block content %}
 <div class="custom-style">
-    <h2 class="text-animation">WriteLux Posts by {{ user.username }}</h2>
-    <ul>
+    <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
+    <ul id="post-list">
         {% for post in posts %}
-            <li>
+            <li id="post-{{ post.pk }}">
                 {{ post.title }}
             </li>
         {% empty %}
@@ -26,13 +27,13 @@
     <p>&nbsp;</p> <!-- leave empty space -->
     <ul class="dashboard-list">
         {% for post in posts %}
-            <li>
+            <li id="dashboard-post-{{ post.pk }}">
                 {{ post.title }}
                 <p class="crud-links">
                     <a href="{% url 'posts:post_create' %}">Create</a> |
                     <a href="{% url 'posts:post_detail' pk=post.pk %}">Read</a> | 
                     <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 
-                    <a href="{% url 'posts:post_delete' pk=post.pk %}">Delete</a>
+                    <a href="#" class="delete-link" data-url="{% url 'posts:post_delete' pk=post.pk %}" data-post-id="{{ post.pk }}">Delete</a>
                 </p>
                 <p>&nbsp;</p> <!-- leave empty space -->
             </li>
@@ -41,11 +42,16 @@
 {% endblock %}
 
 {% block content2 %}
-    <h2><a href="/">Business Plan</a></h2>
     <div class="content2-container">
         <img 
             class="image-animation" 
-            src="/media/images/Blog-Cover-Photos-6.png" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+            src="/media/dashboard1.png" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
         >
     </div>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    src="{% static 'js/deletePost.js' %}"
+</script>
 {% endblock %}

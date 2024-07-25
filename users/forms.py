@@ -3,8 +3,14 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import Portfolio # adding the Portfolio models
 from .email_utils import send_registration_confirmation_email  # Import the utility function
 
+class PortfolioForm(forms.ModelForm):
+    class Meta:
+        model = Portfolio
+        fields = ['image', 'description']
+        
 class CustomUserCreationForm(UserCreationForm):
     email = forms.EmailField(
         required=True, 

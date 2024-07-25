@@ -17,6 +17,10 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.template.loader import render_to_string
+# portfolio for unique users
+from django.contrib.auth.decorators import login_required
+from .models import Portfolio
+from .forms import PortfolioForm
 
 UserModel = get_user_model()
 
@@ -143,3 +147,26 @@ def logout_user(request):
     if request.method == 'POST' or request.method == 'GET':
         logout(request)
         return redirect('home')
+
+# coding on portfolio
+@login_required
+def portfolio_view(request):
+    portfolio = Portfolio.objects.filter(user=request.user)
+    context = {
+        'portfolio': portfolio
+    }
+    return render(request, 'portfolio/portfolio.html', context)
+
+@login_required
+def upload_image(request):
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, request.FILES)
+        if form.is_valid():
+            portfolio_image = form.save(commit=False)
+            portfolio_image.user = request.user
+            portfolio_image.save()
+            return redirect('users:portfolio')
+    else:
+        form = PortfolioForm()
+    return render(request, 'portfolio/upload_image.html', {'form': form})
+    
