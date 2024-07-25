@@ -29,10 +29,12 @@ urlpatterns = [
     path('search/', views.search, name='search'),  # Add this line
     path("dashboard/", views.dashboard, name='dashboard'),
     path("image/", views.image_list, name='image'),
+    
     path("posts/", include('posts.urls')), # Include the URLs from the postss app
     path('fitness/', include('fitness.urls')), # Include the URLs from the fitness app
     path('users/', include('users.urls')),  # Include the URLs from the users app
     path('tinymce/', include('tinymce.urls')),
+    path('swiper_example/', views.swiper_example, name='swiper_example'),
 
     path('dashboard/post/new/', PostCreateView.as_view(), name='post_create'),
     path('dashboard/post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),

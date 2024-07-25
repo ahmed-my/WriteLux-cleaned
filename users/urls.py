@@ -14,6 +14,9 @@ urlpatterns = [
     path('login/', views.login_user, name='login_user'),
     path('logout/', views.logout_user, name='logout_user'),
 
+    path('portfolio/', views.portfolio_view, name='portfolio'),
+    path('portfolio/upload/', views.upload_image, name='upload_image'),
+
     # Custom Password reset URLs
     path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
     path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),

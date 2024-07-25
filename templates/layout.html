@@ -52,9 +52,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'dashboard' %}">DASHBOARD</a>
                         </li>
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'image' %}">IMAGES</a>
+                            </li>
+                        {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{% url 'image' %}">IMAGES</a>
+                            <a class="nav-link" href="{% url 'users:portfolio' %}">PORTFOLIO</a>
                         </li>
+                        {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'posts:new_post' %}">CREATE POST</a>
                         </li>
@@ -69,13 +75,13 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a
-                              class="nav-link dropdown-toggle"
-                              href="#"
-                              role="button"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
+                            class="nav-link dropdown-toggle"
+                            href="#"
+                            role="button"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
                             >
-                              MORE
+                            MORE
                             </a>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item" href="{% url 'fitness:fitness_items' %}">Fitness</a></li>
@@ -86,6 +92,7 @@
                             <a class="nav-link" href="{% url 'users:login_user' %}">LOGIN</a>
                         </li>
                     {% endif %}
+
                 </ul>
             </div>
         </div>
