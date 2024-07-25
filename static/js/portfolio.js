@@ -1,0 +1,25 @@
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('uploadForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+        const form = this;
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                'X-CSRFToken': form.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        }).then(response => {
+            if (response.ok) {
+                alert('Image uploaded to portfolio.');
+                window.location.href = form.dataset.redirectUrl; // Use data attribute for redirect URL
+            } else {
+                alert('There was an error uploading the image.');
+            }
+        }).catch(error => {
+            alert('There was an error uploading the image.');
+            console.error('Error:', error);
+        });
+    });
+});
