@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .forms import CustomUserCreationForm
 from django.contrib.auth import login, logout
@@ -19,7 +19,7 @@ from django.http import JsonResponse
 from django.template.loader import render_to_string
 # portfolio for unique users
 from django.contrib.auth.decorators import login_required
-from .models import Portfolio
+from .models import UserProfile, Portfolio
 from .forms import PortfolioForm
 
 UserModel = get_user_model()
@@ -169,4 +169,13 @@ def upload_image(request):
     else:
         form = PortfolioForm()
     return render(request, 'portfolio/upload_image.html', {'form': form})
+
+def profile_portfolio(request, profile_id):
+    profile = get_object_or_404(UserProfile, profile_id=profile_id)
+    portfolio_images = Portfolio.objects.filter(user=profile.user)
+    context = {
+        'profile': profile,
+        'portfolio_images': portfolio_images,
+    }
+    return render(request, 'users/profile_portfolio.html', context)
     
