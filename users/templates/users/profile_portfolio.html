@@ -1,0 +1,23 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% endblock %}
+
+{% block content1 %}
+<h2>Portfolio Images</h2>
+<section>
+    {% for image in portfolio_images %} 
+        <img 
+            class="banner-images-content2"
+            src="{{ image.image.url }}" alt="{{ image.description }}" 
+        />
+    {% empty %}
+        <p>No portfolio images available.</p>
+    {% endfor %}
+</section>
+{% endblock %}
+
+{% block content2 %}
+
+{% endblock %}

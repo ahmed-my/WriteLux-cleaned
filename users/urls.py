@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('portfolio/', views.portfolio_view, name='portfolio'),
     path('portfolio/upload/', views.upload_image, name='upload_image'),
+    path('portfolio/<uuid:profile_id>/', views.profile_portfolio, name='profile_portfolio'),
 
     # Custom Password reset URLs
     path('password_reset/', CustomPasswordResetView.as_view(), name='password_reset'),
