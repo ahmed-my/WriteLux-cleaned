@@ -56,10 +56,6 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'image' %}">IMAGES</a>
                             </li>
-                        {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'users:portfolio' %}">PORTFOLIO</a>
-                        </li>
                         {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'posts:new_post' %}">CREATE POST</a>

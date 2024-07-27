@@ -3,6 +3,7 @@
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from .models import UserProfile
 from .models import Portfolio # adding the Portfolio models
 from .email_utils import send_registration_confirmation_email  # Import the utility function
 
@@ -72,3 +73,8 @@ class CustomUserCreationForm(UserCreationForm):
             send_registration_confirmation_email(user)  # Send the confirmation email
             print("Email function called.")
         return user
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['profile_image', 'first_name', 'last_name', 'email']

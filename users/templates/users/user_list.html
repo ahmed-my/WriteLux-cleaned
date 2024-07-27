@@ -1,0 +1,32 @@
+{% load static %}
+<h1>User List</h1>
+<ul>
+    {% for user in users %}
+        <li>
+            <a href="{% url 'users:profile_detail' profile_id=user.profile_id %}">
+                <img src="{{ user.profile_image.url }}" alt="{{ user.user.username }}'s profile picture" width="50">
+                {{ user.user.username }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if is_paginated %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endif %}
