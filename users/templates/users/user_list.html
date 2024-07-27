@@ -1,6 +1,4 @@
-{% extends "layout.html" %}
-
-{% block content %}
+{% load static %}
 <h1>User List</h1>
 <ul>
     {% for user in users %}
@@ -32,4 +30,3 @@
         </span>
     </div>
 {% endif %}
-{% endblock %}

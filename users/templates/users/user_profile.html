@@ -5,26 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
-    <link rel="stylesheet" href="{% static 'css-style/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
 </head>
 <body>
     <div class="container">
         <div class="profile-card">
             <h2>Profile</h2>
-            <img 
-                src="{% if user.userprofile.image %}
-                    {{ user.userprofile.image.url }}
-                {% else %}
-                    {% static 'default-profile.png' %}
-                {% endif %}" 
-                alt="profile picture" class="profile-picture"
-            >
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="profile-picture">
+            {% else %}
+                <img src="{% static 'default-profile.png' %}" alt="Default Profile Image" class="profile-picture">
+            {% endif %}
             <p>Email: {{ user.email }}</p>
             <p>First Name: {{ user.first_name }}</p>
             <p>Last Name: {{ user.last_name }}</p>
             <p>ID: {{ user.userprofile.profile_id }}</p>
             <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
-            <a href="{% url 'dashboard' %}" class="btn btn-primary">OK</a>
         </div>
 
         <div class="portfolio-section">

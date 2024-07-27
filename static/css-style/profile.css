@@ -1,75 +1,81 @@
-/* enhanced css-style/profile.css */
+/* enhanced-profile-alt.css */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Roboto', sans-serif;
+    background-color: #e9ecef;
     margin: 0;
     padding: 0;
 }
 
 .profile-container {
-    max-width: 1200px; /* Further increased max-width */
-    margin: 40px auto;
-    padding: 20px;
+    margin-top: 50px;
+    max-width: 600px;
+    margin: 50px auto;
     background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    font-size: 2em;
+.edit-profile-section {
+    text-align: center;
+}
+
+.edit-profile-section h2 {
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 0 auto;
+    display: block;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.profile-picture-container {
     text-align: center;
     margin-bottom: 20px;
 }
 
-p {
-    text-align: center;
-    font-size: 1.2em;
-    color: #666;
-}
-
-.profile-image {
-    display: block;
+.profile-picture {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    margin: 0 auto 20px;
     object-fit: cover;
 }
 
-.portfolio-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    width: 100%;
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    background-color: #007bff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
 }
 
-.portfolio-item {
-    flex: 1 1 calc(22% - 20px); /* Further adjusted to 22% width */
-    box-sizing: border-box;
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    text-align: center;
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    cursor: pointer;
 }
 
-.portfolio-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
-
-@media (max-width: 768px) {
-    .portfolio-item {
-        flex: 1 1 calc(48% - 20px); /* Adjusted for medium screens */
-    }
-}
-
-@media (max-width: 480px) {
-    .portfolio-item {
-        flex: 1 1 100%; /* Adjusted for small screens */
-    }
+.btn-primary:hover {
+    background-color: #0056b3;
 }

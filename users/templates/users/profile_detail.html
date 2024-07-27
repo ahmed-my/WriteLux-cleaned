@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Profile Detail</title>
-    <link rel="stylesheet" href="{% static 'css-style/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
 </head>
 <body>
     <div class="profile-container">
@@ -16,7 +16,7 @@
         {% endif %}
         <h2>Portfolio</h2>
         <div class="portfolio-grid">
-            {% for image in profile.portfolio_set.all %}
+            {% for image in portfolio_images %}
                 <div class="portfolio-item">
                     <img src="{{ image.image.url }}" alt="Portfolio Image" class="portfolio-image">
                     <p>{{ image.description }}</p>
