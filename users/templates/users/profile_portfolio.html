@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">My Portfolio</h2>
+    <h2 class="mb-4">My Portfolio Work</h2>
     <div class="row">
       {% for image in portfolio_images %}
         <div class="col-md-4 mb-4">
@@ -31,4 +31,8 @@
         <p>No portfolio images available.</p>
     {% endfor %}
 </section>
+{% endblock %}
+
+{% block content2 %}
+<a href="{% url 'user_portfolio' profile.slug %}">View Portfolio</a>
 {% endblock %}

@@ -1,0 +1,75 @@
+/* enhanced css-style/profile.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.profile-container {
+    max-width: 1200px; /* Further increased max-width */
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h1 {
+    font-size: 2em;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2em;
+    color: #666;
+}
+
+.profile-image {
+    display: block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    object-fit: cover;
+}
+
+.portfolio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.portfolio-item {
+    flex: 1 1 calc(22% - 20px); /* Further adjusted to 22% width */
+    box-sizing: border-box;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.portfolio-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .portfolio-item {
+        flex: 1 1 calc(48% - 20px); /* Adjusted for medium screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-item {
+        flex: 1 1 100%; /* Adjusted for small screens */
+    }
+}

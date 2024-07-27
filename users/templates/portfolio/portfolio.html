@@ -1,35 +1,25 @@
-{% extends 'layout.html' %}
-
-{% block content %}
-<div class="container mt-4">
-  <h2 class="mb-4">My Portfolio</h2>
-  <div class="row">
-    {% for image in portfolio %}
-      <div class="col-md-4 mb-4">
-        <div class="card">
-          <img src="{{ image.image.url }}" class="card-img-top" alt="{{ image.description }}">
-          <div class="card-body">
-            <p class="card-text">{{ image.description }}</p>
-            <p class="card-text"><small class="text-muted">Uploaded on: {{ image.uploaded_at }}</small></p>
-          </div>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="portfolio-section">
+            <h2>Portfolio</h2>
+            <div class="portfolio-grid">
+                {% for image in portfolio %}
+                    <div class="portfolio-item">
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
+                        <p>{{ image.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
         </div>
-      </div>
-    {% endfor %}
-  </div>
-</div>
-{% endblock %}
-
-{% block content1 %}
-<h1>Portfolio Images</h1>
-<section>
-    {% for image in portfolio %} 
-        <img 
-            class="banner-images-content2"
-            src="{{ image.image.url }}" alt="{{ image.description }}" 
-        />
-    {% endfor %}
-{% endblock %}
-
-{% block content2 %}
-<h2>Place Adverb Here</h2>
-{% endblock %}
+    </div>
+</body>
+</html>

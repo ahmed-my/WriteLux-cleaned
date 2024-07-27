@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="profile-card">
+            <h2>Profile</h2>
+            <img 
+                src="{% if user.userprofile.image %}
+                    {{ user.userprofile.image.url }}
+                {% else %}
+                    {% static 'default-profile.png' %}
+                {% endif %}" 
+                alt="profile picture" class="profile-picture"
+            >
+            <p>Email: {{ user.email }}</p>
+            <p>First Name: {{ user.first_name }}</p>
+            <p>Last Name: {{ user.last_name }}</p>
+            <p>ID: {{ user.userprofile.profile_id }}</p>
+            <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+            <a href="{% url 'dashboard' %}" class="btn btn-primary">OK</a>
+        </div>
+
+        <div class="portfolio-section">
+            <h2>Portfolio</h2>
+            <a href="{% url 'users:upload_image' %}" class="btn btn-primary">Upload Image</a>
+            <div class="portfolio-grid">
+                {% for image in portfolio_images %}
+                    <div class="portfolio-item">
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
+                        <p>{{ image.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
