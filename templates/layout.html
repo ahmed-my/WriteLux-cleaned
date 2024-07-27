@@ -56,6 +56,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'image' %}">IMAGES</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'users:user-list' %}">User List</a>
+                            </li>
                         {% endif %}
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'posts:new_post' %}">CREATE POST</a>
@@ -80,8 +83,9 @@
                             MORE
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'fitness:fitness_items' %}">Fitness</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="{% url 'fitness:fitness_items' %}">FITNESS</a></li>
+                                <li><a class="dropdown-item" href="#">FAQ</a></li>
+                                <li><a class="dropdown-item" href="{% url 'users:user-list' %}">USER LIST</a></li>
                             </ul>
                         </li>
                         <li class="nav-item">
