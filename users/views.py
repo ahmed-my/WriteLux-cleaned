@@ -17,10 +17,12 @@ from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.template.loader import render_to_string
-# portfolio for unique users
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile, Portfolio
 from .forms import PortfolioForm
+from django.views.generic import ListView, DetailView
+from .models import UserProfile
+from .forms import UserProfileForm
 
 UserModel = get_user_model()
 
@@ -45,9 +47,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             email = password_reset_form.cleaned_data['email']
-            print(f"Entered email: {email}")  # Debug statement
             associated_users = UserModel.objects.filter(email=email)
-            print(f"Number of associated users found: {associated_users.count()}")  # Debug statement
             
             if associated_users.exists():
                 for user in associated_users:
@@ -73,8 +73,6 @@ def password_reset_request(request):
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
-
-
 
 def password_reset_confirm(request, uidb64=None, token=None):
     try:
@@ -148,7 +146,6 @@ def logout_user(request):
         logout(request)
         return redirect('home')
 
-# coding on portfolio
 @login_required
 def portfolio_view(request):
     portfolio = Portfolio.objects.filter(user=request.user)
@@ -156,6 +153,16 @@ def portfolio_view(request):
         'portfolio': portfolio
     }
     return render(request, 'portfolio/portfolio.html', context)
+
+@login_required
+def profile_portfolio(request, slug):
+    profile = get_object_or_404(UserProfile, slug=slug)
+    portfolio_images = Portfolio.objects.filter(user=profile.user)
+    context = {
+        'profile': profile,
+        'portfolio_images': portfolio_images,
+    }
+    return render(request, 'users/profile_portfolio.html', context)
 
 @login_required
 def upload_image(request):
@@ -170,12 +177,65 @@ def upload_image(request):
         form = PortfolioForm()
     return render(request, 'portfolio/upload_image.html', {'form': form})
 
-def profile_portfolio(request, profile_id):
+@login_required
+def user_profile(request):
+    user = request.user
+    profile = get_object_or_404(UserProfile, user=user)
+    portfolio_images = Portfolio.objects.filter(user=user)
+    context = {
+        'user': user,
+        'profile': profile,
+        'portfolio_images': portfolio_images,
+    }
+    return render(request, 'users/user_profile.html', context)
+
+class UserListView(ListView):
+    model = UserProfile
+    template_name = 'users/user_list.html'
+    context_object_name = 'users'
+    paginate_by = 10
+
+class UserProfileView(DetailView):
+    model = UserProfile
+    template_name = 'users/user_profile.html'
+    context_object_name = 'profile'
+    slug_field = 'profile_id'
+    slug_url_kwarg = 'profile_id'
+
+def user_profile_list(request):
+    profiles = UserProfile.objects.all()
+    return render(request, 'users/user_profile_list.html', {'profiles': profiles})
+    
+def profile_detail(request, profile_id):
     profile = get_object_or_404(UserProfile, profile_id=profile_id)
     portfolio_images = Portfolio.objects.filter(user=profile.user)
     context = {
         'profile': profile,
-        'portfolio_images': portfolio_images,
+        'portfolio_images': portfolio_images
     }
-    return render(request, 'users/profile_portfolio.html', context)
-    
+    return render(request, 'users/profile_detail.html', context)
+
+@login_required
+def edit_profile(request):
+    user = request.user
+
+    if request.method == 'POST':
+        # Update the user model
+        user.first_name = request.POST.get('first_name')
+        user.last_name = request.POST.get('last_name')
+        user.email = request.POST.get('email')
+        user.save()
+
+        # Update the user profile model
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
+        if profile_form.is_valid():
+            profile_form.save()
+            return redirect('dashboard')  # Change this to your profile view name
+
+    else:
+        profile_form = UserProfileForm(instance=user.userprofile)
+
+    return render(request, 'users/edit_profile.html', {
+        'profile_form': profile_form,
+        'user': user,
+    })
