@@ -1,45 +1,37 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
+{% load socialaccount %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css-style/login.css' %}">
     <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css-style/new-login.css' %}">
 </head>
 <body>
-    <main>
-        <div class="right">
-            <div class="content">
-                <div class="top_div">
-                    <h4>Login to your account</h4>
-                    <!-- form -->
-                    <form id="myForm" action="{% url 'users:login_user' %}" method="post">
-                        {% csrf_token %}
-                        <div class="full_width">
-                            {{ form.non_field_errors }}
-                            <input type="text" name="username" id="username" placeholder="Username" required />
-                            {{ form.username.errors }}
-                            <input type="password" name="password" id="password" placeholder="Password" required />
-                            {{ form.password.errors }}
-                        </div>
-                        <input type="submit" value="Login" />
-                    </form>
-                    <div id="message"></div>
-                </div>
-                <div class="account-forgot-container">
-                    <p id="account">
-                        Don't have an account?
-                        <span><a href="{% url 'users:register' %}">Sign Up</a></span>
-                    </p>
-                    <div class="forgot">
-                        <a href="{% url 'users:password_reset' %}">
-                            <p>Forgot Password?</p>
-                        </a>
-                    </div>
-                </div>
-            </div>
+    <div class="login-container">
+        <h2>Log In</h2>
+        <div class="social-login">
+            <a href="{% provider_login_url 'google' %}">
+                <button class="google-login">
+                    <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
+                </button>
+            </a>
+            <a href="{% provider_login_url 'github' %}">
+                <button class="github-login">
+                    <img src="/media/Icons/github-icon1.png" alt="GitHub Icon"> Continue with GitHub
+                </button>
+            </a>
         </div>
-    </main>
+        <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
+        <form method="post" action="{% url 'users:login_user' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <a href="{% url 'users:password_reset' %}">Reset Password</a>
+            <button type="submit">Log In</button>
+        </form>
+        <p style="text-align: center;">Don't have an account? <a href="{% url 'users:register' %}">Sign Up</a></p>
+    </div>
 </body>
 </html>

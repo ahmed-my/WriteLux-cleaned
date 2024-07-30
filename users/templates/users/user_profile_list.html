@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile List</title>
+</head>
+<body>
+    <h1>User Profiles</h1>
+    <ul>
+        {% for profile in profiles %}
+            <li>
+                <a href="{% url 'users:profile_detail' profile.profile_id %}">
+                    {{ profile.user.username }} ID: {{ profile.profile_id }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -26,6 +26,7 @@
     max-width: 200px;
 }
 
+
 .home-image {
     display: inline-block; 
     margin-right: 1rem;
@@ -33,6 +34,7 @@
     max-width: 600px; 
     margin-bottom: 10px;
 }
+
 
 .grid-container {
     display: grid;
@@ -127,7 +129,7 @@ a:hover {
     max-height: 400px; /* Set the maximum height */
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
-    padding: 10px; /* Optional: add some padding */
+    padding: 5px; /* Optional: add some padding */
     border: 1px solid #ccc; /* Optional: add a border */
 }
 
@@ -357,26 +359,6 @@ button:hover {
 .image-animation-home-content2 {
     animation: imageZoomIn 10s ease-in-out infinite;
     animation-delay: 4s;
-}
-
-/* Slider container */
-.slider-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    margin: auto;
-}
-
-/* Separate sliding animation for general slider class */
-.slider {
-    display: flex;
-    width: 400%;
-    animation: slide 16s linear infinite;
-}
-
-.slider img {
-    width: 25%;
-    flex-shrink: 0;
 }
 
 @keyframes slide {

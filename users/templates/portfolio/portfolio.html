@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="portfolio-section">
+            <h2>Portfolio</h2>
+            <div class="portfolio-grid">
+                {% for image in portfolio %}
+                    <div class="portfolio-item">
+                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
+                        <p>{{ image.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

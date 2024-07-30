@@ -9,6 +9,9 @@ from posts.forms import CustomForm
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
 
+def swiper_example(request):
+    return render(request, 'swiper_example.html')
+
 def home(request):
     courses = Course.objects.all()
     posts = Post.objects.all()
@@ -68,6 +71,9 @@ def image_list(request):
         'lessons': lessons,
     }
     return render(request, 'image_list.html', context)
+
+def portfolio_list(request):
+    return render(request, 'portfolio_list.html')
 
 def contact(request):
     post_contact = Post.objects.all()

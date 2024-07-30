@@ -1,0 +1,43 @@
+{% load static %}
+{% load form_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="{% static 'css-style/image-upload1.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card shadow-sm">
+          <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Upload Image</h2>
+          </div>
+          <div class="card-body">
+            <form id="uploadForm" method="post" enctype="multipart/form-data" data-redirect-url="{% url 'dashboard' %}">
+              {% csrf_token %}
+              <div class="form-group mb-3">
+                {{ form.image.label_tag }} 
+                {{ form.image|add_class:"form-control" }}
+              </div>
+              <div class="form-group mb-3">
+                {{ form.description.label_tag }} 
+                {{ form.description|add_class:"form-control" }}
+              </div>
+              <button type="submit" class="btn btn-primary w-100">Upload</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block extra_scripts %}
+    <script src="{% static 'js/portfolio.js' %}"></script>
+  {% endblock %}
+</body>
+</html>

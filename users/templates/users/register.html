@@ -1,30 +1,23 @@
-{% extends "layout.html" %}
-
-{% block title %}
-    User Registration
-{% endblock  %}
-
-{% block content %}
-    <h1>User Registration</h1>
-    <form class="form-with-validation" method="post" action="{% url 'users:register' %}">
-        {% csrf_token %}
-        {{ form }}
-        <button class="form-submit">Register</button>
-    </form>
-{% endblock  %}
-
-{% block content1 %}
-    <img 
-    class="home-image"
-    src="/media/Blog-user-registration1.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
-    >
-{% endblock  %}
-
-{% block content2 %}
-    <div class="content2-container">
-        <img 
-            class="image-animation" 
-            src="/media/Blog-user-registration2.png" alt="Blog image 6"  arial-label="Blog home image" title="Blog homw image"
-        >
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}User Registration{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css-style/register.css' %}">
+</head>
+<body>
+    <div class="registration-container">
+        {% block content %}
+            <h1>Registration</h1>
+            <form class="form-with-validation" method="post" action="{% url 'users:register' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="form-submit">Register</button>
+            </form>
+        {% endblock %}
     </div>
-{% endblock  %}
+    <script src="{% static 'js/register.js' %}"></script>
+</body>
+</html>

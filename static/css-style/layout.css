@@ -126,3 +126,28 @@ body {
         overflow-x: hidden;
     }
 }
+
+/* styles.css or layout.css */
+.card-img-top {
+    width: 100%;
+    height: auto;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.banner-images-content2 {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
