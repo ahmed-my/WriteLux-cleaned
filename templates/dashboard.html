@@ -24,6 +24,7 @@
 
 {% block content1 %}
     <h2>Dashboard Area:</h2>
+    <a href="{% url 'users:upload_image' %}" class="btn btn-primary">Upload Image To Your Portfolio</a>
     <p><a href="{% url 'users:user_profile' %}"><b>View Profile</b></a></p>
     <p><a href="{% url 'users:portfolio' %}"><b>View Portfolio</b></a></p>
     <p>&nbsp;</p> <!-- leave empty space -->
@@ -37,7 +38,6 @@
                     <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 
                     <a href="#" class="delete-link" data-url="{% url 'posts:post_delete' pk=post.pk %}" data-post-id="{{ post.pk }}">Delete</a>
                 </p>
-                <p>&nbsp;</p> <!-- leave empty space -->
             </li>
         {% endfor %}
     </ul>
@@ -47,7 +47,7 @@
     <div class="content2-container">
         <img 
             class="image-animation" 
-            src="/media/dashboard1.png" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
+            src="/media/shoe.jpeg.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
         >
     </div>
 {% endblock %}

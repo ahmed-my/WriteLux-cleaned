@@ -1,6 +1,6 @@
 {% load static %}
-<!DOCTYPE html>
 {% load socialaccount %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,14 +24,14 @@
             </a>
         </div>
         <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
-        <form method="post" action="{% url 'users:login_user' %}">
+        <form method="post" action="{% url 'account_login' %}">
             {% csrf_token %}
-            <input type="text" name="username" placeholder="Username" required>
+            <input type="text" name="login" placeholder="Username or Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <a href="{% url 'users:password_reset' %}">Reset Password</a>
+            <a href="{% url 'account_reset_password' %}">Reset Password</a>
             <button type="submit">Log In</button>
         </form>
-        <p style="text-align: center;">Don't have an account? <a href="{% url 'users:register' %}">Sign Up</a></p>
+        <p style="text-align: center;">Don't have an account? <a href="{% url 'account_signup' %}">Sign Up</a></p>
     </div>
 </body>
 </html>
