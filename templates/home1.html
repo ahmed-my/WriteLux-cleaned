@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Home
+{% endblock  %}
+
+{% block content %}
+    <img 
+    class="home-image"
+    src="/media/blogger/blogger4.jpeg" alt="Blog image 6"  arial-label="Blog home image" title="Blog home image"
+    >
+    {% for blog in home_content %}
+        <section>
+            <p>{{ blog.body|safe }}</p>
+        </section>
+    {% endfor %}
+    <p>Check out <a href="/users/registration">User Dashboard</a></p>
+{% endblock  %}
+
+{% block content1 %}
+    <h2>Amazing Content</h2>
+    <p>&nbsp;</p>
+    <section>
+        {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
+            <article>
+                <!-- app_name = 'fitness' -->
+                <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+            </article>
+        {% endfor %}
+    </section>
+    <div class="slider-container">
+        <div class="slider content1-slider">
+            <img src="/media/blogger/blogger1.jpeg" alt="Blogger image 1" arial-label="Blog image" title="Blog image">
+            <img src="/media/blogger/blogger2.jpeg" alt="Blogger image 2" arial-label="Blog image" title="Blog image">
+            <img src="/media/blogger/blogger3.jpeg" alt="Blogger image 3" arial-label="Blog image" title="Blog image">
+            <img src="/media/blogger/blogger5.jpeg" alt="Blogger image 5" arial-label="Blog image" title="Blog image">
+        </div>
+    </div>
+{% endblock  %}
+
+{% block content2 %}
+    <h1 class="text-animation-home-content2">Busness Plan</h1>
+    <section>
+        {% for lesson in lessons %}
+            <article>
+                <!-- app_name = 'fitness' -->
+                <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
+                <!-- 'fitness:lesson_page' This means the function lesson_page in views.py in the app fitness -->
+            </article>
+        {% endfor %}
+    </section>
+    <div class="slider-container">
+        <div class="slider">
+            <img src="/media/Blog-Cover-Photos-1.jpg" alt="Blog image 1" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-4.jpg" alt="Blog image 4" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-2.png" alt="Blog image 2" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-5.png" alt="Blog image 5" arial-label="Blog image" title="Blog image">
+            <img src="/media/Blog-Cover-Photos-3.png" alt="Blog image 3" arial-label="Blog image" title="Blog image">
+        </div>
+    </div> 
+{% endblock  %}
+    
