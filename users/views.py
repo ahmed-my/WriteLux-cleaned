@@ -1,8 +1,6 @@
+# users/views.py
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .forms import CustomUserCreationForm
-from django.contrib.auth import login, logout
-from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
 from django.template.loader import render_to_string
@@ -16,13 +14,11 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from django.template.loader import render_to_string
+from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile, Portfolio
-from .forms import PortfolioForm
 from django.views.generic import ListView, DetailView
-from .models import UserProfile
-from .forms import UserProfileForm
+from .models import UserProfile, Portfolio
+from .forms import CustomUserCreationForm, PortfolioForm, UserProfileForm
 
 UserModel = get_user_model()
 
@@ -41,14 +37,12 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 class CustomPasswordResetDoneView(PasswordResetDoneView):
     template_name = 'registration/password_reset_done.html'
 
-
 def password_reset_request(request):
     if request.method == "POST":
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             email = password_reset_form.cleaned_data['email']
             associated_users = UserModel.objects.filter(email=email)
-            
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -64,6 +58,7 @@ def password_reset_request(request):
                     }
                     email_content = render_to_string(email_template_name, context)
                     send_mail(subject, email_content, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
+                    print("Password reset token:", context["token"])  # Print the token to the console
                 messages.success(request, "Password reset email has been sent.")
                 return redirect("users:password_reset_done")
             else:
@@ -73,32 +68,6 @@ def password_reset_request(request):
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
-
-def password_reset_confirm(request, uidb64=None, token=None):
-    try:
-        uid = force_str(urlsafe_base64_decode(uidb64))
-        user = UserModel.objects.get(pk=uid)
-    except (TypeError, ValueError, OverflowError, UserModel.DoesNotExist):
-        user = None
-
-    if user is not None and default_token_generator.check_token(user, token):
-        validlink = True
-        if request.method == "POST":
-            set_password_form = SetPasswordForm(user, request.POST)
-            if set_password_form.is_valid():
-                set_password_form.save()
-                messages.success(request, "Your password has been set. You may go ahead and log in now.")
-                return redirect("users:password_reset_complete")
-        else:
-            set_password_form = SetPasswordForm(user)
-    else:
-        validlink = False
-        set_password_form = None
-
-    return render(request, "registration/password_reset_confirm.html", {
-        "form": set_password_form,
-        "validlink": validlink,
-    })
 
 @csrf_exempt
 def resend_password_reset_email(request):
@@ -116,6 +85,7 @@ def resend_password_reset_email(request):
                 [email],
                 fail_silently=False,
             )
+            print("Password reset token:", token)  # Print the token to the console
         return JsonResponse({"status": "success"})
     return JsonResponse({"status": "failed"})
 
@@ -124,7 +94,7 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('users:login_user')  # Adjust redirect as necessary
+            return redirect('users:login_user')
     else:
         form = CustomUserCreationForm()
     return render(request, 'users/register.html', {'form': form})
@@ -133,7 +103,6 @@ def login_user(request):
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            # Login 
             user = form.get_user()
             login(request, user)
             return redirect('dashboard')
@@ -149,9 +118,7 @@ def logout_user(request):
 @login_required
 def portfolio_view(request):
     portfolio = Portfolio.objects.filter(user=request.user)
-    context = {
-        'portfolio': portfolio
-    }
+    context = {'portfolio': portfolio}
     return render(request, 'portfolio/portfolio.html', context)
 
 @login_required
@@ -205,7 +172,7 @@ class UserProfileView(DetailView):
 def user_profile_list(request):
     profiles = UserProfile.objects.all()
     return render(request, 'users/user_profile_list.html', {'profiles': profiles})
-    
+
 def profile_detail(request, profile_id):
     profile = get_object_or_404(UserProfile, profile_id=profile_id)
     portfolio_images = Portfolio.objects.filter(user=profile.user)
@@ -218,20 +185,16 @@ def profile_detail(request, profile_id):
 @login_required
 def edit_profile(request):
     user = request.user
-
     if request.method == 'POST':
-        # Update the user model
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
         user.email = request.POST.get('email')
         user.save()
 
-        # Update the user profile model
         profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
         if profile_form.is_valid():
             profile_form.save()
-            return redirect('dashboard')  # Change this to your profile view name
-
+            return redirect('dashboard')
     else:
         profile_form = UserProfileForm(instance=user.userprofile)
 

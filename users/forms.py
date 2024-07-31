@@ -1,11 +1,14 @@
 # users/forms.py
-
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .models import UserProfile
 from .models import Portfolio # adding the Portfolio models
 from .email_utils import send_registration_confirmation_email  # Import the utility function
+
+# added today 31-07-2024
+
+# to this point
 
 class PortfolioForm(forms.ModelForm):
     class Meta:
@@ -78,3 +81,7 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['profile_image', 'first_name', 'last_name', 'email']
+
+# added today 31-07-2024
+
+# to this point

@@ -72,6 +72,12 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
+# added 31-07-2024
+ACCOUNT_ADAPTER = 'users.adapters.MyAccountAdapter'
+# to this point
+
+
+
 SITE_ID = 1
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -79,8 +85,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # Allauth specific settings
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
 # Social account providers
 SOCIALACCOUNT_PROVIDERS = {
@@ -93,7 +97,6 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'offline', # on production make this line 'online'
         },
-        'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/social/login/callback/',  # Replace with your redirect URI
     },
     'github': {
         'APP': {
@@ -101,7 +104,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': env('GITHUB_CLIENT_SECRET'),
             'key': ''
         },
-        'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/social/login/callback/',  # Replace with your redirect URI
+        
     }
 }
 
