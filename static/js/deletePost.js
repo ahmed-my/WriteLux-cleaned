@@ -1,29 +1,19 @@
+/* confirm delete */
 document.addEventListener('DOMContentLoaded', function() {
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
+    console.log('Document loaded, adding event listeners.');
     document.querySelectorAll('.delete-link').forEach(function(link) {
+        console.log('Adding event listener to:', link);
         link.addEventListener('click', function(event) {
             event.preventDefault();
+            console.log('Delete link clicked.');
             const url = this.getAttribute('data-url');
-            const postId = this.getAttribute('data-post-id');
             const confirmDelete = confirm('Are you sure you want to delete this post?');
-
+            
             if (confirmDelete) {
-                fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRFToken': csrfToken,
-                    },
-                })
-                .then(response => {
-                    if (response.ok) {
-                        document.getElementById('post-' + postId).remove();
-                        document.getElementById('dashboard-post-' + postId).remove();
-                    } else {
-                        console.error('Failed to delete the post.');
-                    }
-                })
-                .catch(error => console.error('Error:', error));
+                console.log('User confirmed delete.');
+                window.location.href = url;
+            } else {
+                console.log('User canceled delete.');
             }
         });
     });

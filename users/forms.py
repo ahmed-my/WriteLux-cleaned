@@ -1,80 +1,46 @@
 # users/forms.py
-
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.contrib.auth.models import User
 from .models import UserProfile
-from .models import Portfolio # adding the Portfolio models
-from .email_utils import send_registration_confirmation_email  # Import the utility function
+from django.contrib.auth.forms import UserCreationForm
+from .email_utils import send_registration_confirmation_email
 
-class PortfolioForm(forms.ModelForm):
-    class Meta:
-        model = Portfolio
-        fields = ['image', 'description']
-        
-class CustomUserCreationForm(UserCreationForm):
-    email = forms.EmailField(
-        required=True, 
-        help_text='',
-        widget=forms.EmailInput(attrs={
-            'class': 'custom-class',
-            'placeholder': 'Enter your email'
-        })
-    )
+class UserProfileForm(forms.ModelForm):
+    username = forms.CharField(max_length=150, required=True)
+    first_name = forms.CharField(max_length=30, required=True)
+    last_name = forms.CharField(max_length=30, required=True)
+    email = forms.EmailField(required=True)
 
     class Meta:
-        model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        model = UserProfile
+        fields = ['profile_image']
 
     def __init__(self, *args, **kwargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
-        
-        # Remove labels and add placeholders for each field
-        self.fields['username'].label = ''
-        self.fields['username'].widget.attrs.update({
-            'class': 'custom-class',
-            'placeholder': 'username'
-        })
-        self.fields['username'].help_text = ''
+        user = kwargs.pop('user', None)
+        super(UserProfileForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['username'].initial = user.username
+            self.fields['first_name'].initial = user.first_name
+            self.fields['last_name'].initial = user.last_name
+            self.fields['email'].initial = user.email
 
-        self.fields['email'].label = ''  # Remove the label for email
-        self.fields['email'].widget.attrs.update({
-            'class': 'custom-class',
-            'placeholder': 'email'
-        })
-        self.fields['email'].help_text = ''
-        
-        self.fields['password1'].label = ''
-        self.fields['password1'].widget.attrs.update({
-            'class': 'custom-class',
-            'placeholder': 'Password'
-        })
-        self.fields['password1'].help_text = ''
-
-        self.fields['password2'].label = ''
-        self.fields['password2'].widget.attrs.update({
-            'class': 'custom-class',
-            'placeholder': 'Confirm Password'
-        })
-        self.fields['password2'].help_text = ''
+    def clean_username(self):
+        username = self.cleaned_data.get('username')
+        if User.objects.filter(username=username).exclude(pk=self.instance.user.pk).exists():
+            raise forms.ValidationError("Username already exists.")
+        return username
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email address is already in use.")
+        if User.objects.filter(email=email).exclude(pk=self.instance.user.pk).exists():
+            raise forms.ValidationError("Email address already in use.")
         return email
 
     def save(self, commit=True):
-        user = super(CustomUserCreationForm, self).save(commit=False)
+        user = self.instance.user
+        user.username = self.cleaned_data['username']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
         user.email = self.cleaned_data['email']
-        if commit:
-            user.save()
-            print("User saved, sending email...")
-            send_registration_confirmation_email(user)  # Send the confirmation email
-            print("Email function called.")
-        return user
-
-class UserProfileForm(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ['profile_image', 'first_name', 'last_name', 'email']
+        user.save()
+        return super(UserProfileForm, self).save(commit=commit)

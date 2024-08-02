@@ -7,14 +7,18 @@
 </head>
 <body>
     <div class="profile-container">
-        <h1>{{ profile.user.username }} - ID: {{ profile.profile_id }}</h1>
-        <p>Bio: {{ profile.bio }}</p>
-        {% if profile.profile_image %}
-            <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="profile-image">
-        {% else %}
-            <img src="{% static 'default-profile.png' %}" alt="Default Profile Image" class="profile-image">
-        {% endif %}
-        <h2>Portfolio</h2>
+        <div class="profile-header">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="profile-image">
+            {% else %}
+                <img src="{% static 'default-profile.png' %}" alt="Default Profile Image" class="profile-image">
+            {% endif %}
+            <div class="profile-details">
+                <h1>{{ profile.user.username }} - ID: {{ profile.profile_id }}</h1>
+                <p>Bio: {{ profile.bio }}</p>
+            </div>
+        </div>
+        <h1 class="portfolio-title">Portfolio</h1>
         <div class="portfolio-grid">
             {% for image in portfolio_images %}
                 <div class="portfolio-item">

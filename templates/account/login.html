@@ -17,11 +17,6 @@
                     <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
                 </button>
             </a>
-            <a href="{% provider_login_url 'github' %}">
-                <button class="github-login">
-                    <img src="/media/Icons/github-icon1.png" alt="GitHub Icon"> Continue with GitHub
-                </button>
-            </a>
         </div>
         <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
         <form method="post" action="{% url 'account_login' %}">

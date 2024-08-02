@@ -6,20 +6,25 @@
 {% endblock %}
 
 {% block content %}
-<div class="custom-style">
-    <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
-    <ul id="post-list">
-        {% for post in posts %}
-            <li id="post-{{ post.pk }}">
-                {{ post.title }}
-            </li>
-        {% empty %}
-            <li>You have no posts yet.<a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></li>
-        {% endfor %}
-    </ul>
-</div>
-<p>&nbsp;</p>
-<p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
+    <!-- Search form -->
+    <form action="{% url 'posts:search' %}" method="get">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    <div class="custom-style">
+        <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
+        <ul id="post-list">
+            {% for post in posts %}
+                <li id="post-{{ post.pk }}">
+                    {{ post.title }}
+                </li>
+            {% empty %}
+                <li>You have no posts yet.<a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    <p>&nbsp;</p>
+    <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
 {% endblock %}
 
 {% block content1 %}

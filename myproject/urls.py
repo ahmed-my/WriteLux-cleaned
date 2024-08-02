@@ -16,6 +16,7 @@ urlpatterns = [
     path('fitness/', include('fitness.urls')),  # Include the URLs from the fitness app
     path('users/', include('users.urls')),  # Include the URLs from the users app
     path('tinymce/', include('tinymce.urls')),
+    path('accounts/', include('allauth.urls')),  # Include allauth URLs
     path('swiper_example/', views.swiper_example, name='swiper_example'),
 
     path('dashboard/post/new/', PostCreateView.as_view(), name='post_create'),
