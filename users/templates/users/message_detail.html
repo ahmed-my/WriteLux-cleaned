@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Message Detail</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Message from {{ message.sender.username }}</h1>
+    <p>Subject: {{ message.subject }}</p>
+    <p>{{ message.body }}</p>
+    <p>Sent on: {{ message.timestamp }}</p>
+    <a href="{% url 'users:inbox' %}">Back to Inbox</a>
+    <a href="{% url 'users:delete_message' message.pk %}">Delete</a>
+</body>
+</html>

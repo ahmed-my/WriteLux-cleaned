@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbox</title>
+    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Inbox</h1>
+        <ul>
+            {% for message in messages %}
+                <li>
+                    <a href="{% url 'users:message_detail' message.pk %}">
+                        {{ message.sender.username }} - {{ message.subject }} - {{ message.timestamp }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    <a href="{% url 'dashboard' %}">Back to dashboard</a>
+</body>
+</html>

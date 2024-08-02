@@ -5,7 +5,8 @@ from .views import (
     CustomPasswordResetCompleteView, CustomPasswordResetDoneView,
     register, login_user, logout_user, resend_password_reset_email,
     portfolio_view, profile_portfolio, upload_image, user_profile,
-    UserListView, user_profile_list, profile_detail, edit_profile
+    UserListView, user_profile_list, profile_detail, edit_profile,
+    send_message, inbox, message_detail, delete_message
 )
 
 app_name = 'users'
@@ -31,4 +32,10 @@ urlpatterns = [
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
     path('password_reset/resend/', resend_password_reset_email, name='resend_password_reset_email'),
+
+    # 02-08-2024 add the paths for the new views.
+    path('send_message/', send_message, name='send_message'),
+    path('inbox/', inbox, name='inbox'),
+    path('message/<int:pk>/', message_detail, name='message_detail'),
+    path('message/<int:pk>/delete/', delete_message, name='delete_message'),
 ]

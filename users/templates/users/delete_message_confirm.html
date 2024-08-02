@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Confirm Delete</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Are you sure you want to delete this message?</h1>
+    <p>Subject: {{ message.subject }}</p>
+    <p>{{ message.body }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'users:message_detail' message.pk %}">No, go back</a>
+    </form>
+</body>
+</html>
