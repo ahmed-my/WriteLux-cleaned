@@ -18,7 +18,8 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from .models import UserProfile, Portfolio
-from .forms import CustomUserCreationForm, PortfolioForm, UserProfileForm
+from .forms import UserCreationForm, UserProfileForm
+# from .forms import CustomUserCreationForm, PortfolioForm, UserProfileForm
 
 UserModel = get_user_model()
 
@@ -186,19 +187,16 @@ def profile_detail(request, profile_id):
 def edit_profile(request):
     user = request.user
     if request.method == 'POST':
-        user.first_name = request.POST.get('first_name')
-        user.last_name = request.POST.get('last_name')
-        user.email = request.POST.get('email')
-        user.save()
-
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile, user=user)
         if profile_form.is_valid():
             profile_form.save()
+            messages.success(request, 'Profile updated successfully.') # display a successful update
             return redirect('dashboard')
     else:
-        profile_form = UserProfileForm(instance=user.userprofile)
+        profile_form = UserProfileForm(instance=user.userprofile, user=user)
 
     return render(request, 'users/edit_profile.html', {
         'profile_form': profile_form,
         'user': user,
     })
+   

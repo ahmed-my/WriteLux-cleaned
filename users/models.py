@@ -20,7 +20,7 @@ class UserProfile(models.Model):
     email = models.EmailField(max_length=254, blank=True)
     slug = models.SlugField(unique=True, blank=True)
     bio = models.TextField(blank=True)
-    profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    profile_image = models.ImageField(upload_to='media/', blank=True, null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

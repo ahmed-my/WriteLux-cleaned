@@ -9,12 +9,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>User List</h1>
+        <h1>User Lists</h1>
         <ul class="user-list">
             {% for user in users %}
                 <li class="user-item">
                     <a href="{% url 'users:profile_detail' profile_id=user.profile_id %}">
-                        <img src="{{ user.profile_image.url }}" alt="{{ user.user.username }}'s profile picture" class="profile-picture">
+                        {% if user.profile_image %}
+                            <img src="{{ user.profile_image.url }}" alt="{{ user.user.username }}'s profile picture" class="profile-picture">
+                        {% else %}
+                            <img src="{% static 'default-profile.png' %}" alt="Default profile picture" class="profile-picture">
+                        {% endif %}
                         <span class="username">{{ user.user.username }}</span>
                     </a>
                 </li>

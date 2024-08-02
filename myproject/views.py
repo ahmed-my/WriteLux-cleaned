@@ -101,7 +101,7 @@ class PostUpdateView(UpdateView):
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
-        messages.success(self.request, 'Your post was successfully updated!')
+        messages.success(self.request, 'successfully updated!')
         return super().form_valid(form)
 
     def get_queryset(self):
