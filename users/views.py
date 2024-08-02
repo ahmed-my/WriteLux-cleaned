@@ -17,9 +17,8 @@ from django.http import JsonResponse
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
-from .models import UserProfile, Portfolio
-from .forms import UserCreationForm, UserProfileForm
-# from .forms import CustomUserCreationForm, PortfolioForm, UserProfileForm
+from .models import UserProfile, Portfolio, Message # message added 02-08-2024
+from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, MessageForm # MessageForm added 02-08-2024
 
 UserModel = get_user_model()
 
@@ -92,12 +91,12 @@ def resend_password_reset_email(request):
 
 def register(request):
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('users:login_user')
     else:
-        form = CustomUserCreationForm()
+        form = UserRegistrationForm()
     return render(request, 'users/register.html', {'form': form})
 
 def login_user(request):
@@ -199,4 +198,40 @@ def edit_profile(request):
         'profile_form': profile_form,
         'user': user,
     })
+
+# 02-08-2024
+@login_required
+def send_message(request):
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            return redirect('users:dashboard')
+    else:
+        form = MessageForm()
+    return render(request, 'users/send_message.html', {'form': form})
+
+@login_required
+def inbox(request):
+    messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
+    return render(request, 'users/inbox.html', {'messages': messages})
+
+@login_required
+def message_detail(request, pk):
+    message = get_object_or_404(Message, pk=pk, recipient=request.user)
+    if not message.read:
+        message.read = True
+        message.save()
+    return render(request, 'users/message_detail.html', {'message': message})
+
+@login_required
+def delete_message(request, pk):
+    message = get_object_or_404(Message, pk=pk, recipient=request.user)
+    if request.method == 'POST':
+        message.delete()
+        return redirect('users:inbox')
+    return render(request, 'users/delete_message_confirm.html', {'message': message})
+
    

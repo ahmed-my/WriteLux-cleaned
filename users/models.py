@@ -35,3 +35,16 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+# 02-08-2024
+class Message(models.Model): # Create Message Model
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    recipient = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=100)
+    body = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'From {self.sender} to {self.recipient}'
+      
