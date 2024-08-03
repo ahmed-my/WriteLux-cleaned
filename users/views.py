@@ -202,16 +202,15 @@ def edit_profile(request):
 # 02-08-2024
 @login_required
 def send_message(request):
+    users = User.objects.exclude(id=request.user.id)
     if request.method == 'POST':
-        form = MessageForm(request.POST)
-        if form.is_valid():
-            message = form.save(commit=False)
-            message.sender = request.user
-            message.save()
-            return redirect('users:dashboard')
-    else:
-        form = MessageForm()
-    return render(request, 'users/send_message.html', {'form': form})
+        recipient_id = request.POST.get('recipient')
+        subject = request.POST.get('subject')
+        body = request.POST.get('body')
+        recipient = User.objects.get(id=recipient_id)
+        Message.objects.create(sender=request.user, recipient=recipient, subject=subject, body=body)
+        return redirect('dashboard')
+    return render(request, 'users/send_message.html', {'users': users})
 
 @login_required
 def inbox(request):
