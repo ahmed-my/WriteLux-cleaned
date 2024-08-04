@@ -16,7 +16,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
@@ -65,6 +65,9 @@ INSTALLED_APPS = [
     'utils',
 ]
 
+# You might also want to define your message storage backend 03-08-2024
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -98,14 +101,6 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'offline', # on production make this line 'online'
         },
     },
-    'github': {
-        'APP': {
-            'client_id': env('GITHUB_CLIENT_ID'),
-            'secret': env('GITHUB_CLIENT_SECRET'),
-            'key': ''
-        },
-        
-    }
 }
 
 TINYMCE_DEFAULT_CONFIG = {

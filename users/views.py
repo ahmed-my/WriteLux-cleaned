@@ -9,6 +9,7 @@ from django.utils.encoding import force_bytes, force_str
 from django.core.mail import send_mail
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.urls import reverse 
 from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView
 from django.urls import reverse_lazy
@@ -18,7 +19,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, DetailView
 from .models import UserProfile, Portfolio, Message # message added 02-08-2024
-from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, MessageForm # MessageForm added 02-08-2024
+from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, MessageForm, ReplyMessageForm # MessageForm added 02-08-2024
 
 UserModel = get_user_model()
 
@@ -57,8 +58,16 @@ def password_reset_request(request):
                         "protocol": "http",
                     }
                     email_content = render_to_string(email_template_name, context)
+                    
+                    # Generate the full password reset link
+                    reset_link = f"{context['protocol']}://{context['domain']}{reverse('users:password_reset_confirm', kwargs={'uidb64': context['uid'], 'token': context['token']})}"
+                    
+                    # Print the reset link to the console
+                    print("Password reset link:", reset_link)
+                    
+                    # Send the email
                     send_mail(subject, email_content, settings.DEFAULT_FROM_EMAIL, [user.email], fail_silently=False)
-                    print("Password reset token:", context["token"])  # Print the token to the console
+                
                 messages.success(request, "Password reset email has been sent.")
                 return redirect("users:password_reset_done")
             else:
@@ -68,6 +77,7 @@ def password_reset_request(request):
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
+
 
 @csrf_exempt
 def resend_password_reset_email(request):
@@ -202,15 +212,17 @@ def edit_profile(request):
 # 02-08-2024
 @login_required
 def send_message(request):
-    users = User.objects.exclude(id=request.user.id)
     if request.method == 'POST':
-        recipient_id = request.POST.get('recipient')
-        subject = request.POST.get('subject')
-        body = request.POST.get('body')
-        recipient = User.objects.get(id=recipient_id)
-        Message.objects.create(sender=request.user, recipient=recipient, subject=subject, body=body)
-        return redirect('dashboard')
-    return render(request, 'users/send_message.html', {'users': users})
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.save()
+            messages.success(request, 'Your message has been sent successfully.')
+            return redirect('users:inbox')
+    else:
+        form = MessageForm()
+    return render(request, 'users/send_message.html', {'form': form})
 
 @login_required
 def inbox(request):
@@ -233,4 +245,32 @@ def delete_message(request, pk):
         return redirect('users:inbox')
     return render(request, 'users/delete_message_confirm.html', {'message': message})
 
-   
+# 03-08-2024 the reply view
+@login_required
+def reply_message(request, pk):
+    original_message = get_object_or_404(Message, pk=pk, recipient=request.user)
+    if request.method == 'POST':
+        form = ReplyMessageForm(request.POST)
+        if form.is_valid():
+            reply = form.save(commit=False)
+            reply.sender = request.user
+            reply.recipient = original_message.sender
+            reply.save()
+            # messages.success(request, 'reply sent.') need to fix this to work properly
+            return redirect('users:inbox')
+        else:
+            print(form.errors)  # Add this line to print form errors to the console
+    else:
+        form = ReplyMessageForm(initial={'subject': 'Re: ' + original_message.subject})
+
+    return render(request, 'users/reply_message.html', {'original_message': original_message, 'form': form})
+
+def bulk_delete_messages(request):
+    if request.method == 'POST':
+        selected_messages = request.POST.getlist('selected_messages')
+        if selected_messages:
+            Message.objects.filter(pk__in=selected_messages).delete()
+            messages.success(request, 'Selected messages have been deleted.')
+        else:
+            messages.warning(request, 'No messages were selected.')
+    return redirect('users:inbox')

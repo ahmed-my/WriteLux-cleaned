@@ -3,14 +3,21 @@
 <html>
 <head>
     <title>Message Detail</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/message-detail.css' %}">
 </head>
 <body>
-    <h1>Message from {{ message.sender.username }}</h1>
-    <p>Subject: {{ message.subject }}</p>
-    <p>{{ message.body }}</p>
-    <p>Sent on: {{ message.timestamp }}</p>
-    <a href="{% url 'users:inbox' %}">Back to Inbox</a>
-    <a href="{% url 'users:delete_message' message.pk %}">Delete</a>
+    <div class="container">
+        <h1>Message from {{ message.sender.username }}</h1>
+        <div class="message-details">
+            <p class="subject"><strong>Subject:</strong> {{ message.subject }}</p>
+            <p class="body">{{ message.body }}</p>
+            <p class="timestamp"><strong>Sent on:</strong> {{ message.timestamp }}</p>
+        </div>
+        <div class="actions">
+            <a href="{% url 'users:inbox' %}" class="btn">Back to Inbox</a>
+            <a href="{% url 'users:delete_message' message.pk %}" class="btn delete">Delete</a>
+            <a href="{% url 'users:reply_message' message.pk %}" class="btn reply">Reply</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -1,0 +1,81 @@
+/* Basic reset for consistency */
+body, h1, p, a {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 50%;
+    margin: 20px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.message-details {
+    margin-bottom: 20px;
+}
+
+.subject {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.body {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+.timestamp {
+    font-size: 14px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #1a73e8;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.btn:hover {
+    background-color: #155ab5;
+}
+
+.delete {
+    background-color: #e53e3e;
+}
+
+.delete:hover {
+    background-color: #c53030;
+}
+
+.reply {
+    background-color: #38a169;
+}
+
+.reply:hover {
+    background-color: #2f855a;
+}

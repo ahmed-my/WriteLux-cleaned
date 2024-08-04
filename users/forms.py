@@ -82,10 +82,15 @@ class UserProfileForm(forms.ModelForm):
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
-        fields = ['recipient', 'subject', 'body']
+        fields = ['recipient', 'subject', 'body'] # include recipient for sending
         widgets = {
             'recipient': forms.Select(attrs={'class': 'form-control'}),
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+class ReplyMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['subject', 'body']  # Exclude recipient for replies
 

@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Reply to Message</title>
+    <link rel="stylesheet" href="{% static 'css-style/reply-message.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Reply to {{ original_message.sender.username }}</h1>
+        <p><strong>Original Subject:</strong> {{ original_message.subject }}</p>
+        <p><strong>Original Message:</strong> {{ original_message.body }}</p>
+        <p><strong>Sent on:</strong> {{ original_message.timestamp }}</p>
+        <div class="links">
+            <a href="{% url 'users:inbox' %}">Back to Inbox</a>
+            <a href="{% url 'users:delete_message' original_message.pk %}">Delete Original Message</a>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form.errors %}
+            <div class="error">
+                <p>Please correct the following errors:</p>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <h2>Reply</h2>
+        <form method="post" action="{% url 'users:reply_message' original_message.pk %}">
+            {% csrf_token %}
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" value="Re: {{ original_message.subject }}">
+            <label for="body">Message:</label>
+            <textarea id="body" name="body" rows="4"></textarea>
+            <button type="submit">Send Reply</button>
+        </form>
+    </div>
+</body>
+</html>
