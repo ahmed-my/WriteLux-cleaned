@@ -1,0 +1,67 @@
+/* Basic styling for the chat application */
+.chat-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chat-header {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background: #f9f9f9;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+}
+
+.chat-message.sent {
+    text-align: right;
+}
+
+.chat-message.received {
+    text-align: left;
+}
+
+.timestamp {
+    font-size: 0.8em;
+    color: #aaa;
+}
+
+.chat-input {
+    display: flex;
+    align-items: center;
+}
+
+.chat-input textarea {
+    flex: 1;
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.chat-input button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.chat-input button:hover {
+    background-color: #0056b3;
+}

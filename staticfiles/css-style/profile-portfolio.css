@@ -1,0 +1,61 @@
+.profile-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.profile-header {
+    display: flex;
+    align-items: left;
+    margin-bottom: 20px;
+}
+
+.profile-header img {
+    width: 150px; /* Set the width */
+    height: 150px; /* Set the height */
+    border-radius: 50%; /* Make the image circular */
+    object-fit: cover; /* Ensure the image fits within the dimensions */
+    margin-right: 20px; /* Add some space between the image and the text */
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-info {
+    margin-left: 170px; /* Align text with portfolio items */
+}
+
+.portfolio-title {
+    margin-top: 40px; /* Add some space before the portfolio title */
+}
+
+.portfolio-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.portfolio-item {
+    flex: 1 1 calc(33.333% - 20px); /* 3 columns with 20px gap */
+    box-sizing: border-box;
+}
+
+.portfolio-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .portfolio-item {
+        flex: 1 1 calc(50% - 20px); /* 2 columns with 20px gap */
+    }
+}
+
+@media (max-width: 480px) {
+    .portfolio-item {
+        flex: 1 1 100%; /* 1 column */
+    }
+}

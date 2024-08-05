@@ -10,19 +10,14 @@
 <body>
     <div class="form-container">
         <h1>Send Message</h1>
-        <form method="post">
+        <form id="send-message-form" method="post">
             {% csrf_token %}
-            <label for="recipient">Recipient:</label>
-            <select id="recipient" name="recipient" required>
-                <option value="" selected disabled>Select a recipient</option>
-                {% for user in users %}
-                    <option value="{{ user.user.id }}">{{ user.user.username }}</option>
-                {% endfor %}
-            </select>
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject" required>
-            <label for="body">Body:</label>
-            <textarea id="body" name="body" rows="5" required></textarea>
+            <label for="conversation">Conversation ID:</label>
+            <input type="text" id="conversation" name="conversation_id" required>
+
+            <label for="text">Message:</label>
+            <textarea id="text" name="text" rows="5" required></textarea>
+            
             <button type="submit">Send</button>
         </form>
     </div>
@@ -36,6 +31,26 @@
     <script>
         $(document).ready(function() {
             $('#recipient').select2();
+
+            $('#send-message-form').on('submit', function(event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "{% url 'users:send_message_ajax' %}",
+                    type: "POST",
+                    data: $(this).serialize(),
+                    success: function(response) {
+                        if (response.status === 'ok') {
+                            alert('Message sent successfully.');
+                            $('#text').val('');  // Clear the textarea
+                        } else {
+                            alert('Error sending message.');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('An error occurred: ' + error);
+                    }
+                });
+            });
         });
     </script>
 </body>

@@ -1,0 +1,74 @@
+/* Basic reset for consistency */
+body, h1, p, a, button {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.container {
+    width: 60%;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.text {
+    text-align: left;
+}
+
+h1 {
+    margin-bottom: 20px;
+    color: #e53e3e;
+}
+
+.message-details {
+    margin-bottom: 20px;
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.actions {
+    margin-top: 20px;
+}
+
+button, a {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #e53e3e;
+}
+
+button:hover {
+    background-color: #c53030;
+}
+
+a {
+    background-color: #1a73e8;
+}
+
+a:hover {
+    background-color: #155ab5;
+}
