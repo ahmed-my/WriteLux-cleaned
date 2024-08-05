@@ -267,14 +267,34 @@ def send_message_form(request):
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
+            recipient_id = request.POST.get('recipient')
+            if not recipient_id:
+                messages.error(request, 'Recipient is required.')
+                return render(request, 'users/send_message_form.html', {'form': form, 'users': users})
+            
+            recipient = get_object_or_404(User, id=recipient_id)
+
+            # Check for existing conversation
+            conversation = Conversation.objects.filter(
+                Q(participants=request.user) & Q(participants=recipient)
+            ).distinct().first()
+
+            if not conversation:
+                conversation = Conversation.objects.create()
+                conversation.participants.add(request.user, recipient)
+
             message = form.save(commit=False)
             message.sender = request.user
+            message.recipient = recipient
+            message.conversation = conversation
             message.save()
+
             messages.success(request, 'Your message has been sent successfully.')
             return redirect('users:inbox')
     else:
         form = MessageForm()
-    return render(request, 'users/send_message_form.html', {'users': users})
+    
+    return render(request, 'users/send_message_form.html', {'form': form, 'users': users})
 
 @login_required
 def send_message_ajax(request):

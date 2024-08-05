@@ -13,16 +13,16 @@
         <form method="post">
             {% csrf_token %}
             <label for="recipient">Recipient:</label>
-            <select id="recipient" name="recipient">
+            <select id="recipient" name="recipient" required>
                 <option value="" selected disabled>Select a recipient</option>
                 {% for user in users %}
                     <option value="{{ user.user.id }}">{{ user.user.username }}</option>
                 {% endfor %}
             </select>
             <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject">
+            <input type="text" id="subject" name="subject" required>
             <label for="body">Body:</label>
-            <textarea id="body" name="body" rows="5"></textarea>
+            <textarea id="body" name="body" rows="5" required></textarea>
             <button type="submit">Send</button>
         </form>
     </div>
