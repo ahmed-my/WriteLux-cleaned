@@ -6,7 +6,8 @@ from .views import (
     register, login_user, logout_user, resend_password_reset_email,
     portfolio_view, profile_portfolio, upload_image, user_profile,
     UserListView, user_profile_list, profile_detail, edit_profile,
-    send_message, inbox, message_detail, delete_message, reply_message, bulk_delete_messages
+    inbox, message_detail, delete_message, reply_message,
+    bulk_delete_messages, chat_message, send_message_form, send_message_ajax
 )
 
 app_name = 'users'
@@ -34,7 +35,9 @@ urlpatterns = [
     path('password_reset/resend/', resend_password_reset_email, name='resend_password_reset_email'),
 
     # 02-08-2024 add the paths for the new views.
-    path('send_message/', send_message, name='send_message'),
+    path('chat/<int:user_id>/', chat_message, name='chat_message'),
+    path('send_message_form/', send_message_form, name='send_message_form'),
+    path('send_message_ajax/', send_message_ajax, name='send_message_ajax'),
     path('inbox/', inbox, name='inbox'),
     path('message/<int:pk>/', message_detail, name='message_detail'),
     path('message/<int:pk>/delete/', delete_message, name='delete_message'),

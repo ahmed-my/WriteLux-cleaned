@@ -1,0 +1,30 @@
+<!-- chat_message.html -->
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat with {{ other_user.username }}</title>
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat with {{ other_user.username }}</h1>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            {% for message in messages %}
+                <div class="chat-message {% if message.sender == request.user %}sent{% else %}received{% endif %}">
+                    <p>{{ message.sender.username }}: {{ message.body }}</p>
+                    <span class="timestamp">{{ message.timestamp }}</span>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="chat-input">
+            <input type="hidden" id="conversation-id" value="{{ conversation.id }}">
+            <textarea id="message-text" placeholder="Type a message..."></textarea>
+            <button id="send-message">Send</button>
+        </div>
+    </div>
+    <script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>

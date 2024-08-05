@@ -13,15 +13,27 @@
     </form>
     <div class="custom-style">
         <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
-        <ul id="post-list">
+
+        <!-- Grid format for posts -->
+        <div class="post-grid">
             {% for post in posts %}
-                <li id="post-{{ post.pk }}">
-                    {{ post.title }}
-                </li>
+                <div class="post-item">
+                    <input type="checkbox" name="post" value="{{ post.pk }}" class="post-checkbox">
+                    <a href="{% url 'posts:post_detail' pk=post.pk %}" class="post-title">{{ post.title }}</a>
+                </div>
             {% empty %}
-                <li>You have no posts yet.<a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></li>
+                <div class="post-item">
+                    <p>You have no posts yet. <a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></p>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
+
+        <div class="post-actions">
+            <button type="button" id="create-post-btn" class="btn btn-primary">Create</button>
+            <button type="button" id="read-post-btn" class="btn btn-info">Read</button>
+            <button type="button" id="update-post-btn" class="btn btn-warning">Update</button>
+            <button type="button" id="delete-post-btn" class="btn btn-danger">Delete</button>
+        </div>
     </div>
     <p>&nbsp;</p>
     <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
@@ -32,22 +44,10 @@
     <a href="{% url 'users:upload_image' %}" class="btn btn-primary">Upload Image To Your Portfolio</a>
     <p><a href="{% url 'users:user_profile' %}"><b>View Profile</b></a></p>
     <p><a href="{% url 'users:portfolio' %}"><b>View Portfolio</b></a></p>
-    <p><a href="{% url 'users:send_message' %}"><b>Send Message</b></a></p>
+    <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
+    <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
     <p>&nbsp;</p> <!-- leave empty space -->
-    <ul class="dashboard-list">
-        {% for post in posts %}
-            <li id="dashboard-post-{{ post.pk }}">
-                {{ post.title }}
-                <p class="crud-links">
-                    <a href="{% url 'posts:post_create' %}">Create</a> |
-                    <a href="{% url 'posts:post_detail' pk=post.pk %}">Read</a> | 
-                    <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 
-                    <a href="#" class="delete-link" data-url="{% url 'posts:post_delete' pk=post.pk %}" data-post-id="{{ post.pk }}">Delete</a>
-                </p>
-            </li>
-        {% endfor %}
-    </ul>
 {% endblock %}
 
 {% block content2 %}
@@ -60,7 +60,5 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script>
-    src="{% static 'js/deletePost.js' %}"
-</script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}

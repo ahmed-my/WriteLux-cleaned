@@ -1,6 +1,6 @@
 {% load static %}
-<!DOCTYPE html>
 {% load socialaccount %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -21,8 +21,11 @@
         <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
         <form method="post" action="{% url 'users:login_user' %}">
             {% csrf_token %}
+            {{ form.non_field_errors }}
             <input type="text" name="username" placeholder="Username" required>
+            <div class="error">{{ form.username.errors }}</div>
             <input type="password" name="password" placeholder="Password" required>
+            <div class="error">{{ form.password.errors }}</div>
             <a href="{% url 'users:password_reset' %}">Reset Password</a>
             <button type="submit">Log In</button>
         </form>

@@ -150,3 +150,10 @@ button[type="submit"]:hover {
         overflow-x: hidden;
     }
 }
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 0.5rem;
+    text-align: center;
+}

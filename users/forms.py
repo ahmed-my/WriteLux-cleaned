@@ -1,12 +1,11 @@
 # users/forms.py
 from django import forms
-from .models import Message # 02-08-2024
+from .models import Portfolio, UserProfile, Message # 02-08-2024
 from django.contrib.auth.models import User
-from .models import UserProfile
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .email_utils import send_registration_confirmation_email
 
-class UserRegistrationForm(UserCreationForm):
+class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
     email = forms.EmailField(required=True, help_text='', label='Email Address',
                              widget=forms.EmailInput(attrs={'class': 'custom-class'}))
 
@@ -37,6 +36,30 @@ class UserRegistrationForm(UserCreationForm):
             send_registration_confirmation_email(user)  # Send the confirmation email
             print("Email function called.")
         return user
+
+class UserAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(attrs={'placeholder': 'Username'}),
+        error_messages={
+            'required': 'Please enter your username.',
+            'invalid': 'Invalid username format.',
+        }
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
+        error_messages={
+            'required': 'Please enter your password.',
+            'invalid': 'Invalid password format.',
+        }
+    )
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError(
+                'This account is inactive.',
+                code='inactive',
+            )
 
 class UserProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True)
@@ -94,3 +117,7 @@ class ReplyMessageForm(forms.ModelForm):
         model = Message
         fields = ['subject', 'body']  # Exclude recipient for replies
 
+class PortfolioForm(forms.ModelForm):
+    class Meta:
+        model = Portfolio
+        fields = ['image', 'description']

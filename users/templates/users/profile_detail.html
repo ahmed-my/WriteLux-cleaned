@@ -18,6 +18,7 @@
                 <p>Bio: {{ profile.bio }}</p>
             </div>
         </div>
+        <p><a href="{% url 'users:chat_message' profile.user.id %}"><b>chat</b></a></p>
         <h1 class="portfolio-title">Portfolio</h1>
         <div class="portfolio-grid">
             {% for image in portfolio_images %}

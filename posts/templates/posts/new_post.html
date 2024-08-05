@@ -1,50 +1,49 @@
 <!-- templates/posts/new_post.html -->
-{% extends "layout.html" %}
-
-{% block title %}
-    New Post
-{% endblock %}
-
-{% block content %}
-<section>
-    <h1>New Post</h1>
-    <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if form.errors %}
-            <div class="form-errors">
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <p>{{ error }}</p>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <p>{{ error }}</p>
-                {% endfor %}
-            </div>
-        {% endif %}
-        <button class="form-submit">Add Post</button>
-    </form>
-</section>
-{% endblock %}
-
-<!-- Grid container for content1 and content2 -->
-{% block content1 %}
-    <h2>Featured Posts</h2>
-    <div class="content2-container">
-        <img 
-            class="image-animation" 
-            src="/media/blogger/blogger3.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
-        >
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}New Post{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css-style/new-post.css' %}">
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <section class="new-post-section">
+            <h1>New Post</h1>
+            <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.title.label_tag }} {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.body.label_tag }} {{ form.body }}
+                </div>
+                <div class="form-group">
+                    {{ form.slug.label_tag }} {{ form.slug }}
+                </div>
+                <div class="form-group">
+                    {{ form.banner.label_tag }} {{ form.banner }}
+                </div>
+                {% if form.errors %}
+                    <div class="form-errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <button class="form-submit">Add Post</button>
+            </form>
+        </section>
     </div>
-{% endblock %}
-
-{% block content2 %}
-    <h2>Advertisement</h2>
-    <div class="content2-container">
-        <img 
-            class="image-animation" 
-            src="/media/blogger/blogger5.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
-        >
-    </div>
-{% endblock %}
+    {% endblock %}
+    <script src="{% static 'js/new-post.js' %}"></script>
+</body>
+</html>

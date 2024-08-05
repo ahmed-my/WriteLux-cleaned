@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 import uuid
@@ -36,15 +37,17 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-# 02-08-2024
-class Message(models.Model): # Create Message Model
-    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
-    recipient = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
-    subject = models.CharField(max_length=100)
+class Conversation(models.Model):
+    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='conversations')
+
+class Message(models.Model):
+    subject = models.CharField(blank=True, max_length=100, null=True)
     body = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     read = models.BooleanField(default=False)
+    recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='received_messages', on_delete=models.CASCADE)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sent_messages', on_delete=models.CASCADE)
+    conversation = models.ForeignKey('Conversation', related_name='messages', on_delete=models.CASCADE)  # remove default value here
 
     def __str__(self):
         return f'From {self.sender} to {self.recipient}'
-      

@@ -15,11 +15,13 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmVie
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
-from .models import UserProfile, Portfolio, Message # message added 02-08-2024
-from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, MessageForm, ReplyMessageForm # MessageForm added 02-08-2024
+from .models import UserProfile, Portfolio, Message, Conversation # message added 02-08-2024
+from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 
 UserModel = get_user_model()
 
@@ -111,13 +113,13 @@ def register(request):
 
 def login_user(request):
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = UserAuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('dashboard')
+            return redirect('dashboard')  # Redirect to the dashboard or another page
     else:
-        form = AuthenticationForm()
+        form = UserAuthenticationForm()
     return render(request, 'users/login.html', {'form': form})
 
 def logout_user(request):
@@ -209,9 +211,59 @@ def edit_profile(request):
         'user': user,
     })
 
-# 02-08-2024
+@login_required
+def chat_message(request, user_id):
+    other_user = get_object_or_404(User, id=user_id)
+    conversation = Conversation.objects.filter(participants=request.user).filter(participants=other_user).first()
+    
+    if not conversation:
+        conversation = Conversation.objects.create()
+        conversation.participants.add(request.user, other_user)
+
+    messages = conversation.messages.all()
+
+    return render(request, 'users/chat_message.html', {'conversation': conversation, 'messages': messages, 'other_user': other_user})
+
+"""
 @login_required
 def send_message(request):
+    if request.method == 'POST':
+        conversation_id = request.POST.get('conversation_id')
+        text = request.POST.get('text')
+
+        # Ensure conversation_id and text are provided
+        if not conversation_id or not text:
+            return JsonResponse({'status': 'error', 'message': 'Missing conversation_id or text'}, status=400)
+
+        # Retrieve the conversation or return a 404 error if not found
+        conversation = get_object_or_404(Conversation, id=conversation_id)
+
+        # Ensure the conversation is valid and user is part of it
+        if request.user not in conversation.participants.all():
+            return JsonResponse({'status': 'error', 'message': 'You are not a participant in this conversation'}, status=403)
+
+        # Determine recipient (the other participant in the conversation)
+        recipient = conversation.participants.exclude(id=request.user.id).first()
+        if not recipient:
+            return JsonResponse({'status': 'error', 'message': 'No recipient found'}, status=400)
+
+        # Create and save the message
+        message = Message.objects.create(conversation=conversation, sender=request.user, recipient=recipient, body=text)
+
+        # Return the response with the new message details
+        return JsonResponse({'status': 'ok', 'message': {
+            'id': message.id,
+            'sender': message.sender.username,
+            'body': message.body,
+            'timestamp': message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+        }})
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+"""
+
+@login_required
+def send_message_form(request):
+    users = UserProfile.objects.exclude(user=request.user)
     if request.method == 'POST':
         form = MessageForm(request.POST)
         if form.is_valid():
@@ -222,7 +274,24 @@ def send_message(request):
             return redirect('users:inbox')
     else:
         form = MessageForm()
-    return render(request, 'users/send_message.html', {'form': form})
+    return render(request, 'users/send_message_form.html', {'users': users})
+
+@login_required
+def send_message_ajax(request):
+    if request.method == 'POST':
+        conversation_id = request.POST.get('conversation_id')
+        text = request.POST.get('text')
+
+        conversation = get_object_or_404(Conversation, id=conversation_id)
+        recipient = conversation.participants.exclude(id=request.user.id).first()
+        message = Message.objects.create(conversation=conversation, sender=request.user, recipient=recipient, body=text)
+
+        return JsonResponse({'status': 'ok', 'message': {
+            'id': message.id,
+            'sender': message.sender.username,
+            'body': message.body,
+            'timestamp': message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+        }})
 
 @login_required
 def inbox(request):

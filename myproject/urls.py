@@ -25,6 +25,7 @@ urlpatterns = [
     path('dashboard/post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
 
     path('accounts/', include('allauth.urls')),  # Include allauth URLs
+
 ]
 
 if settings.DEBUG:
