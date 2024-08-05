@@ -20,6 +20,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation # message added 02-08-2024
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 
@@ -168,11 +169,15 @@ def user_profile(request):
     }
     return render(request, 'users/user_profile.html', context)
 
-class UserListView(ListView):
+class UserListView(LoginRequiredMixin, ListView):
     model = UserProfile
     template_name = 'users/user_list.html'
     context_object_name = 'users'
     paginate_by = 10
+
+    def get_queryset(self):
+        # Exclude the logged-in user from the queryset
+        return UserProfile.objects.exclude(user=self.request.user)
 
 class UserProfileView(DetailView):
     model = UserProfile
@@ -223,43 +228,6 @@ def chat_message(request, user_id):
     messages = conversation.messages.all()
 
     return render(request, 'users/chat_message.html', {'conversation': conversation, 'messages': messages, 'other_user': other_user})
-
-"""
-@login_required
-def send_message(request):
-    if request.method == 'POST':
-        conversation_id = request.POST.get('conversation_id')
-        text = request.POST.get('text')
-
-        # Ensure conversation_id and text are provided
-        if not conversation_id or not text:
-            return JsonResponse({'status': 'error', 'message': 'Missing conversation_id or text'}, status=400)
-
-        # Retrieve the conversation or return a 404 error if not found
-        conversation = get_object_or_404(Conversation, id=conversation_id)
-
-        # Ensure the conversation is valid and user is part of it
-        if request.user not in conversation.participants.all():
-            return JsonResponse({'status': 'error', 'message': 'You are not a participant in this conversation'}, status=403)
-
-        # Determine recipient (the other participant in the conversation)
-        recipient = conversation.participants.exclude(id=request.user.id).first()
-        if not recipient:
-            return JsonResponse({'status': 'error', 'message': 'No recipient found'}, status=400)
-
-        # Create and save the message
-        message = Message.objects.create(conversation=conversation, sender=request.user, recipient=recipient, body=text)
-
-        # Return the response with the new message details
-        return JsonResponse({'status': 'ok', 'message': {
-            'id': message.id,
-            'sender': message.sender.username,
-            'body': message.body,
-            'timestamp': message.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
-        }})
-    else:
-        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
-"""
 
 @login_required
 def send_message_form(request):
