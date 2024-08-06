@@ -14,14 +14,14 @@ from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
 from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse # to implement chat 04-08-2024
+from django.http import JsonResponse, HttpResponseForbidden # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
-from .models import UserProfile, Portfolio, Message, Conversation # message added 02-08-2024
+from .models import UserProfile, Portfolio, Message, Conversation, User # message added 02-08-2024
+from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 
 UserModel = get_user_model()
@@ -227,28 +227,58 @@ def chat_message(request, user_id):
 
     messages = conversation.messages.all()
 
-    return render(request, 'users/chat_message.html', {'conversation': conversation, 'messages': messages, 'other_user': other_user})
+    # Group messages by day
+    message_days = []
+    current_day = None
+    current_messages = []
+    
+    for message in messages:
+        message_day = message.timestamp.date()
+        if message_day != current_day:
+            if current_day is not None:
+                message_days.append({'day': current_day, 'messages': current_messages})
+            current_day = message_day
+            current_messages = [message]
+        else:
+            current_messages.append(message)
+    
+    if current_day is not None:
+        message_days.append({'day': current_day, 'messages': current_messages})
+
+    return render(request, 'users/chat_message.html', {
+        'conversation': conversation,
+        'message_days': message_days,
+        'other_user': other_user
+    })
 
 @login_required
 def send_message_form(request):
-    users = UserProfile.objects.exclude(user=request.user)
+    users = User.objects.exclude(id=request.user.id)
     if request.method == 'POST':
         form = MessageForm(request.POST)
+        print("Form data received:", request.POST)  # Debugging statement
         if form.is_valid():
-            recipient_id = request.POST.get('recipient')
+            recipient_id = form.cleaned_data['recipient_id']
+            subject = form.cleaned_data['subject']
+            body = form.cleaned_data['body']
+
+            print("Recipient ID:", recipient_id)
+            print("Subject:", subject)
+            print("Body:", body)
+
             if not recipient_id:
                 messages.error(request, 'Recipient is required.')
                 return render(request, 'users/send_message_form.html', {'form': form, 'users': users})
-            
+
             recipient = get_object_or_404(User, id=recipient_id)
 
-            # Check for existing conversation
+            # Check for existing conversation based on subject
             conversation = Conversation.objects.filter(
-                Q(participants=request.user) & Q(participants=recipient)
+                Q(participants=request.user) & Q(participants=recipient) & Q(subject=subject)
             ).distinct().first()
 
             if not conversation:
-                conversation = Conversation.objects.create()
+                conversation = Conversation.objects.create(subject=subject)
                 conversation.participants.add(request.user, recipient)
 
             message = form.save(commit=False)
@@ -258,10 +288,13 @@ def send_message_form(request):
             message.save()
 
             messages.success(request, 'Your message has been sent successfully.')
-            return redirect('users:inbox')
+            return redirect('dashboard')
+        else:
+            print("Form errors:", form.errors)  # Debugging statement
+            messages.error(request, 'There was an error with your submission.')
     else:
         form = MessageForm()
-    
+
     return render(request, 'users/send_message_form.html', {'form': form, 'users': users})
 
 @login_required
@@ -272,7 +305,13 @@ def send_message_ajax(request):
 
         conversation = get_object_or_404(Conversation, id=conversation_id)
         recipient = conversation.participants.exclude(id=request.user.id).first()
-        message = Message.objects.create(conversation=conversation, sender=request.user, recipient=recipient, body=text)
+        message = Message.objects.create(
+            conversation=conversation,
+            sender=request.user,
+            recipient=recipient,
+            body=text,
+            is_chat=True  # Mark this message as a chat message
+        )
 
         return JsonResponse({'status': 'ok', 'message': {
             'id': message.id,
@@ -283,8 +322,13 @@ def send_message_ajax(request):
 
 @login_required
 def inbox(request):
-    messages = Message.objects.filter(recipient=request.user).order_by('-timestamp')
-    return render(request, 'users/inbox.html', {'messages': messages})
+    # Get messages that are not chat messages
+    received_messages = Message.objects.filter(
+        recipient=request.user
+    ).exclude(is_chat=True).order_by('-timestamp')
+
+    return render(request, 'users/inbox.html', {'received_messages': received_messages})
+
 
 @login_required
 def message_detail(request, pk):
@@ -331,3 +375,18 @@ def bulk_delete_messages(request):
         else:
             messages.warning(request, 'No messages were selected.')
     return redirect('users:inbox')
+
+
+@login_required
+def delete_chat(request):
+    if request.method == 'POST':
+        message_id = request.POST.get('message_id')
+        message = get_object_or_404(Message, id=message_id)
+
+        # Check if the user is the sender or recipient
+        if message.sender == request.user or message.recipient == request.user:
+            message.delete()
+            return JsonResponse({'status': 'ok'})
+        else:
+            return HttpResponseForbidden('You do not have permission to delete this message.')
+    return HttpResponseForbidden('Invalid request method.')

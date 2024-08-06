@@ -1,67 +1,165 @@
-/* Basic styling for the chat application */
+/* chat.css */
+
 .chat-container {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chat-header {
+    text-align: center;
     margin-bottom: 20px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ccc;
 }
 
 .chat-messages {
-    height: 400px;
+    max-height: 400px;
     overflow-y: auto;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
     padding: 10px;
-    background: #f9f9f9;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .chat-message {
+    display: flex;
     margin-bottom: 10px;
 }
 
 .chat-message.sent {
-    text-align: right;
+    justify-content: flex-end;
 }
 
 .chat-message.received {
-    text-align: left;
+    justify-content: flex-start;
+}
+
+.message-content {
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 60%;
+}
+
+.chat-message.sent .message-content {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.chat-message.received .message-content {
+    background-color: #e9ecef;
+    color: #000;
 }
 
 .timestamp {
+    display: block;
     font-size: 0.8em;
-    color: #aaa;
+    color: #6c757d;
+    margin-top: 5px;
 }
 
 .chat-input {
+    margin-top: 20px;
     display: flex;
     align-items: center;
 }
 
-.chat-input textarea {
-    flex: 1;
+textarea {
+    width: 100%;
     padding: 10px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
+    border: 1px solid #ced4da;
+    margin-right: 10px;
 }
 
-.chat-input button {
+button {
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
     border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
     cursor: pointer;
 }
 
-.chat-input button:hover {
+button:hover {
     background-color: #0056b3;
+}
+
+/* chat.css */
+
+.delete-chat {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.delete-chat:hover {
+    text-decoration: underline;
+}
+
+/* chat.css */
+
+.chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.sent {
+    background-color: #e1ffc7;
+    text-align: right;
+}
+
+.received {
+    background-color: #f0f0f0;
+    text-align: left;
+}
+
+.message-content {
+    display: inline-block;
+    max-width: 80%;
+}
+
+.delete-chat {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 0.8em;
+    margin-left: 10px;
+}
+
+.delete-chat:hover {
+    text-decoration: underline;
+}
+
+/* Style for Back to Dashboard link */
+.back-to-user-list {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff; /* Bootstrap primary color or choose your own */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-to-user-list:hover {
+    background-color: #0056b3; /* Darker shade of primary color for hover effect */
+    color: #ffffff;
+}
+
+.back-to-user-list:active {
+    background-color: #004080; /* Even darker shade for active state */
+    color: #ffffff;
 }

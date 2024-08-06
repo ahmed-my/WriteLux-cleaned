@@ -7,7 +7,8 @@ from .views import (
     portfolio_view, profile_portfolio, upload_image, user_profile,
     UserListView, user_profile_list, profile_detail, edit_profile,
     inbox, message_detail, delete_message, reply_message,
-    bulk_delete_messages, chat_message, send_message_form, send_message_ajax
+    bulk_delete_messages, chat_message, send_message_form, send_message_ajax,
+    delete_chat
 )
 
 app_name = 'users'
@@ -41,6 +42,9 @@ urlpatterns = [
     path('inbox/', inbox, name='inbox'),
     path('message/<int:pk>/', message_detail, name='message_detail'),
     path('message/<int:pk>/delete/', delete_message, name='delete_message'),
+
+    path('delete_chat/', delete_chat, name='delete_chat'),
+
     # 03-08-2024
     path('message/<int:pk>/reply/', reply_message, name='reply_message'), # to reply a sender
     path('bulk-delete/', bulk_delete_messages, name='bulk_delete_messages'),

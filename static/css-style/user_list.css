@@ -90,3 +90,28 @@ h1 {
     border-radius: 5px;
     background-color: #f0f0f0;
 }
+
+/* Style for Back to Dashboard link */
+.back-to-dashboard {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff; /* Bootstrap primary color or choose your own */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-to-dashboard:hover {
+    background-color: #0056b3; /* Darker shade of primary color for hover effect */
+    color: #ffffff;
+}
+
+.back-to-dashboard:active {
+    background-color: #004080; /* Even darker shade for active state */
+    color: #ffffff;
+}

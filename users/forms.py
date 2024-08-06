@@ -103,6 +103,18 @@ class UserProfileForm(forms.ModelForm):
 
 # 02-08-2024
 class MessageForm(forms.ModelForm):
+    recipient_id = forms.IntegerField(widget=forms.HiddenInput)  # Hidden input for recipient_id
+
+    class Meta:
+        model = Message
+        fields = ['subject', 'body', 'recipient_id']  # Add recipient_id to the fields
+        widgets = {
+            'subject': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+"""
+class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['recipient', 'subject', 'body'] # include recipient for sending
@@ -111,6 +123,7 @@ class MessageForm(forms.ModelForm):
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
+"""
 
 class ReplyMessageForm(forms.ModelForm):
     class Meta:

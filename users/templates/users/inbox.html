@@ -28,11 +28,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for message in messages %}
+                    {% for message in received_messages %}
                     <tr>
                         <td><input type="checkbox" name="selected_messages" value="{{ message.pk }}"></td>
-                        <td><a href="{% url 'users:message_detail' message.pk %}">{{ message.sender.username }}</a></td>
-                        <td><a href="{% url 'users:message_detail' message.pk %}">{{ message.subject }}</a></td>
+                        <td>
+                            <a href="{% url 'users:message_detail' message.pk %}">{{ message.sender.username }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'users:message_detail' message.pk %}">{{ message.subject }}</a>
+                        </td>
                         <td>{{ message.timestamp }}</td>
                     </tr>
                     {% empty %}

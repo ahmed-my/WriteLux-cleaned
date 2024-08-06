@@ -38,7 +38,8 @@ class UserProfile(models.Model):
         return self.user.username
 
 class Conversation(models.Model):
-    participants = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='conversations')
+    participants = models.ManyToManyField(User, related_name='conversations')
+    subject = models.CharField(max_length=255, blank=True, null=True)
 
 class Message(models.Model):
     subject = models.CharField(blank=True, max_length=100, null=True)
@@ -48,6 +49,7 @@ class Message(models.Model):
     recipient = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='received_messages', on_delete=models.CASCADE)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='sent_messages', on_delete=models.CASCADE)
     conversation = models.ForeignKey('Conversation', related_name='messages', on_delete=models.CASCADE)  # remove default value here
+    is_chat = models.BooleanField(default=False)  # New field to indicate chat messages
 
     def __str__(self):
         return f'From {self.sender} to {self.recipient}'
