@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Profile URL</title>
+    <link rel="stylesheet" href="{% static 'css-style/dashboard.css' %}">
+</head>
+<body>
+    <div class="url-container">
+        <h1>Generate Profile URL</h1>
+        <button id="generate-url-btn" class="btn btn-primary">Generate Profile URL</button>
+    </div>
+    <script>
+        document.getElementById('generate-url-btn').addEventListener('click', function() {
+            const profileId = '{{ request.user.userprofile.profile_id }}';
+            const profileUrl = `${window.location.origin}/users/users/${profileId}/`; 
+            /* const profileUrl = `${window.location.origin}/users/portfolio/${profileId}/`; */
+            alert(profileUrl);
+        });
+    </script>
+</body>
+</html>

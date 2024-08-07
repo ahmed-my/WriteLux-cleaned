@@ -18,7 +18,7 @@
                 </button>
             </a>
         </div>
-        <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
+        <p style="text-align: center; margin: 0.1rem 0;">OR LOG IN WITH EMAIL</p>
         <form method="post" action="{% url 'users:login_user' %}">
             {% csrf_token %}
             {{ form.non_field_errors }}

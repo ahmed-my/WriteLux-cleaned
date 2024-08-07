@@ -5,6 +5,10 @@
     Dashboard
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
     <!-- Search form -->
     <form action="{% url 'posts:search' %}" method="get">
@@ -12,7 +16,7 @@
         <button type="submit">Search</button>
     </form>
     <div class="custom-style">
-        <h1 class="text-animation">Welcome {{ user.username }} to WriteLux</h1>
+        <h1 class="text-animation">Welcome {{ user.first_name }} to WriteLux</h1>
 
         <!-- Grid format for posts -->
         <div class="post-grid">
@@ -47,6 +51,7 @@
     <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
     <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
+    <p><a href="{% url 'generate_profile_url' %}"><b>Generate Profile URL</b></a></p>
     <p>&nbsp;</p> <!-- leave empty space -->
 {% endblock %}
 

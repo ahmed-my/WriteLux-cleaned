@@ -79,3 +79,28 @@
     background-color: #f8d7da;
     border-color: #f5c6cb;
 }
+
+/* Style for Back to Dashboard link */
+.back-to-user-profile {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff; /* Bootstrap primary color or choose your own */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-to-user-profile:hover {
+    background-color: #0056b3; /* Darker shade of primary color for hover effect */
+    color: #ffffff;
+}
+
+.back-to-user-profile:active {
+    background-color: #004080; /* Even darker shade for active state */
+    color: #ffffff;
+}

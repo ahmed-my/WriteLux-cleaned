@@ -65,11 +65,12 @@ class UserProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
+    bio = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
 
     class Meta:
         model = UserProfile
-        fields = ['profile_image']
+        fields = ['username', 'first_name', 'last_name', 'email', 'bio', 'profile_image']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -78,6 +79,7 @@ class UserProfileForm(forms.ModelForm):
             self.fields['username'].initial = user.username
             self.fields['first_name'].initial = user.first_name
             self.fields['last_name'].initial = user.last_name
+            self.fields['bio'].initial = user.bio
             self.fields['email'].initial = user.email
 
     def clean_username(self):
@@ -97,6 +99,7 @@ class UserProfileForm(forms.ModelForm):
         user.username = self.cleaned_data['username']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.bio = self.cleaned_data['bio']
         user.email = self.cleaned_data['email']
         user.save()
         return super(UserProfileForm, self).save(commit=commit)

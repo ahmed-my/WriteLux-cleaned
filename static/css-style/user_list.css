@@ -1,49 +1,44 @@
-/* css-style/user_list.css */
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 0;
+    padding: 20px;
 }
 
 .container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
     background: #fff;
+    padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    text-align: center;
-}
-
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #333;
 }
 
 .user-list {
-    list-style: none;
+    list-style-type: none;
     padding: 0;
 }
 
 .user-item {
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
 }
 
-.user-item a {
+.user-item:last-child {
+    border-bottom: none;
+}
+
+.user-details {
     display: flex;
     align-items: center;
     text-decoration: none;
     color: #333;
-    transition: color 0.3s;
 }
 
-.user-item a:hover {
-    color: #007bff;
+.user-checkbox {
+    margin-left: 10px;
 }
 
 .profile-picture {
@@ -51,67 +46,77 @@ h1 {
     height: 50px;
     border-radius: 50%;
     margin-right: 10px;
-    object-fit: cover;
 }
 
 .username {
-    font-size: 1.2em;
+    font-size: 16px;
+    color: #007bff;
+}
+
+.username:hover {
+    text-decoration: underline;
+    color:black
+}
+
+#search-input {
+    width: 28.2%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#chat-button {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#chat-button:hover {
+    background-color: #0056b3;
+}
+
+.back-to-dashboard {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.back-to-dashboard:hover {
+    background-color: #5a6268;
 }
 
 .pagination {
     margin-top: 20px;
+    text-align: center;
 }
 
 .pagination .step-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: inline-block;
 }
 
-.pagination .step-links a {
+.pagination a {
     margin: 0 5px;
-    padding: 5px 10px;
     text-decoration: none;
     color: #007bff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
 }
 
-.pagination .step-links a:hover {
-    background-color: #007bff;
-    color: #fff;
+.pagination a:hover {
+    text-decoration: underline;
 }
 
-.pagination .step-links .current {
+.pagination .current {
     margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f0f0f0;
-}
-
-/* Style for Back to Dashboard link */
-.back-to-dashboard {
-    display: inline-block;
-    padding: 10px 20px;
-    margin-top: 20px;
-    font-size: 16px;
-    color: #ffffff;
-    background-color: #007bff; /* Bootstrap primary color or choose your own */
-    border-radius: 5px;
-    text-align: center;
-    text-decoration: none;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.back-to-dashboard:hover {
-    background-color: #0056b3; /* Darker shade of primary color for hover effect */
-    color: #ffffff;
-}
-
-.back-to-dashboard:active {
-    background-color: #004080; /* Even darker shade for active state */
-    color: #ffffff;
+    color: #333;
 }

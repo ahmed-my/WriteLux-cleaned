@@ -23,6 +23,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on
 from .models import UserProfile, Portfolio, Message, Conversation, User # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
+from itertools import groupby
+import uuid
 
 UserModel = get_user_model()
 
@@ -192,30 +194,35 @@ def user_profile_list(request):
 
 def profile_detail(request, profile_id):
     profile = get_object_or_404(UserProfile, profile_id=profile_id)
-    portfolio_images = Portfolio.objects.filter(user=profile.user)
+    # portfolio_images = Portfolio.objects.filter(user=profile.user)
+    portfolio = Portfolio.objects.all()
     context = {
         'profile': profile,
-        'portfolio_images': portfolio_images
+        'portfolio': portfolio
     }
     return render(request, 'users/profile_detail.html', context)
 
 @login_required
 def edit_profile(request):
     user = request.user
+    profile = get_object_or_404(UserProfile, user=user)
+
     if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=user.userprofile, user=user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if profile_form.is_valid():
             profile_form.save()
-            messages.success(request, 'Profile updated successfully.') # display a successful update
+            messages.success(request, 'Profile updated successfully.')
             return redirect('dashboard')
     else:
-        profile_form = UserProfileForm(instance=user.userprofile, user=user)
+        profile_form = UserProfileForm(instance=profile)
 
     return render(request, 'users/edit_profile.html', {
         'profile_form': profile_form,
+        'profile': profile,
         'user': user,
     })
 
+"""
 @login_required
 def chat_message(request, user_id):
     other_user = get_object_or_404(User, id=user_id)
@@ -249,6 +256,51 @@ def chat_message(request, user_id):
         'conversation': conversation,
         'message_days': message_days,
         'other_user': other_user
+    })
+"""
+@login_required
+def chat_message(request):
+    user_ids = request.GET.get('users', '').split(',')
+    if not user_ids:
+        return redirect('users:user-list')
+
+    try:
+        user_ids = [uuid.UUID(user_id) for user_id in user_ids]
+    except ValueError:
+        return redirect('users:user-list')
+
+    other_users = UserProfile.objects.filter(profile_id__in=user_ids).values_list('user', flat=True)
+    if not other_users:
+        return redirect('users:user-list')
+
+    other_users = User.objects.filter(id__in=other_users)
+    if not other_users.exists():
+        return redirect('users:user-list')
+
+    # Get or create a conversation involving the current user and the selected users
+    conversation = Conversation.objects.filter(participants=request.user).filter(participants__in=other_users).distinct().first()
+
+    if not conversation:
+        conversation = Conversation.objects.create()
+        conversation.participants.add(request.user)
+        for user in other_users:
+            conversation.participants.add(user)
+
+    messages = conversation.messages.all().order_by('timestamp')
+
+    # Group messages by day
+    message_days = [
+        {
+            'day': date,
+            'messages': list(messages_for_day)
+        }
+        for date, messages_for_day in groupby(messages, key=lambda x: x.timestamp.date())
+    ]
+
+    return render(request, 'users/chat_message.html', {
+        'conversation': conversation,
+        'message_days': message_days,
+        'other_users': other_users
     })
 
 @login_required

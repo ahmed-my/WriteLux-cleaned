@@ -42,14 +42,26 @@
                     {{ profile_form.last_name }}
                 </div>
                 <div class="form-group">
+                    <label for="bio">Bio:</label>
+                    {{ profile_form.bio.errors }}
+                    {{ profile_form.bio }}
+                </div>
+                <div class="form-group">
                     <label for="email">Email:</label>
                     {{ profile_form.email.errors }}
                     {{ profile_form.email }}
                 </div>
+                <!--
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" value="{{ user.email }}" disabled>
+                </div>
+                -->
                 <div class="form-group">
                     <input type="submit" value="Save changes" class="btn btn-primary">
                 </div>
             </form>
+            <p><a href="{% url 'users:user_profile' %}" class="back-to-user-profile">Back to User Profile</a></p>
         </div>
     </div>
 </body>

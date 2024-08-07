@@ -9,24 +9,32 @@
 </head>
 <body>
     <div class="container">
-        <h1>User Lists</h1>
-        <ul class="user-list">
-            {% for user in users %}
-                <li class="user-item">
-                    <a href="{% url 'users:profile_detail' profile_id=user.profile_id %}">
-                        {% if user.profile_image %}
-                            <img src="{{ user.profile_image.url }}" alt="{{ user.user.username }}'s profile picture" class="profile-picture">
-                        {% else %}
-                            <img src="{% static 'default-profile.png' %}" alt="Default profile picture" class="profile-picture">
-                        {% endif %}
-                        <span class="username">{{ user.user.username }}</span>
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-
-        <p><a href="{% url 'dashboard' %}" class="back-to-dashboard">Back to Dashboard</a></p>
-
+        <h2>Check User Profile/Select checkbox to Chat User</h2>
+        <input type="text" id="search-input" placeholder="Search by username or email...">
+        <form id="user-list-form">
+            <button type="button" id="chat-button">Chat</button>
+            <a href="{% url 'dashboard' %}" class="back-to-dashboard">Back to Dashboard</a>
+            <ul class="user-list">
+                {% for user in users %}
+                    <li class="user-item">
+                        <div class="user-details">
+                            <a href="{% url 'users:profile_detail' profile_id=user.profile_id %}" class="user-details">
+                                {% if user.profile_image %}
+                                    <img src="{{ user.profile_image.url }}" alt="{{ user.user.username }}'s profile picture" class="profile-picture">
+                                {% else %}
+                                    <img src="{% static 'default-profile.png' %}" alt="Default profile picture" class="profile-picture">
+                                {% endif %}
+                                <span class="username">{{ user.user.username }}</span>
+                                <span class="email" style="display: none;">{{ user.user.email }}</span>
+                            </a>
+                        </div>
+                        <input type="checkbox" class="user-checkbox" name="user" value="{{ user.profile_id }}">
+                    </li>
+                {% endfor %}
+            </ul>
+            <p id="no-results-message" style="display: none;">No users found.</p>
+        </form>
+        
         {% if is_paginated %}
             <div class="pagination">
                 <span class="step-links">
@@ -47,5 +55,45 @@
             </div>
         {% endif %}
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#chat-button').on('click', function() {
+                var selectedUsers = [];
+                $('.user-checkbox:checked').each(function() {
+                    selectedUsers.push($(this).val());
+                });
+
+                if (selectedUsers.length > 0) {
+                    var userIds = selectedUsers.join(',');
+                    window.location.href = '{% url "users:chat_message" %}?users=' + userIds;
+                } else {
+                    alert('Please select at least one user to chat with.');
+                }
+            });
+
+            $('#search-input').on('input', function() {
+                var query = $(this).val().toLowerCase();
+                var noResults = true;
+                $('.user-item').each(function() {
+                    var username = $(this).find('.username').text().toLowerCase();
+                    var email = $(this).find('.email').text().toLowerCase();
+                    if (username.includes(query) || email.includes(query)) {
+                        $(this).show();
+                        noResults = false;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+
+                if (noResults) {
+                    $('#no-results-message').show();
+                } else {
+                    $('#no-results-message').hide();
+                }
+            });
+        });
+    </script>
 </body>
 </html>

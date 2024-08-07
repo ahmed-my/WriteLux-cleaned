@@ -21,9 +21,8 @@ urlpatterns = [
     path('portfolio/', portfolio_view, name='portfolio'),
     path('portfolio/upload/', upload_image, name='upload_image'),
     path('portfolio/<slug:slug>/', profile_portfolio, name='user_portfolio'),
-    path('profile/', user_profile, name='user_profile'),
-    path('users/', UserListView.as_view(), name='user-list'),
 
+    path('profile/', user_profile, name='user_profile'),
     path('profiles/', user_profile_list, name='user_profile_list'),
     path('profiles/<uuid:profile_id>/', profile_detail, name='profile_detail'),
     path('profile/edit/', edit_profile, name='edit_profile'),
@@ -32,18 +31,21 @@ urlpatterns = [
     path('password_reset/done/', CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
     path('reset/<uidb64>/<token>/', CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
     path('reset/done/', CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
-
     path('password_reset/resend/', resend_password_reset_email, name='resend_password_reset_email'),
 
     # 02-08-2024 add the paths for the new views.
+    path('users/', UserListView.as_view(), name='user-list'),
+    path('users/<uuid:profile_id>/', profile_detail, name='profile_detail'),
+    path('chat/', chat_message, name='chat_message'),
+    path('send-message-ajax/', send_message_ajax, name='send_message_ajax'),
+    path('delete_chat/', delete_chat, name='delete_chat'),
+
     path('chat/<int:user_id>/', chat_message, name='chat_message'),
+
     path('send_message_form/', send_message_form, name='send_message_form'),
-    path('send_message_ajax/', send_message_ajax, name='send_message_ajax'),
     path('inbox/', inbox, name='inbox'),
     path('message/<int:pk>/', message_detail, name='message_detail'),
     path('message/<int:pk>/delete/', delete_message, name='delete_message'),
-
-    path('delete_chat/', delete_chat, name='delete_chat'),
 
     # 03-08-2024
     path('message/<int:pk>/reply/', reply_message, name='reply_message'), # to reply a sender
