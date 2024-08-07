@@ -16,27 +16,27 @@
         <button type="submit">Search</button>
     </form>
     <div class="custom-style">
-        <h1 class="text-animation">Welcome {{ user.first_name }} to WriteLux</h1>
+        <h1 class="text-animation">Welcome {{ user.username }} to WriteLux</h1>
+        <div class="post-actions">
+            <button type="button" id="create-post-btn" class="btn btn-primary">Create</button>
+            <button type="button" id="read-post-btn" class="btn btn-info">Read</button>
+            <button type="button" id="update-post-btn" class="btn btn-warning">Update</button>
+            <button type="button" id="delete-post-btn" class="btn btn-danger">Delete</button>
+        </div>
 
         <!-- Grid format for posts -->
         <div class="post-grid">
             {% for post in posts %}
                 <div class="post-item">
                     <input type="checkbox" name="post" value="{{ post.pk }}" class="post-checkbox">
-                    <a href="{% url 'posts:post_detail' pk=post.pk %}" class="post-title">{{ post.title }}</a>
+                    {{ post.title }}
+                    <!-- <a href="{% url 'posts:post_detail' pk=post.pk %}" class="post-title">{{ post.title }}</a> -->
                 </div>
             {% empty %}
                 <div class="post-item">
                     <p>You have no posts yet. <a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></p>
                 </div>
             {% endfor %}
-        </div>
-
-        <div class="post-actions">
-            <button type="button" id="create-post-btn" class="btn btn-primary">Create</button>
-            <button type="button" id="read-post-btn" class="btn btn-info">Read</button>
-            <button type="button" id="update-post-btn" class="btn btn-warning">Update</button>
-            <button type="button" id="delete-post-btn" class="btn btn-danger">Delete</button>
         </div>
     </div>
     <p>&nbsp;</p>
@@ -51,7 +51,7 @@
     <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
     <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
-    <p><a href="{% url 'generate_profile_url' %}"><b>Generate Profile URL</b></a></p>
+    <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
     <p>&nbsp;</p> <!-- leave empty space -->
 {% endblock %}
 
@@ -65,5 +65,84 @@
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="{% static 'js/dashboard.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.post-checkbox');
+        const createBtn = document.getElementById('create-post-btn');
+        const readBtn = document.getElementById('read-post-btn');
+        const updateBtn = document.getElementById('update-post-btn');
+        const deleteBtn = document.getElementById('delete-post-btn');
+        const selectAll = document.getElementById('select-all');
+    
+        // Select/Deselect all checkboxes
+        if (selectAll) {
+            selectAll.addEventListener('change', function () {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectAll.checked;
+                });
+            });
+        }
+    
+        // Handle create operation (no need for selected posts)
+        if (createBtn) {
+            createBtn.addEventListener('click', function () {
+                window.location.href = "{% url 'posts:post_create' %}";
+            });
+        }
+    
+        // Handle read, update operations
+        [readBtn, updateBtn].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', function () {
+                    const selected = document.querySelectorAll('.post-checkbox:checked');
+                    if (selected.length !== 1) {
+                        alert('Please select exactly one post for this action.');
+                        return;
+                    }
+                    const postId = selected[0].value;
+                    if (btn === readBtn) {
+                        window.location.href = `{% url 'posts:post_detail' pk=0 %}`.replace('0', postId);
+                    } else if (btn === updateBtn) {
+                        window.location.href = `{% url 'posts:post_update' pk=0 %}`.replace('0', postId);
+                    }
+                });
+            }
+        });
+    
+        // Delete multiple posts
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function () {
+                const selected = document.querySelectorAll('.post-checkbox:checked');
+                if (selected.length === 0) {
+                    alert('Please select at least one post to delete.');
+                    return;
+                }
+                if (confirm('Are you sure you want to delete the selected posts?')) {
+                    const ids = Array.from(selected).map(checkbox => checkbox.value);
+                    const url = `{% url 'posts:post_delete' pk=0 %}`.replace('0', ids.join(','));
+                    fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids })
+                    }).then(response => {
+                        if (response.ok) {
+                            ids.forEach(id => {
+                                const row = document.querySelector(`.post-item input[value='${id}']`).closest('.post-item');
+                                if (row) row.remove();
+                            });
+                        } else {
+                            alert('Failed to delete posts.');
+                        }
+                    }).catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting posts.');
+                    });
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}

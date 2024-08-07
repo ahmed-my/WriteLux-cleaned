@@ -145,7 +145,9 @@ class PostUpdateView(UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['courses'] = Course.objects.all()
+        print("Debug URL: ", reverse('posts:post_update', kwargs={'pk': self.object.pk}))  # Add debug statement
         return context
+
 
 class PostDeleteView(DeleteView):
     model = Post
@@ -160,7 +162,11 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['posts'] = Post.objects.all()
+        context['courses'] = Course.objects.all()
+        context['lessons'] = Lesson.objects.all()
         return context
+    
+    
 
 post_list = PostListView.as_view()
 post_create = PostCreateView.as_view()
