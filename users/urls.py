@@ -19,13 +19,13 @@ urlpatterns = [
     path('logout/', logout_user, name='logout_user'),
 
     # Portfolio
-    path('portfolio/', portfolio_view, name='portfolio'),
-    path('portfolio/delete-folders/', delete_folders, name='delete_folders'),
     path('portfolio/upload/', upload_image, name='upload_image'),
-    path('portfolio/add-folder/', add_folder, name='add_folder'), # Add-folder moved above
+    path('portfolio/add-folder/', add_folder, name='add_folder'),
     path('portfolio/rename-folder/', rename_folder, name='rename_folder'),
+    path('portfolio/delete-folders/', delete_folders, name='delete_folders'),
     path('portfolio/folder/<int:folder_id>/', folder_detail_view, name='folder_detail'), # Specific folder view
     path('portfolio/<slug:slug>/', profile_portfolio, name='profile_portfolio'), # Profile portfolio with slug
+    path('portfolio/', portfolio_view, name='portfolio'), # General portfolio view
 
     # User Profile
     path('profile/', user_profile, name='user_profile'),
