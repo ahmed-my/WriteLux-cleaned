@@ -4,11 +4,22 @@ from django.contrib.auth.models import User
 from django.utils.text import slugify
 import uuid
 
+    
+# creating folders for portfolio images 09-08-2024
+class Folder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name
+    
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='portfolio_images/')
-    description = models.TextField(blank=True, null=True)
+    image = models.ImageField(upload_to='portfolio/')
+    description = models.TextField(blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
 
     def __str__(self):
         return f"{self.user.username}'s portfolio image"
@@ -53,4 +64,4 @@ class Message(models.Model):
 
     def __str__(self):
         return f'From {self.sender} to {self.recipient}'
-    
+        

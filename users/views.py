@@ -17,10 +17,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseForbidden # to implement chat 04-08-2024
+from django.http import JsonResponse, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
-from .models import UserProfile, Portfolio, Message, Conversation, User # message added 02-08-2024
+from .models import UserProfile, Portfolio, Message, Conversation, User, Folder # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 from itertools import groupby
@@ -132,10 +132,87 @@ def logout_user(request):
 
 @login_required
 def portfolio_view(request):
+    folders = Folder.objects.filter(user=request.user)  # 09-08-2024
     portfolio = Portfolio.objects.filter(user=request.user)
-    context = {'portfolio': portfolio}
+    context = {
+        'portfolio': portfolio,
+        'folders': folders
+    }
     return render(request, 'portfolio/portfolio.html', context)
 
+"""
+def folder_detail_view(request, folder_id):
+    folder = get_object_or_404(Folder, id=folder_id)
+    portfolio_images = Portfolio.objects.filter(folder=folder)
+    context = {
+        'folder': folder,
+        'portfolio_images': portfolio_images,
+    }
+    return render(request, 'portfolio/folder_detail.html', context)
+"""
+
+def folder_detail_view(request, folder_id=None): # 09-08-2024
+    if folder_id:
+        folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+        images = Portfolio.objects.filter(folder=folder)
+        title = folder.name
+    else:
+        folder = None
+        images = Portfolio.objects.filter(user=request.user, folder__isnull=True)
+        title = "Portfolio"
+    
+    context = {
+        'folder': folder,
+        'images': images,
+        'title': title,
+    }
+    return render(request, 'portfolio/portfolio.html', context)
+
+def add_folder(request): # 09-08-2024
+    if request.method == 'POST':
+        folder_name = request.POST.get('folder_name')
+        if folder_name:  # Make sure the folder name is not empty
+            Folder.objects.create(user=request.user, name=folder_name)
+            return redirect('users:portfolio')  # Redirect to the portfolio page after adding
+    return render(request, 'portfolio/add_folder.html')
+
+@login_required # 09-08-2024 renaming of a folder
+def rename_folder(request):
+    if request.method == 'POST':
+        folder_id = request.POST.get('folder_id')
+        new_name = request.POST.get('new_name')
+        
+        if not folder_id or not new_name:
+            return HttpResponseBadRequest("Invalid request parameters.")
+        
+        folder = Folder.objects.filter(id=folder_id, user=request.user).first()
+        if folder:
+            folder.name = new_name
+            folder.save()
+    return redirect('users:portfolio')
+
+@login_required # 09-08-2024 delete a folder
+def delete_folders(request):
+    if request.method == 'POST':
+        folder_ids = request.POST.getlist('folders')
+        if folder_ids:
+            Folder.objects.filter(id__in=folder_ids, user=request.user).delete()
+    return redirect('portfolio')
+
+@login_required
+def profile_portfolio(request, slug):
+    print(f"Slug received: {slug}")
+    profile = get_object_or_404(UserProfile, slug=slug)
+    print(f"Profile found: {profile}")
+
+    portfolio_images = Portfolio.objects.filter(user=profile.user)
+    context = {
+        'profile': profile,
+        'portfolio_images': portfolio_images,
+    }
+    return render(request, 'users/profile_portfolio.html', context)
+
+"""
 @login_required
 def profile_portfolio(request, slug):
     profile = get_object_or_404(UserProfile, slug=slug)
@@ -145,18 +222,20 @@ def profile_portfolio(request, slug):
         'portfolio_images': portfolio_images,
     }
     return render(request, 'users/profile_portfolio.html', context)
+"""
 
 @login_required
 def upload_image(request):
     if request.method == 'POST':
-        form = PortfolioForm(request.POST, request.FILES)
+        form = PortfolioForm(request.POST, request.FILES, user=request.user) # added user=request.user
         if form.is_valid():
             portfolio_image = form.save(commit=False)
             portfolio_image.user = request.user
             portfolio_image.save()
-            return redirect('dashboard')
+            return redirect('dashboard')  # or wherever you want to redirect after upload
     else:
-        form = PortfolioForm()
+        form = PortfolioForm(user=request.user)
+    
     return render(request, 'portfolio/upload_image.html', {'form': form})
 
 @login_required
@@ -222,42 +301,6 @@ def edit_profile(request):
         'user': user,
     })
 
-"""
-@login_required
-def chat_message(request, user_id):
-    other_user = get_object_or_404(User, id=user_id)
-    conversation = Conversation.objects.filter(participants=request.user).filter(participants=other_user).first()
-    
-    if not conversation:
-        conversation = Conversation.objects.create()
-        conversation.participants.add(request.user, other_user)
-
-    messages = conversation.messages.all()
-
-    # Group messages by day
-    message_days = []
-    current_day = None
-    current_messages = []
-    
-    for message in messages:
-        message_day = message.timestamp.date()
-        if message_day != current_day:
-            if current_day is not None:
-                message_days.append({'day': current_day, 'messages': current_messages})
-            current_day = message_day
-            current_messages = [message]
-        else:
-            current_messages.append(message)
-    
-    if current_day is not None:
-        message_days.append({'day': current_day, 'messages': current_messages})
-
-    return render(request, 'users/chat_message.html', {
-        'conversation': conversation,
-        'message_days': message_days,
-        'other_user': other_user
-    })
-"""
 @login_required
 def chat_message(request):
     user_ids = request.GET.get('users', '').split(',')

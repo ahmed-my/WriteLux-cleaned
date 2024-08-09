@@ -4,22 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
-    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css-style/portfolio.css' %}">
 </head>
 <body>
     <div class="container">
-        <div class="portfolio-section">
-            <h2>Portfolio</h2>
-            <div class="portfolio-grid">
-                {% for image in portfolio %}
-                    <div class="portfolio-item">
-                        <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
-                        <p>{{ image.description }}</p>
+        <h2>{{ title }}</h2>
+
+        <!-- Folder Deletion -->
+        <form method="post" action="{% url 'users:delete_folders' %}">
+            {% csrf_token %}
+            <div class="folder-checkboxes">
+                {% for folder in folders %}
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}">
+                        <label class="form-check-label" for="folder-{{ folder.id }}">{{ folder.name }}</label>
                     </div>
                 {% endfor %}
             </div>
-        </div>
+            <button type="submit" class="btn btn-danger">Delete Selected Folders</button>
+        </form>
+
+        <!-- Folder Renaming -->
+        <form method="post" action="{% url 'users:rename_folder' %}">
+            {% csrf_token %}
+            <h3>Rename Folder</h3>
+            <div class="form-group">
+                <label for="folder_id">Select Folder:</label>
+                <select id="folder_id" name="folder_id" class="form-control">
+                    {% for folder in folders %}
+                        <option value="{{ folder.id }}">{{ folder.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="new_name">New Folder Name:</label>
+                <input type="text" id="new_name" name="new_name" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Rename Folder</button>
+        </form>
     </div>
 </body>
 </html>

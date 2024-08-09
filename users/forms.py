@@ -1,6 +1,6 @@
 # users/forms.py
 from django import forms
-from .models import Portfolio, UserProfile, Message # 02-08-2024
+from .models import Portfolio, UserProfile, Message, Folder # 02-08-2024
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .email_utils import send_registration_confirmation_email
@@ -116,24 +116,20 @@ class MessageForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
-"""
-class MessageForm(forms.ModelForm):
-    class Meta:
-        model = Message
-        fields = ['recipient', 'subject', 'body'] # include recipient for sending
-        widgets = {
-            'recipient': forms.Select(attrs={'class': 'form-control'}),
-            'subject': forms.TextInput(attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control'}),
-        }
-"""
-
 class ReplyMessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['subject', 'body']  # Exclude recipient for replies
 
 class PortfolioForm(forms.ModelForm):
+    folder = forms.ModelChoiceField(queryset=Folder.objects.none(), required=False, label="Select Folder") # 9-08-2024
+
     class Meta:
         model = Portfolio
-        fields = ['image', 'description']
+        fields = ['image', 'description', 'folder']
+
+    def __init__(self, *args, **kwargs): # 09-08-2024
+        user = kwargs.pop('user', None)
+        super(PortfolioForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['folder'].queryset = Folder.objects.filter(user=user)
