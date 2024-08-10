@@ -3,16 +3,41 @@
 <html>
 <head>
     <title>Send Message</title>
-    <link rel="stylesheet" href="{% static 'css-style/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/send-message.css' %}">
+    <!-- Include Select2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <!-- Custom CSS for the form -->
 </head>
 <body>
-    <div class="container">
+    <div class="form-container">
         <h1>Send Message</h1>
         <form method="post">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit" class="btn btn-primary">Send</button>
+            <label for="recipient">Recipient:</label>
+            <select id="recipient" name="recipient">
+                <option value="" selected disabled>Select a recipient</option>
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject">
+            <label for="body">Body:</label>
+            <textarea id="body" name="body" rows="5"></textarea>
+            <button type="submit">Send</button>
         </form>
     </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#recipient').select2();
+        });
+    </script>
 </body>
 </html>

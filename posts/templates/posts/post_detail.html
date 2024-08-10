@@ -9,18 +9,23 @@
 {% endblock %}
 
 {% block content1 %}
-    <h2>Dashboard Area:</h2>
-    <ul>
-        {% for post in posts %}
-            <li>
-                {{ post.title }}
-                <p>
-                    <a href="{% url 'post_create' %}">Create</a> |
-                    <a href="{% url 'post_detail' pk=post.pk %}">Read</a> | 
-                    <a href="{% url 'post_update' pk=post.pk %}">Update</a> | 
-                    <a href="{% url 'post_delete' pk=post.pk %}">Delete</a>
-                </p>
-            </li>
+    <h2 class="section-title">Amazing Content</h2>
+    <div class="courses">
+        {% for course in courses %}
+            <article class="course-item">
+                <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+            </article>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}
+
+{% block content2 %}
+    <h2 class="section-title">Business Plan</h2>
+    <div class="lessons">
+        {% for lesson in lessons %}
+            <article class="lesson-item">
+                <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock  %}

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Detail</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}" alt="Profile Image" class="profile-image">
+            {% else %}
+                <img src="{% static 'default-profile.png' %}" alt="Default Profile Image" class="profile-image">
+            {% endif %}
+            <div class="profile-details">
+                <h1>{{ profile.user.username }}</h1>
+                <p>ID: {{ profile.profile_id }}</p>
+                <p>Bio: {{ profile.bio }}</p>
+            </div>
+        </div>
+        <div class="container">
+            <div class="portfolio-section">
+                <h2 class="text-left">{{ title }} Portfolio</h2>
+                <div class="portfolio-grid">
+                    {% for image in images %}
+                        <div class="portfolio-item">
+                            <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
+                            <p>{{ image.description }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

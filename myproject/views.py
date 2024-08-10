@@ -115,3 +115,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+
+@login_required
+def generate_portfolio_url(request):
+    return render(request, 'generate_url.html')

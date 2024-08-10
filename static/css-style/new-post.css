@@ -1,0 +1,91 @@
+/* css-style/new-post.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.new-post-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    width: 100%;
+    text-align: left;
+}
+
+.form-group label {
+    font-size: 1rem;
+    margin-right: 10px;
+    width: 20%;
+    text-align: right;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="file"],
+.form-group textarea,
+.form-group .tox-tinymce {
+    width: 75%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.form-errors {
+    background-color: #ffe6e6;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: left;
+}
+
+.error-message {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.form-submit {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: center;
+}
+
+.form-submit:hover {
+    background-color: #0056b3;
+}

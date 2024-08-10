@@ -1,12 +1,11 @@
 # users/forms.py
 from django import forms
-from .models import Message # 02-08-2024
+from .models import Portfolio, UserProfile, Message, Folder # 02-08-2024
 from django.contrib.auth.models import User
-from .models import UserProfile
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .email_utils import send_registration_confirmation_email
 
-class UserRegistrationForm(UserCreationForm):
+class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
     email = forms.EmailField(required=True, help_text='', label='Email Address',
                              widget=forms.EmailInput(attrs={'class': 'custom-class'}))
 
@@ -38,15 +37,40 @@ class UserRegistrationForm(UserCreationForm):
             print("Email function called.")
         return user
 
+class UserAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=254,
+        widget=forms.TextInput(attrs={'placeholder': 'Username'}),
+        error_messages={
+            'required': 'Please enter your username.',
+            'invalid': 'Invalid username format.',
+        }
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password'}),
+        error_messages={
+            'required': 'Please enter your password.',
+            'invalid': 'Invalid password format.',
+        }
+    )
+
+    def confirm_login_allowed(self, user):
+        if not user.is_active:
+            raise forms.ValidationError(
+                'This account is inactive.',
+                code='inactive',
+            )
+
 class UserProfileForm(forms.ModelForm):
     username = forms.CharField(max_length=150, required=True)
     first_name = forms.CharField(max_length=30, required=True)
     last_name = forms.CharField(max_length=30, required=True)
+    bio = forms.CharField(max_length=150, required=True)
     email = forms.EmailField(required=True)
 
     class Meta:
         model = UserProfile
-        fields = ['profile_image']
+        fields = ['username', 'first_name', 'last_name', 'email', 'bio', 'profile_image']
 
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
@@ -55,6 +79,7 @@ class UserProfileForm(forms.ModelForm):
             self.fields['username'].initial = user.username
             self.fields['first_name'].initial = user.first_name
             self.fields['last_name'].initial = user.last_name
+            self.fields['bio'].initial = user.bio
             self.fields['email'].initial = user.email
 
     def clean_username(self):
@@ -74,18 +99,37 @@ class UserProfileForm(forms.ModelForm):
         user.username = self.cleaned_data['username']
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
+        user.bio = self.cleaned_data['bio']
         user.email = self.cleaned_data['email']
         user.save()
         return super(UserProfileForm, self).save(commit=commit)
 
 # 02-08-2024
 class MessageForm(forms.ModelForm):
+    recipient_id = forms.IntegerField(widget=forms.HiddenInput)  # Hidden input for recipient_id
+
     class Meta:
         model = Message
-        fields = ['recipient', 'subject', 'body']
+        fields = ['subject', 'body', 'recipient_id']  # Add recipient_id to the fields
         widgets = {
-            'recipient': forms.Select(attrs={'class': 'form-control'}),
             'subject': forms.TextInput(attrs={'class': 'form-control'}),
             'body': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
+class ReplyMessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['subject', 'body']  # Exclude recipient for replies
+
+class PortfolioForm(forms.ModelForm):
+    folder = forms.ModelChoiceField(queryset=Folder.objects.none(), required=False, label="Select Folder") # 9-08-2024
+
+    class Meta:
+        model = Portfolio
+        fields = ['image', 'description', 'folder']
+
+    def __init__(self, *args, **kwargs): # 09-08-2024
+        user = kwargs.pop('user', None)
+        super(PortfolioForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['folder'].queryset = Folder.objects.filter(user=user)

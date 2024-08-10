@@ -5,6 +5,10 @@
     Dashboard
 {% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
 {% block content %}
     <!-- Search form -->
     <form action="{% url 'posts:search' %}" method="get">
@@ -12,16 +16,29 @@
         <button type="submit">Search</button>
     </form>
     <div class="custom-style">
-        <h1 class="text-animation">WriteLux Posts by {{ user.username }}</h1>
-        <ul id="post-list">
+        <h1 class="text-animation">Welcome {{ user.username }} to WriteLux</h1>
+        <div class="post-actions">
+            <button type="button" id="create-post-btn" class="btn btn-primary">Create</button>
+            <button type="button" id="read-post-btn" class="btn btn-info">Read</button>
+            <button type="button" id="update-post-btn" class="btn btn-warning">Update</button>
+            <button type="button" id="delete-post-btn" class="btn btn-danger">Delete</button>
+        </div>
+        <p>&nbsp;</p>
+        <h2>Select from your posts below and use buttons above to read, update or delete post</h2>
+        <!-- Grid format for posts -->
+        <div class="post-grid">
             {% for post in posts %}
-                <li id="post-{{ post.pk }}">
+                <div class="post-item">
+                    <input type="checkbox" name="post" value="{{ post.pk }}" class="post-checkbox">
                     {{ post.title }}
-                </li>
+                    <!-- <a href="{% url 'posts:post_detail' pk=post.pk %}" class="post-title">{{ post.title }}</a> -->
+                </div>
             {% empty %}
-                <li>You have no posts yet.<a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></li>
+                <div class="post-item">
+                    <p>You have no posts yet. <a href="{% url 'posts:new_post' %}"><b>Create Post</b></a></p>
+                </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
     <p>&nbsp;</p>
     <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
@@ -31,23 +48,12 @@
     <h2>Dashboard Area:</h2>
     <a href="{% url 'users:upload_image' %}" class="btn btn-primary">Upload Image To Your Portfolio</a>
     <p><a href="{% url 'users:user_profile' %}"><b>View Profile</b></a></p>
-    <p><a href="{% url 'users:portfolio' %}"><b>View Portfolio</b></a></p>
-    <p><a href="{% url 'users:send_message' %}"><b>Send Message</b></a></p>
+    <p><a href="{% url 'users:portfolio' %}"><b>Portfolio Folder</b></a></p>
+    <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
+    <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
+    <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
     <p>&nbsp;</p> <!-- leave empty space -->
-    <ul class="dashboard-list">
-        {% for post in posts %}
-            <li id="dashboard-post-{{ post.pk }}">
-                {{ post.title }}
-                <p class="crud-links">
-                    <a href="{% url 'posts:post_create' %}">Create</a> |
-                    <a href="{% url 'posts:post_detail' pk=post.pk %}">Read</a> | 
-                    <a href="{% url 'posts:post_update' pk=post.pk %}">Update</a> | 
-                    <a href="#" class="delete-link" data-url="{% url 'posts:post_delete' pk=post.pk %}" data-post-id="{{ post.pk }}">Delete</a>
-                </p>
-            </li>
-        {% endfor %}
-    </ul>
 {% endblock %}
 
 {% block content2 %}
@@ -61,6 +67,83 @@
 
 {% block extra_scripts %}
 <script>
-    src="{% static 'js/deletePost.js' %}"
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkboxes = document.querySelectorAll('.post-checkbox');
+        const createBtn = document.getElementById('create-post-btn');
+        const readBtn = document.getElementById('read-post-btn');
+        const updateBtn = document.getElementById('update-post-btn');
+        const deleteBtn = document.getElementById('delete-post-btn');
+        const selectAll = document.getElementById('select-all');
+    
+        // Select/Deselect all checkboxes
+        if (selectAll) {
+            selectAll.addEventListener('change', function () {
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectAll.checked;
+                });
+            });
+        }
+    
+        // Handle create operation (no need for selected posts)
+        if (createBtn) {
+            createBtn.addEventListener('click', function () {
+                window.location.href = "{% url 'posts:post_create' %}";
+            });
+        }
+    
+        // Handle read, update operations
+        [readBtn, updateBtn].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', function () {
+                    const selected = document.querySelectorAll('.post-checkbox:checked');
+                    if (selected.length !== 1) {
+                        alert('Please select exactly one post for this action.');
+                        return;
+                    }
+                    const postId = selected[0].value;
+                    if (btn === readBtn) {
+                        window.location.href = `{% url 'posts:post_detail' pk=0 %}`.replace('0', postId);
+                    } else if (btn === updateBtn) {
+                        window.location.href = `{% url 'posts:post_update' pk=0 %}`.replace('0', postId);
+                    }
+                });
+            }
+        });
+    
+        // Delete multiple posts
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', function () {
+                const selected = document.querySelectorAll('.post-checkbox:checked');
+                if (selected.length === 0) {
+                    alert('Please select at least one post to delete.');
+                    return;
+                }
+                if (confirm('Are you sure you want to delete the selected posts?')) {
+                    const ids = Array.from(selected).map(checkbox => checkbox.value);
+                    const url = `{% url 'posts:post_delete' pk=0 %}`.replace('0', ids.join(','));
+                    fetch(url, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ ids })
+                    }).then(response => {
+                        if (response.ok) {
+                            ids.forEach(id => {
+                                const row = document.querySelector(`.post-item input[value='${id}']`).closest('.post-item');
+                                if (row) row.remove();
+                            });
+                        } else {
+                            alert('Failed to delete posts.');
+                        }
+                    }).catch(error => {
+                        console.error('Error:', error);
+                        alert('An error occurred while deleting posts.');
+                    });
+                }
+            });
+        }
+    });
 </script>
 {% endblock %}
