@@ -142,7 +142,7 @@
                 if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
                     var profileId = '{{ user.userprofile.profile_id }}';
-                    var generatedUrl = '{{ request.build_absolute_uri }}portfolio/' + profileId + '/folder/' + folderId + '/';
+                    var generatedUrl = '{{ request.build_absolute_uri }}' + profileId + 'folder/' + folderId + '/';
                     $('#generated_url').val(generatedUrl);
                     $('#generateUrlModal').modal('show');
                 } else {
