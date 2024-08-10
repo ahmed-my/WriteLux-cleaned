@@ -215,7 +215,7 @@ def folder_detail_view(request, profile_id, folder_id):
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-
+"""
 @login_required
 def add_folder(request):
     if request.method == 'POST':
@@ -226,6 +226,7 @@ def add_folder(request):
             Folder.objects.create(name=folder_name, user_profile=user_profile)
         
     return redirect('users:portfolio')
+"""
 
 """
 @login_required # tested ok under
@@ -236,6 +237,7 @@ def add_folder(request):
             Folder.objects.create(name=folder_name, user=request.user)
     return redirect('users:portfolio')
 
+"""
 @login_required # tested ok under review
 def add_folder(request): # 09-08-2024
     if request.method == 'POST':
@@ -244,7 +246,6 @@ def add_folder(request): # 09-08-2024
             Folder.objects.create(user=request.user, name=folder_name)
             return redirect('users:portfolio')  # Redirect to the portfolio page after adding
     return render(request, 'portfolio/add_folder.html')
-"""
 
 @login_required # 09-08-2024 renaming of a folder
 def rename_folder(request):
