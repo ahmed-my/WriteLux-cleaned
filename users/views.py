@@ -213,7 +213,7 @@ def folder_detail_view(request, profile_id, folder_id):
         'images': images,
         'title': folder.name,
     }
-    return render(request, 'portfolio/portfolio.html', context)
+    return render(request, 'portfolio/folder_detail.html', context)
 
 
 @login_required
