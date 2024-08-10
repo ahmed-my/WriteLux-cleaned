@@ -13,28 +13,61 @@
         <h2 class="text-center">{{ title }}</h2>
         
         <!-- Folder Actions -->
-            <form id="folder-actions-form" method="post">
-                {% csrf_token %}
-                <div class="folder-actions">
-                    <div class="folder-checkboxes">
-                        <h3>Select Folders</h3>
-                        {% for folder in folders %}
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input folder-checkbox" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}">
-                                <label class="form-check-label" for="folder-{{ folder.id }}">
-                                    <a href="{% url 'users:folder_detail' folder.id %}">{{ folder.name }}</a>
-                                </label>
-                            </div>
-                        {% endfor %}
-                    </div>
-
-                    <div class="folder-actions-buttons mt-4">
-                        <button type="button" id="rename-folder-button" class="btn btn-primary mr-2">Rename Selected Folder</button>
-                        <button type="submit" formaction="{% url 'users:delete_folders' %}" class="btn btn-danger">Delete Selected Folders</button>
-                    </div>
+        <form id="folder-actions-form" method="post">
+            {% csrf_token %}
+            <div class="folder-actions">
+                <div class="folder-buttons mb-4">
+                    <!-- Add Folder Button -->
+                    <button type="button" id="add-folder-button" class="btn btn-success mr-2" data-toggle="modal" data-target="#addFolderModal">Add Folder</button>
+                    <!-- Rename Folder Button -->
+                    <button type="button" id="rename-folder-button" class="btn btn-primary mr-2">Rename Selected Folder</button>
+                    <!-- Delete Folder Button -->
+                    <button type="submit" formaction="{% url 'users:delete_folders' %}" class="btn btn-danger mr-2">Delete Selected Folders</button>
+                    <!-- Generate Portfolio Folder URL Button -->
+                    <button type="button" id="generate-url-button" class="btn btn-info">Generate Folder URL</button>
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary">Back to dashboard</a>
                 </div>
-            </form>
 
+                <div class="folder-checkboxes">
+                    <h3>Select Folders</h3>
+                    {% for folder in folders %}
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input folder-checkbox" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}">
+                            <label class="form-check-label" for="folder-{{ folder.id }}">
+                                <a href="{% url 'users:folder_detail' user.userprofile.profile_id folder.id %}">{{ folder.name }}</a>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+
+        <!-- Add Folder Modal -->
+        <div class="modal fade" id="addFolderModal" tabindex="-1" role="dialog" aria-labelledby="addFolderModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{% url 'users:add_folder' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addFolderModalLabel">Add New Folder</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="folder_name">Folder Name:</label>
+                                <input type="text" id="folder_name" name="folder_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Folder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
         <!-- Rename Folder Modal -->
         <div class="modal fade" id="renameFolderModal" tabindex="-1" role="dialog" aria-labelledby="renameFolderModalLabel" aria-hidden="true">
@@ -63,6 +96,26 @@
                 </div>
             </div>
         </div>
+
+        <!-- Generate URL Modal -->
+        <div class="modal fade" id="generateUrlModal" tabindex="-1" role="dialog" aria-labelledby="generateUrlModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="generateUrlModalLabel">Folder URL</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" id="generated_url" class="form-control" readonly>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS -->
@@ -80,6 +133,20 @@
                     $('#renameFolderModal').modal('show');
                 } else {
                     alert('Please select a folder to rename.');
+                }
+            });
+    
+            // Generate URL button click event
+            $('#generate-url-button').click(function() {
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
+                    var folderId = selectedFolder.val();
+                    var profileId = '{{ user.userprofile.profile_id }}';
+                    var generatedUrl = '{{ request.build_absolute_uri }}portfolio/' + profileId + '/folder/' + folderId + '/';
+                    $('#generated_url').val(generatedUrl);
+                    $('#generateUrlModal').modal('show');
+                } else {
+                    alert('Please select a folder to generate the URL.');
                 }
             });
         });

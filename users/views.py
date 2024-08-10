@@ -149,7 +149,21 @@ def folder_detail_view(request, folder_id):
         'portfolio_images': portfolio_images,
     }
     return render(request, 'portfolio/folder_detail.html', context)
-"""
+
+@login_required
+def folder_detail_view(request, profile_id, folder_id):
+    user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
+    folder = get_object_or_404(Folder, id=folder_id, user_profile=user_profile)
+
+    # Fetch the images associated with this folder
+    images = folder.images.all()
+
+    context = {
+        'folder': folder,
+        'images': images,
+        'title': folder.name,
+    }
+    return render(request, 'portfolio/portfolio.html', context)
 
 @login_required
 def folder_detail_view(request, folder_id):
@@ -162,7 +176,6 @@ def folder_detail_view(request, folder_id):
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-"""
 def folder_detail_view(request, folder_id=None): # 09-08-2024
     if folder_id:
         folder = get_object_or_404(Folder, id=folder_id, user=request.user)
@@ -181,6 +194,49 @@ def folder_detail_view(request, folder_id=None): # 09-08-2024
     return render(request, 'portfolio/portfolio.html', context)
 """
 
+@login_required
+def folder_detail_view(request, profile_id, folder_id):
+    # Get the user profile based on profile_id
+    user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
+    
+    # Retrieve the user associated with the profile
+    user = user_profile.user
+    
+    # Fetch the folder using the user's id and folder_id
+    folder = get_object_or_404(Folder, id=folder_id, user=user)
+    
+    # Assuming you have a Portfolio model that links Folder to images:
+    images = Portfolio.objects.filter(folder=folder)  # Adjust as per your model structure
+
+    context = {
+        'folder': folder,
+        'images': images,
+        'title': folder.name,
+    }
+    return render(request, 'portfolio/portfolio.html', context)
+
+
+@login_required
+def add_folder(request):
+    if request.method == 'POST':
+        folder_name = request.POST.get('folder_name')
+        user_profile = get_object_or_404(UserProfile, user=request.user)
+        
+        if folder_name:
+            Folder.objects.create(name=folder_name, user_profile=user_profile)
+        
+    return redirect('users:portfolio')
+
+"""
+@login_required # tested ok under
+def add_folder(request):
+    if request.method == 'POST':
+        folder_name = request.POST.get('folder_name')
+        if folder_name:
+            Folder.objects.create(name=folder_name, user=request.user)
+    return redirect('users:portfolio')
+
+@login_required # tested ok under review
 def add_folder(request): # 09-08-2024
     if request.method == 'POST':
         folder_name = request.POST.get('folder_name')
@@ -188,6 +244,7 @@ def add_folder(request): # 09-08-2024
             Folder.objects.create(user=request.user, name=folder_name)
             return redirect('users:portfolio')  # Redirect to the portfolio page after adding
     return render(request, 'portfolio/add_folder.html')
+"""
 
 @login_required # 09-08-2024 renaming of a folder
 def rename_folder(request):
@@ -210,7 +267,7 @@ def delete_folders(request):
         folder_ids = request.POST.getlist('folders')
         if folder_ids:
             Folder.objects.filter(id__in=folder_ids, user=request.user).delete()
-    return redirect('portfolio')
+    return redirect('users:portfolio')
 
 @login_required
 def profile_portfolio(request, slug):
