@@ -25,7 +25,10 @@ urlpatterns = [
     path('portfolio/delete-folders/', delete_folders, name='delete_folders'),
 
     # Specific folder view by profile_id and folder_id
-    path('portfolio/<uuid:profile_id>/folder/<int:folder_id>/', folder_detail_view, name='folder_detail'),
+    # urls.py
+    #path('portfolio/<uuid:profile_id>/<slug:folder_name>/<int:folder_id>/', folder_detail_view, name='folder_detail'),
+    path('portfolio/<uuid:profile_id>/<str:folder_name>/<int:folder_id>/', folder_detail_view, name='folder_detail'),
+    #path('portfolio/<uuid:profile_id>/folder/<int:folder_id>/', folder_detail_view, name='folder_detail'),
 
     # General portfolio view (least specific pattern)
     path('portfolio/', portfolio_view, name='portfolio'),

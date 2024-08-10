@@ -34,7 +34,7 @@
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input folder-checkbox" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}">
                             <label class="form-check-label" for="folder-{{ folder.id }}">
-                                <a href="{% url 'users:folder_detail' user.userprofile.profile_id folder.id %}">{{ folder.name }}</a>
+                                <a href="{% url 'users:folder_detail' user.userprofile.profile_id folder.name folder.id %}">{{ folder.name }}</a>
                             </label>
                         </div>
                     {% endfor %}
@@ -141,8 +141,10 @@
                 var selectedFolder = $('.folder-checkbox:checked').first();
                 if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
+                    var folderName = selectedFolder.closest('.form-check').find('label').text().trim();  // Fetch the folder name from the label text
                     var profileId = '{{ user.userprofile.profile_id }}';
-                    var generatedUrl = '{{ request.build_absolute_uri }}' + profileId + 'folder/' + folderId + '/';
+                    var generatedUrl = '{{ request.build_absolute_uri }}' + profileId + '/' + encodeURIComponent(folderName) + '/' + folderId + '/';
+                    /* Example: http://127.0.0.1:8000/users/portfolio/ba8d4bf1-1ffb-499b-bdce-4ab77497b904/folder-name/7/ */
                     $('#generated_url').val(generatedUrl);
                     $('#generateUrlModal').modal('show');
                 } else {
@@ -151,5 +153,6 @@
             });
         });
     </script>
+    
 </body>
 </html>

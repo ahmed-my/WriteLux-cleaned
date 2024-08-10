@@ -140,60 +140,30 @@ def portfolio_view(request):
     }
     return render(request, 'portfolio/portfolio.html', context)
 
-"""
-def folder_detail_view(request, folder_id):
-    folder = get_object_or_404(Folder, id=folder_id)
-    portfolio_images = Portfolio.objects.filter(folder=folder)
-    context = {
-        'folder': folder,
-        'portfolio_images': portfolio_images,
-    }
-    return render(request, 'portfolio/folder_detail.html', context)
-
 @login_required
-def folder_detail_view(request, profile_id, folder_id):
+def folder_detail_view(request, profile_id, folder_name, folder_id):
+    # Get the user profile based on profile_id
     user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
-    folder = get_object_or_404(Folder, id=folder_id, user_profile=user_profile)
-
-    # Fetch the images associated with this folder
-    images = folder.images.all()
-
-    context = {
-        'folder': folder,
-        'images': images,
-        'title': folder.name,
-    }
-    return render(request, 'portfolio/portfolio.html', context)
-
-@login_required
-def folder_detail_view(request, folder_id):
-    folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+    
+    # Retrieve the user associated with the profile
+    user = user_profile.user
+    
+    # Fetch the folder using the user's id, folder_id, and folder_name
+    folder = get_object_or_404(Folder, id=folder_id, user=user, name=folder_name)
+    
+    # Assuming you have a Portfolio model that links Folder to images:
     images = Portfolio.objects.filter(folder=folder)
+
     context = {
+        'profile': user_profile,
         'folder': folder,
         'images': images,
         'title': folder.name,
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-def folder_detail_view(request, folder_id=None): # 09-08-2024
-    if folder_id:
-        folder = get_object_or_404(Folder, id=folder_id, user=request.user)
-        images = Portfolio.objects.filter(folder=folder)
-        title = folder.name
-    else:
-        folder = None
-        images = Portfolio.objects.filter(user=request.user, folder__isnull=True)
-        title = "Portfolio"
-    
-    context = {
-        'folder': folder,
-        'images': images,
-        'title': title,
-    }
-    return render(request, 'portfolio/portfolio.html', context)
-"""
 
+"""
 @login_required
 def folder_detail_view(request, profile_id, folder_id):
     # Get the user profile based on profile_id
@@ -214,30 +184,8 @@ def folder_detail_view(request, profile_id, folder_id):
         'title': folder.name,
     }
     return render(request, 'portfolio/folder_detail.html', context)
-
-"""
-@login_required
-def add_folder(request):
-    if request.method == 'POST':
-        folder_name = request.POST.get('folder_name')
-        user_profile = get_object_or_404(UserProfile, user=request.user)
-        
-        if folder_name:
-            Folder.objects.create(name=folder_name, user_profile=user_profile)
-        
-    return redirect('users:portfolio')
 """
 
-"""
-@login_required # tested ok under
-def add_folder(request):
-    if request.method == 'POST':
-        folder_name = request.POST.get('folder_name')
-        if folder_name:
-            Folder.objects.create(name=folder_name, user=request.user)
-    return redirect('users:portfolio')
-
-"""
 @login_required # tested ok under review
 def add_folder(request): # 09-08-2024
     if request.method == 'POST':
@@ -283,18 +231,6 @@ def profile_portfolio(request, slug):
     }
     return render(request, 'users/profile_portfolio.html', context)
 
-"""
-@login_required
-def profile_portfolio(request, slug):
-    profile = get_object_or_404(UserProfile, slug=slug)
-    portfolio_images = Portfolio.objects.filter(user=profile.user)
-    context = {
-        'profile': profile,
-        'portfolio_images': portfolio_images,
-    }
-    return render(request, 'users/profile_portfolio.html', context)
-"""
-
 @login_required
 def upload_image(request):
     if request.method == 'POST':
@@ -314,39 +250,6 @@ def upload_image(request):
         form = PortfolioForm(user=request.user)
     
     return render(request, 'portfolio/upload_image.html', {'form': form})
-
-"""
-@login_required
-def upload_image(request):
-    if request.method == 'POST':
-        form = PortfolioForm(request.POST, request.FILES, user=request.user)
-        if form.is_valid():
-            portfolio_image = form.save(commit=False)
-            portfolio_image.user = request.user
-            portfolio_image.folder = form.cleaned_data['folder']  # Ensure folder is assigned
-            portfolio_image.save()
-            return redirect('users:profile_portfolio', slug=request.user.profile.slug)  # Redirect to user's portfolio
-    else:
-        form = PortfolioForm(user=request.user)
-    
-    return render(request, 'portfolio/upload_image.html', {'form': form})
-"""
-
-"""
-@login_required
-def upload_image(request):
-    if request.method == 'POST':
-        form = PortfolioForm(request.POST, request.FILES, user=request.user) # added user=request.user
-        if form.is_valid():
-            portfolio_image = form.save(commit=False)
-            portfolio_image.user = request.user
-            portfolio_image.save()
-            return redirect('dashboard')  # or wherever you want to redirect after upload
-    else:
-        form = PortfolioForm(user=request.user)
-    
-    return render(request, 'portfolio/upload_image.html', {'form': form})
-"""
 
 @login_required
 def user_profile(request):
