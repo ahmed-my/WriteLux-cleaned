@@ -25,7 +25,6 @@ from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
-from django.views.decorators.csrf import csrf_exempt
 
 
 UserModel = get_user_model()
@@ -158,6 +157,7 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
 
     context = {
         'profile': user_profile,
+        'profile_id': profile_id,  # Explicitly pass profile_id
         'folder': folder,
         'images': images,
         'title': folder.name,
@@ -502,18 +502,23 @@ def delete_chat(request):
     return HttpResponseForbidden('Invalid request method.')
 
 # implement image deletion from a folder
-@csrf_exempt
-def delete_image(request, image_id):
-    if request.method == 'DELETE':
-        print(f"Attempting to delete image with ID: {image_id}")  # Debug line
-        image = get_object_or_404(Portfolio, id=image_id)
-        folder = image.folder
-        
-        if folder.user != request.user:
-            return HttpResponseForbidden("You do not have permission to delete this image.")
-        
-        image.delete()
-        print(f"Deleted image with ID: {image_id}")  # Debug line
-        return JsonResponse({'success': True})
+@login_required
+def delete_image_view(request, profile_id, folder_id, image_id):
+    user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
+    image = get_object_or_404(Portfolio, id=image_id, folder_id=folder_id)
 
-    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
+    if request.user != user_profile.user:
+        return HttpResponseForbidden("You are not allowed to delete this image.")
+
+    if request.method == "POST":
+        # Check if the request is AJAX
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.content_type == 'application/json':
+            image.delete()
+            return JsonResponse({'success': True})
+
+        image.delete()
+        return redirect(reverse('users:folder_detail', kwargs={'profile_id': profile_id, 'folder_name': image.folder.name, 'folder_id': folder_id}))
+
+    return HttpResponseNotFound("Page not found.")
+
+
