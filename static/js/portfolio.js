@@ -1,16 +1,13 @@
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('DOM fully loaded and parsed'); // Debugging statement
-
     const form = document.getElementById('uploadForm');
     if (form) {
-        console.log('Form found'); // Debugging statement
-
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the default form submission
-            console.log('Form submission prevented'); // Debugging statement
 
             const formData = new FormData(form);
-            
+            const folderSelect = form.querySelector('select[name="folder"]');
+            const selectedFolderName = folderSelect.options[folderSelect.selectedIndex].text; // Get the selected folder's name
+
             fetch(form.action, {
                 method: form.method,
                 body: formData,
@@ -19,8 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             }).then(response => {
                 if (response.ok) {
-                    alert('Image uploaded to portfolio.');
-                    window.location.href = form.dataset.redirectUrl; // Use data attribute for redirect URL
+                    alert(`Image uploaded to the "${selectedFolderName}" folder.`);
+                    window.location.href = form.dataset.redirectUrl; // Redirect after successful upload
                 } else {
                     alert('There was an error uploading the image.');
                 }
@@ -29,7 +26,5 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error:', error);
             });
         });
-    } else {
-        console.error('Form not found'); // Debugging statement
     }
 });

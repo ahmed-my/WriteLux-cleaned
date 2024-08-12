@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation, User, Folder # message added 02-08-2024
@@ -25,6 +25,7 @@ from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
+
 
 UserModel = get_user_model()
 
@@ -156,6 +157,7 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
 
     context = {
         'profile': user_profile,
+        'profile_id': profile_id,  # Explicitly pass profile_id
         'folder': folder,
         'images': images,
         'title': folder.name,
@@ -498,3 +500,26 @@ def delete_chat(request):
         else:
             return HttpResponseForbidden('You do not have permission to delete this message.')
     return HttpResponseForbidden('Invalid request method.')
+
+# implement image deletion from a folder
+@login_required
+def delete_image_view(request, profile_id, folder_id, image_id):
+    user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
+    image = get_object_or_404(Portfolio, id=image_id, folder_id=folder_id)
+
+    if request.user != user_profile.user:
+        return HttpResponseForbidden("You are not allowed to delete this image.")
+
+    if request.method == "POST":
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+            image.delete()
+            return JsonResponse({'success': True})
+
+        image.delete()
+        return redirect(reverse('users:folder_detail', kwargs={'profile_id': profile_id, 'folder_name': image.folder.name, 'folder_id': folder_id}))
+
+    return HttpResponseNotFound("Page not found.")
+
+
+
+

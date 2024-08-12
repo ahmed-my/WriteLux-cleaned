@@ -7,7 +7,7 @@ from .views import (
     UserListView, user_profile_list, profile_detail, edit_profile,
     inbox, message_detail, delete_message, reply_message,
     bulk_delete_messages, chat_message, send_message_form, send_message_ajax,
-    delete_chat, folder_detail_view, add_folder, rename_folder, delete_folders
+    delete_chat, folder_detail_view, add_folder, rename_folder, delete_folders, delete_image_view
 )
 
 app_name = 'users'
@@ -23,11 +23,14 @@ urlpatterns = [
     path('portfolio/add-folder/', add_folder, name='add_folder'),
     path('portfolio/rename-folder/', rename_folder, name='rename_folder'),
     path('portfolio/delete-folders/', delete_folders, name='delete_folders'),
+    
+    #path('portfolio/<uuid:profile_id>/folder/<str:folder_name>/<int:folder_id>/delete-image/<int:image_id>/', delete_image, name='delete_image'),
 
     # Specific folder view by profile_id and folder_id
     # urls.py
     #path('portfolio/<uuid:profile_id>/<slug:folder_name>/<int:folder_id>/', folder_detail_view, name='folder_detail'),
     path('portfolio/<uuid:profile_id>/<str:folder_name>/<int:folder_id>/', folder_detail_view, name='folder_detail'),
+    path('portfolio/<uuid:profile_id>/<int:folder_id>/<int:image_id>/delete/', delete_image_view, name='delete_image'),
     #path('portfolio/<uuid:profile_id>/folder/<int:folder_id>/', folder_detail_view, name='folder_detail'),
 
     # General portfolio view (least specific pattern)

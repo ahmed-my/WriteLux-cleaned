@@ -4,9 +4,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Detail</title>
+    <title>Folder Detail</title>
     <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
     <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
+    <script>
+        function confirmDelete(imageId, profileId, folderId) {
+            if (confirm('Are you sure you want to delete this image?')) {
+                fetch(`/users/portfolio/${profileId}/${folderId}/${imageId}/delete/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken')
+                    },
+                    body: JSON.stringify({ 'delete': true })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById(`image-${imageId}`).remove();
+                        alert('Image deleted successfully.');
+                    } else {
+                        alert('Failed to delete image.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while deleting the image.');
+                });
+            }
+        }
+    
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
 </head>
 <body>
     <div class="profile-container">
@@ -27,9 +68,13 @@
                 <h2 class="text-left">{{ title }} Portfolio</h2>
                 <div class="portfolio-grid">
                     {% for image in images %}
-                        <div class="portfolio-item">
+                        <div class="portfolio-item" id="image-{{ image.id }}">
                             <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
                             <p>{{ image.description }}</p>
+                            <!-- Conditionally display the delete button -->
+                            {% if request.user == profile.user %}
+                                <button onclick="confirmDelete({{ image.id }}, '{{ profile.profile_id }}', {{ folder.id }})" class="btn btn-danger">Delete</button>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

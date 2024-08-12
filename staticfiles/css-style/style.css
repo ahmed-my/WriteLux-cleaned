@@ -130,9 +130,16 @@ a:hover {
     overflow-y: auto; /* Enable vertical scrolling */
     overflow-x: hidden; /* Disable horizontal scrolling */
     padding: 5px; /* Optional: add some padding */
-    border: 1px solid #ccc; /* Optional: add a border */
+    border: none; /* Remove the border */
 }
 
+.content2 {
+    max-height: 400px; /* Set the maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 5px; /* Optional: add some padding */
+    border: none; /* Remove the border  border: 1px solid #ccc; */
+}
 
 .content1-container {
     padding: 1px;
