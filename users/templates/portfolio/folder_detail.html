@@ -4,11 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Folder Detail</title>
+    <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
     <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
     <script>
-        function confirmDelete(imageId, profileId, folderId) {
+        function confirmDelete(imageId) {
+            const profileId = "{{ profile_id }}";  // Get profile ID from context
+            const folderId = "{{ folder.id }}";    // Get folder ID from context
+    
             if (confirm('Are you sure you want to delete this image?')) {
                 fetch(`/users/portfolio/${profileId}/${folderId}/${imageId}/delete/`, {
                     method: 'POST',
@@ -48,6 +51,7 @@
             return cookieValue;
         }
     </script>
+    
 </head>
 <body>
     <div class="profile-container">
@@ -71,9 +75,9 @@
                         <div class="portfolio-item" id="image-{{ image.id }}">
                             <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
                             <p>{{ image.description }}</p>
-                            <!-- Conditionally display the delete button -->
                             {% if request.user == profile.user %}
-                                <button onclick="confirmDelete({{ image.id }}, '{{ profile.profile_id }}', {{ folder.id }})" class="btn btn-danger">Delete</button>
+                                <!-- Only show the delete button if the user is the owner -->
+                                <button onclick="confirmDelete({{ image.id }})" class="btn btn-danger">Delete</button>
                             {% endif %}
                         </div>
                     {% endfor %}

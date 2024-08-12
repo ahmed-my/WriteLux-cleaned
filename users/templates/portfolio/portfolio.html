@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
     <link rel="stylesheet" href="{% static 'css-style/portfolio.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
@@ -181,20 +183,25 @@
             });
     
             // Generate URL button click event
+
+            // Update the URL generation in the portfolio.html
             $('#generate-url-button').click(function() {
                 var selectedFolder = $('.folder-checkbox:checked').first();
                 if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
-                    var folderName = selectedFolder.closest('.form-check').find('label').text().trim();  // Fetch the folder name from the label text
+                    var folderName = selectedFolder.closest('.form-check').find('label').text().trim();
                     var profileId = '{{ user.userprofile.profile_id }}';
-                    var generatedUrl = '{{ request.build_absolute_uri }}' + profileId + '/' + encodeURIComponent(folderName) + '/' + folderId + '/';
-                    /* Example: http://127.0.0.1:8000/users/portfolio/ba8d4bf1-1ffb-499b-bdce-4ab77497b904/folder-name/7/ */
-                    $('#generated_url').val(generatedUrl);
+            
+                    // Correctly build the base URL
+                    var baseUrl = window.location.origin + '/users'; // Ensure only one '/users' is added
+            
+                    var publicUrl = baseUrl + '/portfolio/' + profileId + '/' + encodeURIComponent(folderName) + '/' + folderId + '/view/';
+                    $('#generated_url').val(publicUrl);
                     $('#generateUrlModal').modal('show');
                 } else {
                     alert('Please select a folder to generate the URL.');
                 }
-            });
+            });       
         });
     </script>
     
