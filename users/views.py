@@ -511,8 +511,7 @@ def delete_image_view(request, profile_id, folder_id, image_id):
         return HttpResponseForbidden("You are not allowed to delete this image.")
 
     if request.method == "POST":
-        # Check if the request is AJAX
-        if request.headers.get('x-requested-with') == 'XMLHttpRequest' or request.content_type == 'application/json':
+        if request.headers.get('x-requested-with') == 'XMLHttpRequest':
             image.delete()
             return JsonResponse({'success': True})
 
@@ -520,5 +519,7 @@ def delete_image_view(request, profile_id, folder_id, image_id):
         return redirect(reverse('users:folder_detail', kwargs={'profile_id': profile_id, 'folder_name': image.folder.name, 'folder_id': folder_id}))
 
     return HttpResponseNotFound("Page not found.")
+
+
 
 

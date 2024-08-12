@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Detail</title>
+    <title>Folder Detail</title>
     <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
     <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
     <script>
@@ -14,7 +14,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCookie('csrftoken')  // Include CSRF token
+                        'X-CSRFToken': getCookie('csrftoken')
                     },
                     body: JSON.stringify({ 'delete': true })
                 })
@@ -71,8 +71,10 @@
                         <div class="portfolio-item" id="image-{{ image.id }}">
                             <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
                             <p>{{ image.description }}</p>
-                            <!-- Delete Button -->
-                            <button onclick="confirmDelete({{ image.id }}, '{{ profile.profile_id }}', {{ folder.id }})" class="btn btn-danger">Delete</button>
+                            <!-- Conditionally display the delete button -->
+                            {% if request.user == profile.user %}
+                                <button onclick="confirmDelete({{ image.id }}, '{{ profile.profile_id }}', {{ folder.id }})" class="btn btn-danger">Delete</button>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
