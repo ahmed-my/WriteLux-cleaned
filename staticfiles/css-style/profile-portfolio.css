@@ -1,34 +1,65 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
 .profile-container {
-    width: 80%;
-    margin: 0 auto;
-    text-align: left;
+    max-width: 1200px;
+    margin: 40px auto;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    padding: 20px;
 }
 
 .profile-header {
     display: flex;
-    align-items: left;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
     margin-bottom: 20px;
 }
 
-.profile-header img {
-    width: 150px; /* Set the width */
-    height: 150px; /* Set the height */
-    border-radius: 50%; /* Make the image circular */
-    object-fit: cover; /* Ensure the image fits within the dimensions */
-    margin-right: 20px; /* Add some space between the image and the text */
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 20px;
+    border: 2px solid #ddd;
 }
 
 .profile-details {
-    display: flex;
-    flex-direction: column;
+    flex-grow: 1;
 }
 
-.profile-info {
-    margin-left: 170px; /* Align text with portfolio items */
+.profile-details h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #007bff;
+}
+
+.profile-details p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.portfolio-section {
+    padding: 20px;
 }
 
 .portfolio-title {
-    margin-top: 40px; /* Add some space before the portfolio title */
+    font-size: 22px;
+    color: #333;
+    border-bottom: 2px solid #007bff;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .portfolio-grid {
@@ -38,24 +69,27 @@
 }
 
 .portfolio-item {
-    flex: 1 1 calc(33.333% - 20px); /* 3 columns with 20px gap */
-    box-sizing: border-box;
+    flex: 1 1 calc(33.333% - 20px);
+    background: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.portfolio-item:hover {
+    transform: scale(1.05);
 }
 
 .portfolio-image {
     width: 100%;
     height: auto;
-    display: block;
+    border-radius: 8px;
 }
 
-@media (max-width: 768px) {
-    .portfolio-item {
-        flex: 1 1 calc(50% - 20px); /* 2 columns with 20px gap */
-    }
-}
-
-@media (max-width: 480px) {
-    .portfolio-item {
-        flex: 1 1 100%; /* 1 column */
-    }
+.portfolio-item p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #666;
 }

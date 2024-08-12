@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation, User, Folder # message added 02-08-2024
@@ -25,6 +25,8 @@ from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
+from django.views.decorators.csrf import csrf_exempt
+
 
 UserModel = get_user_model()
 
@@ -498,3 +500,20 @@ def delete_chat(request):
         else:
             return HttpResponseForbidden('You do not have permission to delete this message.')
     return HttpResponseForbidden('Invalid request method.')
+
+# implement image deletion from a folder
+@csrf_exempt
+def delete_image(request, image_id):
+    if request.method == 'DELETE':
+        print(f"Attempting to delete image with ID: {image_id}")  # Debug line
+        image = get_object_or_404(Portfolio, id=image_id)
+        folder = image.folder
+        
+        if folder.user != request.user:
+            return HttpResponseForbidden("You do not have permission to delete this image.")
+        
+        image.delete()
+        print(f"Deleted image with ID: {image_id}")  # Debug line
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Invalid request'}, status=400)
