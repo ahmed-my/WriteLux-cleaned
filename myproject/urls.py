@@ -12,6 +12,7 @@ urlpatterns = [
     path("dashboard/", views.dashboard, name='dashboard'),
     path("image/", views.image_list, name='image'),
     path('generate-portfolio-url/', generate_portfolio_url, name='generate_portfolio_url'),
+    path('faq/', views.faq, name='faq'),
     
     path("posts/", include('posts.urls')),  # Include the URLs from the posts app
     path('fitness/', include('fitness.urls')),  # Include the URLs from the fitness app
