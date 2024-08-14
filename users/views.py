@@ -20,12 +20,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
-from .models import UserProfile, Portfolio, Message, Conversation, User, Folder # message added 02-08-2024
+from .models import UserProfile, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
-
 
 UserModel = get_user_model()
 
@@ -540,4 +539,32 @@ def folder_public_view(request, profile_id, folder_name, folder_id):
     }
     return render(request, 'portfolio/folder_public.html', context)
 
+# Contact view
+def contact(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        subject = request.POST.get('subject')
+        message = request.POST.get('message')
 
+        # Send email
+        send_mail(
+            f"Contact Us: {subject}",
+            f"Name: {name}\nEmail: {email}\n\nMessage:\n{message}",
+            settings.DEFAULT_FROM_EMAIL,
+            [settings.EMAIL_HOST_USER],  # Replace with your contact email from environ varaible
+            fail_silently=False,
+        )
+
+        # Save query to the database
+        ContactQuery.objects.create(
+            name=name,
+            email=email,
+            subject=subject,
+            message=message
+        )
+
+        messages.success(request, "Your message has been sent successfully!")
+        return render(request, 'contact.html')
+    
+    return render(request, 'contact.html')

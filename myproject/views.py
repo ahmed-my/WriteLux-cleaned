@@ -75,10 +75,6 @@ def image_list(request):
 def portfolio_list(request):
     return render(request, 'portfolio_list.html')
 
-def contact(request):
-    post_contact = Post.objects.all()
-    return render(request, 'contact.html', {'post_contact': post_contact})
-
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CustomForm

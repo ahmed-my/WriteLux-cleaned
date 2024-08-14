@@ -8,7 +8,7 @@ from .views import (
     inbox, message_detail, delete_message, reply_message,
     bulk_delete_messages, chat_message, send_message_form, send_message_ajax,
     delete_chat, folder_detail_view, add_folder, rename_folder, delete_folders,
-    delete_image_view, folder_public_view
+    delete_image_view, folder_public_view, contact
 )
 
 app_name = 'users'
@@ -63,4 +63,6 @@ urlpatterns = [
     path('message/<int:pk>/delete/', delete_message, name='delete_message'),
     path('message/<int:pk>/reply/', reply_message, name='reply_message'),
     path('bulk-delete/', bulk_delete_messages, name='bulk_delete_messages'),
+
+    path('contact/', contact, name='contact'),
 ]
