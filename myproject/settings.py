@@ -16,7 +16,7 @@ environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 EMAIL_BACKEND = env('EMAIL_BACKEND')
 EMAIL_HOST = env('EMAIL_HOST')
 EMAIL_PORT = env.int('EMAIL_PORT')
-EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS')
+EMAIL_USE_SSL = env.bool('EMAIL_USE_SSL')
 EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = env('DEFAULT_FROM_EMAIL')
@@ -65,12 +65,21 @@ INSTALLED_APPS = [
     'utils',
 ]
 
+# You might also want to define your message storage backend 03-08-2024
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+
+# added 31-07-2024
+ACCOUNT_ADAPTER = 'users.adapters.MyAccountAdapter'
+# to this point
+
+
 
 SITE_ID = 1
 
@@ -79,8 +88,6 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 # Allauth specific settings
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "optional"
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
 # Social account providers
 SOCIALACCOUNT_PROVIDERS = {
@@ -93,16 +100,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'offline', # on production make this line 'online'
         },
-        'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/social/login/callback/',  # Replace with your redirect URI
     },
-    'github': {
-        'APP': {
-            'client_id': env('GITHUB_CLIENT_ID'),
-            'secret': env('GITHUB_CLIENT_SECRET'),
-            'key': ''
-        },
-        'REDIRECT_URI': 'http://127.0.0.1:8000/accounts/social/login/callback/',  # Replace with your redirect URI
-    }
 }
 
 TINYMCE_DEFAULT_CONFIG = {

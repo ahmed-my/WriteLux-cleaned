@@ -75,10 +75,6 @@ def image_list(request):
 def portfolio_list(request):
     return render(request, 'portfolio_list.html')
 
-def contact(request):
-    post_contact = Post.objects.all()
-    return render(request, 'contact.html', {'post_contact': post_contact})
-
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     form_class = CustomForm
@@ -101,7 +97,7 @@ class PostUpdateView(UpdateView):
     success_url = reverse_lazy('dashboard')
 
     def form_valid(self, form):
-        messages.success(self.request, 'Your post was successfully updated!')
+        messages.success(self.request, 'successfully updated!')
         return super().form_valid(form)
 
     def get_queryset(self):
@@ -115,3 +111,10 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         post = self.get_object()
         return self.request.user == post.author
+
+@login_required
+def generate_portfolio_url(request):
+    return render(request, 'generate_url.html')
+
+def faq(request):
+    return render(request, 'faq.html')

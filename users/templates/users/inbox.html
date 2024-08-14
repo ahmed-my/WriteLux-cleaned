@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inbox</title>
+    <link rel="stylesheet" href="{% static 'css-style/inbox.css' %}">
+    <script>
+        function toggleSelectAll(checkbox) {
+            var checkboxes = document.getElementsByName('selected_messages');
+            for (var i = 0; i < checkboxes.length; i++) {
+                checkboxes[i].checked = checkbox.checked;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Inbox</h1>
+        <form method="post" action="{% url 'users:bulk_delete_messages' %}">
+            {% csrf_token %}
+            <table>
+                <thead>
+                    <tr>
+                        <th><input type="checkbox" onclick="toggleSelectAll(this)"></th>
+                        <th>Sender</th>
+                        <th>Subject</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for message in received_messages %}
+                    <tr>
+                        <td><input type="checkbox" name="selected_messages" value="{{ message.pk }}"></td>
+                        <td>
+                            <a href="{% url 'users:message_detail' message.pk %}">{{ message.sender.username }}</a>
+                        </td>
+                        <td>
+                            <a href="{% url 'users:message_detail' message.pk %}">{{ message.subject }}</a>
+                        </td>
+                        <td>{{ message.timestamp }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4">No messages available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button type="submit" class="btn delete">Delete Selected</button>
+        </form>
+        <a href="{% url 'dashboard' %}" class="back-link">Back to dashboard</a>
+    </div>
+</body>
+</html>

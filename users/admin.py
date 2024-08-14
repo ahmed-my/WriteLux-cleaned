@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as DefaultUserAdmin
 from django.contrib.auth.models import User
-from .models import UserProfile, Portfolio
+from .models import UserProfile, Portfolio, ContactQuery
 
 class UserProfileInline(admin.StackedInline):
     model = UserProfile
@@ -25,3 +25,9 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Portfolio)
+
+@admin.register(ContactQuery)
+class ContactQueryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'email', 'subject', 'submitted_at')
+    list_filter = ('submitted_at',)
+    search_fields = ('name', 'email', 'subject', 'message')

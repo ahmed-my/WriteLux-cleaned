@@ -1,6 +1,6 @@
 {% load static %}
-<!DOCTYPE html>
 {% load socialaccount %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -17,17 +17,15 @@
                     <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
                 </button>
             </a>
-            <a href="{% provider_login_url 'github' %}">
-                <button class="github-login">
-                    <img src="/media/Icons/github-icon1.png" alt="GitHub Icon"> Continue with GitHub
-                </button>
-            </a>
         </div>
-        <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
+        <p style="text-align: center; margin: 0.1rem 0;">OR LOG IN WITH EMAIL</p>
         <form method="post" action="{% url 'users:login_user' %}">
             {% csrf_token %}
+            {{ form.non_field_errors }}
             <input type="text" name="username" placeholder="Username" required>
+            <div class="error">{{ form.username.errors }}</div>
             <input type="password" name="password" placeholder="Password" required>
+            <div class="error">{{ form.password.errors }}</div>
             <a href="{% url 'users:password_reset' %}">Reset Password</a>
             <button type="submit">Log In</button>
         </form>

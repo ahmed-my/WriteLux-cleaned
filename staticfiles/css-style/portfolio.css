@@ -1,0 +1,42 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+h2 {
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.folder-actions {
+    margin-bottom: 30px;
+}
+
+.folder-buttons button,
+.folder-buttons a {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.folder-search input {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.folder-checkboxes h3 {
+    margin-bottom: 20px;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-label a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-check-label a:hover {
+    text-decoration: underline;
+}

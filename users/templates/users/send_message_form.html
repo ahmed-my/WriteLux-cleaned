@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send Message</title>
+    <link rel="stylesheet" href="{% static 'css-style/send-message.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="form-container">
+        <h1>Send Message</h1>
+        <form id="send-message-form" method="post" action="{% url 'users:send_message_form' %}">
+            {% csrf_token %}
+
+            <label for="recipient_id">Recipient:</label>
+            <select id="recipient_id" name="recipient_id" required>
+                <option value="" disabled selected>Select recipient</option>
+                {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="subject">Subject:</label>
+            <input type="text" id="subject" name="subject" required>
+
+            <label for="body">Message:</label>
+            <textarea id="body" name="body" rows="5" required></textarea>
+
+            {% if form.errors %}
+            <div class="error-messages">
+                <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ field }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Select2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#recipient_id').select2();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!-- templates/portfolio/confirm_delete.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Deletion</title>
+</head>
+<body>
+    <h1>Confirm Deletion</h1>
+    <p>Are you sure you want to delete this image?</p>
+    <img src="{{ image.image.url }}" alt="{{ image.description }}" style="max-width: 200px;">
+    <form method="post" action="{% url 'users:delete_image' profile_id=image.user_profile.profile_id folder_id=image.folder.id image_id=image.id %}">
+        {% csrf_token %}
+        <button type="submit">Yes, delete</button>
+        <a href="{% url 'users:folder_detail' profile_id=image.user_profile.profile_id folder_name=image.folder.name folder_id=image.folder.id %}">Cancel</a>
+    </form>
+</body>
+</html>
