@@ -119,3 +119,6 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 @login_required
 def generate_portfolio_url(request):
     return render(request, 'generate_url.html')
+
+def faq(request):
+    return render(request, 'faq.html')
