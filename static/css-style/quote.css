@@ -3,16 +3,17 @@
     padding: 20px;
     text-align: center;
     border-radius: 10px;
-    transition: background-color 1s, background-image 1s;
+    background-color: #282c34; /* Set a consistent background color */
+    transition: background-color 1s;
 }
 
 blockquote {
     font-size: 1.5em;
     font-style: italic;
-    color: #fff;
+    color: #fff; /* Default text color */
     margin: 20px 0;
     opacity: 0;
-    transition: opacity 1s;
+    transition: opacity 1s, color 1s;
 }
 
 .quote-container {
@@ -24,5 +25,6 @@ blockquote {
     font-size: 1.2em;
     font-weight: bold;
     margin-top: 10px;
-    color: #ccc;
+    color: #ccc; /* Default author text color */
+    transition: color 1s;
 }
