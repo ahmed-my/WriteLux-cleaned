@@ -152,37 +152,40 @@
     document.addEventListener("DOMContentLoaded", function() {
         const quotes = [
             {% for quote in quotes %}
-                "{{ quote.content }} - {{ quote.author }}"{% if not forloop.last %},{% endif %}
+                { text: "{{ quote.content }}", author: "{{ quote.author }}" }{% if not forloop.last %},{% endif %}
             {% endfor %}
         ];
-
-        console.log("Quotes loaded:", quotes); // Log the quotes array
-
-        if (quotes.length === 0) {
-            console.error("No quotes available.");
-            return;
-        }
-
+    
+        const backgrounds = [
+            "#ff7f7f", "#7fbfff", "#7fff7f", "#ffff7f", "#ff7fff", "#7fffff", "#ffa07a"
+            // Add more colors or URLs for background images
+        ];
+    
         let currentQuoteIndex = 0;
         const quoteElement = document.getElementById("quote");
-
+        const quoteSection = document.getElementById("quote-section");
+    
         function showQuote(index) {
-            console.log("Showing quote index:", index, quotes[index]); // Log the current quote
-            quoteElement.style.opacity = 0; // Fade out the quote
+            const { text, author } = quotes[index];
+            const background = backgrounds[index % backgrounds.length]; // Loop through backgrounds
+    
+            quoteElement.style.opacity = 0; // Fade out the current quote
             setTimeout(() => {
-                quoteElement.textContent = quotes[index];
+                quoteElement.innerHTML = `<div class="quote-container">"${text}"<div class="quote-author">- ${author}</div></div>`;
+                quoteSection.style.backgroundColor = background; // Change background color
                 quoteElement.style.opacity = 1; // Fade in the new quote
             }, 500);
         }
-
+    
         function cycleQuotes() {
             showQuote(currentQuoteIndex);
             currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
         }
-
+    
         // Initial display
         showQuote(currentQuoteIndex);
-        setInterval(cycleQuotes, 10000); // Change quote every 5 seconds
+        setInterval(cycleQuotes, 5000); // Change quote every 5 seconds
     });
+    
 </script>
 {% endblock %}
