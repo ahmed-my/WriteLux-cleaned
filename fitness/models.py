@@ -25,6 +25,29 @@ class Fitness(models.Model):
     def __str__(self):
         return self.name
 
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    published_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
+
+class Tip(models.Model):
+    title = models.CharField(max_length=200)
+    content = models.TextField()
+    order = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.title
+
+class Quote(models.Model):
+    content = models.TextField()
+    author = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.content} - {self.author}"
+
 class Image(models.Model):
     title = models.CharField(max_length=75)
     image = models.ImageField(upload_to='images/')

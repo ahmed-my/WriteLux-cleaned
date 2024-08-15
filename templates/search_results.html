@@ -17,6 +17,33 @@
             </ul>
         {% endif %}
 
+        {% if articles %}
+            <h2>Article</h2>
+            <ul>
+                {% for item in articles %}
+                    <li>{{ item.title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if tips %}
+            <h2>Tips</h2>
+            <ul>
+                {% for item in tips %}
+                    <li>{{ item.title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if quotes %}
+            <h2>Quotes</h2>
+            <ul>
+                {% for item in quotes %}
+                    <li>{{ item.content }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% if lessons %}
             <h2>Lessons</h2>
             <ul>

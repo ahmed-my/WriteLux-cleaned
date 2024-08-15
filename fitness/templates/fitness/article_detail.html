@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ article.title }}
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>{{ article.title }}</h1>
+        <p>{{ article.content }}</p>
+        <p><strong>Published on:</strong> {{ article.published_date }}</p>
+        <a href="{% url 'fitness:fitness_home' %}">Back to Home</a>
+    </section>
+{% endblock %}
