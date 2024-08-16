@@ -1,19 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+:root {
+    --secondary: #152238;
+    --primary-color: #FABF00;
+    --white: #FFFFFF;
+    --error-color: #E41D1D;
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Nunito', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: var(--secondary);
-}
-
-:root {
-    --secondary: #152238;
-    --primary-container: #D7EFDA;
-    --unprimary-colour: #FFF;
-    --error-colour: #E41D1D;
-    --primary-colour: #FABF00;
 }
 
 body {
@@ -26,88 +25,155 @@ body {
     margin: 0;
 }
 
-.registration-container {
-    width: 40%;
-    background: #FFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    background: var(--white);
     border-radius: 8px;
-    border: 1px solid rgba(138, 137, 137, 0.3);
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     padding: 2rem;
-    box-sizing: border-box;
+    text-align: center;
 }
 
-h1 {
+h2 {
     color: var(--secondary);
-    text-align: center;
     font-size: 2rem;
+    margin-bottom: 0.5rem; /* Reduced space below the header */
+}
+
+.social-login {
+    margin-bottom: 0.75rem; /* Reduced space below social login section */
+}
+
+.social-login a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
+    font-size: 1rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
+    border: 1px solid var(--secondary);
+    border-radius: 5px;
+    text-decoration: none;
+    color: var(--secondary);
+    background-color: var(--white);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.social-login a:hover {
+    background-color: var(--secondary);
+    color: var(--white);
+}
+
+.social-login img {
+    width: 24px;
+    height: 24px;
+    margin-right: 0.5rem;
+}
+
+.or-text {
+    margin: 1rem 0;
+    font-size: 1rem;
+    color: var(--secondary);
 }
 
 form {
-    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-}
-
-form p {
-    margin: 0.5rem 0;
+    gap: 0.45rem; /* Reduced gap between form elements */
 }
 
 input[type="text"],
-input[type="password"],
-input[type="email"],
-textarea {
-    width: 100%;
+input[type="password"] {
     padding: 0.75rem;
     border: 1px solid var(--secondary);
-    border-radius: 0.5rem;
+    border-radius: 5px;
     font-size: 1rem;
-}
-
-input::placeholder,
-textarea::placeholder {
-    color: rgba(18, 18, 18, 0.70);
-    font-size: 0.9rem;
-}
-
-button.form-submit {
     width: 100%;
+}
+
+input::placeholder {
+    color: #888;
+}
+
+a.reset-password {
+    color: var(--secondary);
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    text-decoration: none;
+}
+
+button[type="submit"] {
     padding: 0.75rem;
     border: none;
-    border-radius: 0.5rem;
+    border-radius: 5px;
     background-color: var(--secondary);
-    color: white;
+    color: var(--white);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 1rem;
+    transition: background-color 0.3s, color 0.3s;
 }
 
-button.form-submit:hover {
-    background-color: var(--primary-colour);
+button[type="submit"]:hover {
+    background-color: var(--primary-color);
     color: var(--secondary);
 }
 
-@media (max-width: 1024px) {
-    .registration-container {
-        width: 60%;
-    }
+.signup-link {
+    margin-top: 1rem;
+    font-size: 0.9rem;
 }
 
-@media (max-width: 768px) {
-    .registration-container {
-        width: 80%;
-    }
+.signup-link a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 600;
 }
 
-@media (max-width: 480px) {
-    .registration-container {
-        width: 90%;
-    }
+/* css for adding eye icon to the password field */
+.password-field {
+    position: relative;
+}
+
+.password-field input[type="password"],
+.password-field input[type="text"] {
+    width: 100%;
+    padding-right: 30px; /* Make space for the eye icon */
+}
+
+.password-field .fa-eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 2.5rem; /* Make space for the eye icon */
+    box-sizing: border-box; /* Include padding and borders in the width */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem; /* Position the icon inside the input */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.toggle-password i {
+    color: #555; /* Customize icon color */
+    font-size: 1rem; /* Customize icon size */
 }

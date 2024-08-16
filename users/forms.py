@@ -5,9 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .email_utils import send_registration_confirmation_email
 
-class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
-    email = forms.EmailField(required=True, help_text='', label='Email Address',
-                             widget=forms.EmailInput(attrs={'class': 'custom-class'}))
+class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='',
+        widget=forms.EmailInput(attrs={
+            'class': 'custom-class',
+            'placeholder': 'Email Address'  # Set placeholder
+        })
+    )
 
     class Meta:
         model = User
@@ -15,9 +21,19 @@ class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Username'  # Set placeholder
+        })
+        self.fields['password1'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Password'  # Set placeholder
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Password Confirmation'  # Set placeholder
+        })
         self.fields['username'].help_text = ''
-        self.fields['password1'].widget.attrs.update({'class': 'custom-class'})
-        self.fields['password2'].widget.attrs.update({'class': 'custom-class'})
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 

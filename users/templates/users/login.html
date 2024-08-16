@@ -37,18 +37,6 @@
         <p style="text-align: center;">Don't have an account? <a href="{% url 'users:register' %}">Sign Up</a></p>
     </div>
     <!-- add javaScript for the eye icon -->
-    <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const password = document.querySelector('#password');
-    
-        togglePassword.addEventListener('click', function () {
-            // Toggle the type attribute
-            const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-            
-            // Toggle the eye slash icon
-            this.classList.toggle('fa-eye-slash');
-        });
-    </script>
+    <script src="{% static 'js/login.js' %}"></script>
 </body>
 </html>

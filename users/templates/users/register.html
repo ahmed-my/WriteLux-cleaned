@@ -5,7 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}User Registration{% endblock %}</title>
+    <!-- Include FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="{% static 'css-style/register.css' %}">
+    <style>
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .password-container input {
+            width: 100%;
+            padding-right: 2.5rem; /* Make space for the eye icon */
+            box-sizing: border-box; /* Include padding and borders in the width */
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 0.75rem; /* Position the icon inside the input */
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 0.5rem;
+        }
+        
+        .toggle-password i {
+            color: #555; /* Customize icon color */
+            font-size: 1rem; /* Customize icon size */
+        }
+    </style>
 </head>
 <body>
     <div class="registration-container">
@@ -13,11 +45,50 @@
             <h1>Registration</h1>
             <form class="form-with-validation" method="post" action="{% url 'users:register' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                <div class="form-field">
+                    {{ field.errors }}
+                    {% if field.name == 'password1' or field.name == 'password2' %}
+                        <div class="password-container">
+                            {{ field }}
+                            <span class="toggle-password" onclick="togglePassword('{{ field.id_for_label }}')">
+                                <i class="fas fa-eye" id="{{ field.id_for_label }}-icon"></i>
+                            </span>
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+                </div>
+                {% endfor %}
                 <button class="form-submit">Register</button>
             </form>
         {% endblock %}
     </div>
-    <script src="{% static 'js/register.js' %}"></script>
+
+    <script>
+        function togglePassword(fieldId) {
+            // Get the password field element by ID
+            const field = document.getElementById(fieldId);
+            
+            // Get the icon element associated with this field
+            const icon = document.getElementById(`${fieldId}-icon`);
+            
+            // Check if the field type is password and toggle accordingly
+            if (field && icon) {  // Ensure both elements exist
+                if (field.type === "password") {
+                    field.type = "text";  // Show password
+                    icon.classList.remove('fa-eye');  // Change icon to indicate visibility
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    field.type = "password";  // Hide password
+                    icon.classList.remove('fa-eye-slash');  // Change icon back to eye
+                    icon.classList.add('fa-eye');
+                }
+            } else {
+                console.error('TogglePassword: Field or icon not found for ID:', fieldId);
+            }
+        }
+    </script>
 </body>
 </html>
