@@ -130,3 +130,21 @@ button[type="submit"]:hover {
     text-decoration: none;
     font-weight: 600;
 }
+
+/* css for adding eye icon to the password field */
+.password-field {
+    position: relative;
+}
+
+.password-field input[type="password"],
+.password-field input[type="text"] {
+    width: 100%;
+    padding-right: 30px; /* Make space for the eye icon */
+}
+
+.password-field .fa-eye {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
