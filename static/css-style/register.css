@@ -1,18 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
-
-:root {
-    --secondary: #152238;
-    --primary-color: #FABF00;
-    --white: #FFFFFF;
-    --error-color: #E41D1D;
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Nunito', sans-serif;
     color: var(--secondary);
+}
+
+:root {
+    --secondary: #152238;
+    --primary-container: #D7EFDA;
+    --unprimary-colour: #FFF;
+    --error-colour: #E41D1D;
+    --primary-colour: #FABF00;
 }
 
 body {
@@ -25,130 +26,93 @@ body {
     margin: 0;
 }
 
-.login-container {
-    width: 100%;
-    max-width: 400px;
-    background: var(--white);
-    border-radius: 8px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    text-align: center;
-}
-
-h2 {
-    color: var(--secondary);
-    font-size: 2rem;
-    margin-bottom: 0.5rem; /* Reduced space below the header */
-}
-
-.social-login {
-    margin-bottom: 0.75rem; /* Reduced space below social login section */
-}
-
-.social-login a {
+.registration-container {
+    width: 40%;
+    background: #FFF;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    padding: 0.75rem;
-    font-size: 1rem;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid rgba(138, 137, 137, 0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: var(--secondary);
+    text-align: center;
+    font-size: 2rem;
     font-weight: 600;
-    border: 1px solid var(--secondary);
-    border-radius: 5px;
-    text-decoration: none;
-    color: var(--secondary);
-    background-color: var(--white);
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.social-login a:hover {
-    background-color: var(--secondary);
-    color: var(--white);
-}
-
-.social-login img {
-    width: 24px;
-    height: 24px;
-    margin-right: 0.5rem;
-}
-
-.or-text {
-    margin: 1rem 0;
-    font-size: 1rem;
-    color: var(--secondary);
+    margin-bottom: 1.5rem;
 }
 
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.45rem; /* Reduced gap between form elements */
+    gap: 1rem;
+}
+
+form p {
+    margin: 0.5rem 0;
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 100%;
     padding: 0.75rem;
     border: 1px solid var(--secondary);
-    border-radius: 5px;
+    border-radius: 0.5rem;
     font-size: 1rem;
-    width: 100%;
 }
 
-input::placeholder {
-    color: #888;
-}
-
-a.reset-password {
-    color: var(--secondary);
+input::placeholder,
+textarea::placeholder {
+    color: rgba(18, 18, 18, 0.70);
     font-size: 0.9rem;
-    margin-top: -0.5rem;
-    text-decoration: none;
 }
 
-button[type="submit"] {
+button.form-submit {
+    width: 100%;
     padding: 0.75rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     background-color: var(--secondary);
-    color: var(--white);
+    color: white;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-button[type="submit"]:hover {
-    background-color: var(--primary-color);
-    color: var(--secondary);
-}
-
-.signup-link {
     margin-top: 1rem;
-    font-size: 0.9rem;
 }
 
-.signup-link a {
+button.form-submit:hover {
+    background-color: var(--primary-colour);
     color: var(--secondary);
-    text-decoration: none;
-    font-weight: 600;
 }
 
-/* css for adding eye icon to the password field */
-.password-field {
-    position: relative;
+@media (max-width: 1024px) {
+    .registration-container {
+        width: 60%;
+    }
 }
 
-.password-field input[type="password"],
-.password-field input[type="text"] {
-    width: 100%;
-    padding-right: 30px; /* Make space for the eye icon */
+@media (max-width: 768px) {
+    .registration-container {
+        width: 80%;
+    }
 }
 
-.password-field .fa-eye {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+@media (max-width: 480px) {
+    .registration-container {
+        width: 90%;
+    }
 }
 
+/* adding eye icons to the password field */
 .password-container {
     position: relative;
     display: flex;

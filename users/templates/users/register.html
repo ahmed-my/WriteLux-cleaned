@@ -5,39 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}User Registration{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css-style/register.css' %}">
     <!-- Include FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'css-style/register.css' %}">
-    <style>
-        .password-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            width: 100%;
-        }
-        
-        .password-container input {
-            width: 100%;
-            padding-right: 2.5rem; /* Make space for the eye icon */
-            box-sizing: border-box; /* Include padding and borders in the width */
-        }
-        
-        .toggle-password {
-            position: absolute;
-            right: 0.75rem; /* Position the icon inside the input */
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            padding: 0.5rem;
-        }
-        
-        .toggle-password i {
-            color: #555; /* Customize icon color */
-            font-size: 1rem; /* Customize icon size */
-        }
-    </style>
 </head>
 <body>
     <div class="registration-container">
