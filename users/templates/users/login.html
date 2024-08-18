@@ -15,12 +15,10 @@
         <h2>Log In</h2>
         <div class="social-login">
             <a href="{% provider_login_url 'google' %}">
-                <button class="google-login">
-                    <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
-                </button>
+                <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
             </a>
         </div>
-        <p style="text-align: center; margin: 0.1rem 0;">OR LOG IN WITH EMAIL</p>
+        <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
         <form method="post" action="{% url 'users:login_user' %}">
             {% csrf_token %}
             {{ form.non_field_errors }}
