@@ -52,7 +52,9 @@
     <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
     <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
-    <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
+    {% if user.is_superuser %}
+        <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
+    {% endif %}
     <p>&nbsp;</p> <!-- leave empty space -->
 {% endblock %}
 
