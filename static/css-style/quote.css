@@ -1,0 +1,30 @@
+#quote-section {
+    position: relative;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background-color: #282c34; /* Set a consistent background color */
+    transition: background-color 1s;
+}
+
+blockquote {
+    font-size: 1.5em;
+    font-style: italic;
+    color: #fff; /* Default text color */
+    margin: 20px 0;
+    opacity: 0;
+    transition: opacity 1s, color 1s;
+}
+
+.quote-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.quote-author {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ccc; /* Default author text color */
+    transition: color 1s;
+}

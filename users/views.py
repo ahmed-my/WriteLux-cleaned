@@ -17,7 +17,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from django.contrib.auth import login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
+from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
@@ -167,32 +167,6 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-
-
-
-"""
-@login_required
-def folder_detail_view(request, profile_id, folder_id):
-    # Get the user profile based on profile_id
-    user_profile = get_object_or_404(UserProfile, profile_id=profile_id)
-    
-    # Retrieve the user associated with the profile
-    user = user_profile.user
-    
-    # Fetch the folder using the user's id and folder_id
-    folder = get_object_or_404(Folder, id=folder_id, user=user)
-    
-    # Assuming you have a Portfolio model that links Folder to images:
-    images = Portfolio.objects.filter(folder=folder)  # Adjust as per your model structure
-
-    context = {
-        'folder': folder,
-        'images': images,
-        'title': folder.name,
-    }
-    return render(request, 'portfolio/folder_detail.html', context)
-"""
-
 @login_required # tested ok under review
 def add_folder(request): # 09-08-2024
     if request.method == 'POST':
@@ -303,24 +277,59 @@ def profile_detail(request, profile_id):
 
 @login_required
 def edit_profile(request):
-    user = request.user
-    profile = get_object_or_404(UserProfile, user=user)
+    user_profile = request.user.userprofile  # Fetch the user's profile
 
     if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=user_profile, user=request.user)
+
+        # Check if the form has changed
+        if profile_form.has_changed():
+            if profile_form.is_valid():
+                profile_form.save()
+                # Since the success message is handled in JavaScript, no need to pass messages here
+                return redirect('users:user_profile')  # Redirect to the user profile page
+        else:
+            # If the form hasn't changed, you can also optionally log or handle this
+            # The "No changes made" alert is shown by the JavaScript on the front-end
+            return redirect('users:user_profile')
+
+    else:
+        # Initial form rendering with the user's current information
+        profile_form = UserProfileForm(instance=user_profile, user=request.user)
+
+    context = {
+        'profile_form': profile_form,
+    }
+    return render(request, 'users/edit_profile.html', context)
+
+"""
+def edit_profile(request):
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile, user=request.user)
+        if profile_form.is_valid():
+            profile_form.save()
+            response = HttpResponseRedirect(reverse('users:user_profile'))
+            response.set_cookie('profile_updated', 'true', max_age=10)
+            return response
+    else:
+        profile_form = UserProfileForm(instance=request.user.userprofile, user=request.user)
+
+    return render(request, 'users/edit_profile.html', {'profile_form': profile_form})
+
+def edit_profile(request):
+    if request.method == 'POST':
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile, user=request.user)
         if profile_form.is_valid():
             profile_form.save()
             messages.success(request, 'Profile updated successfully.')
-            return redirect('dashboard')
+            return redirect('users:user_profile')
     else:
-        profile_form = UserProfileForm(instance=profile)
+        profile_form = UserProfileForm(instance=request.user.userprofile, user=request.user)
 
-    return render(request, 'users/edit_profile.html', {
-        'profile_form': profile_form,
-        'profile': profile,
-        'user': user,
-    })
+    return render(request, 'users/edit_profile.html', {'profile_form': profile_form})
 
+
+"""
 @login_required
 def chat_message(request):
     user_ids = request.GET.get('users', '').split(',')

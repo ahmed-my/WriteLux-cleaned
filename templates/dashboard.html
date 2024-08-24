@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% load static %}
+<link rel="stylesheet" href="{% static 'css-style/quote.css' %}">
 
 {% block title %}
     Dashboard
@@ -51,17 +52,20 @@
     <p><a href="{% url 'users:user-list' %}"><b>View Users</b></a></p>
     <p><a href="{% url 'users:send_message_form' %}"><b>Send Message</b></a></p>
     <p><a href="{% url 'users:inbox' %}"><b>Inbox</b></a></p>
-    <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
+    {% if user.is_superuser %}
+        <p><a href="{% url 'generate_portfolio_url' %}"><b>Generate Portfolio URL</b></a></p>
+    {% endif %}
     <p>&nbsp;</p> <!-- leave empty space -->
 {% endblock %}
 
 {% block content2 %}
-    <div class="content2-container">
-        <img 
-            class="image-animation" 
-            src="/media/shoe.jpeg.jpeg" alt="dashboard image" aria-label="dashboard image" title="dashboard image"
-        >
-    </div>
+<section id="quote-section">
+    <!-- Motivational Quotes -->
+    <h2>Motivational Quotes</h2>
+    <blockquote id="quote">
+        <!-- Quote will be dynamically inserted here -->
+    </blockquote>
+</section>
 {% endblock %}
 
 {% block extra_scripts %}
@@ -144,5 +148,47 @@
             });
         }
     });
+</script>
+
+<!-- javascripts for the Quote display -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const quotes = [
+            {% for quote in quotes %}
+                { text: "{{ quote.content }}", author: "{{ quote.author }}" }{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+    
+        const backgrounds = [
+            "#ff7f7f", "#7fbfff", "#7fff7f", "#ffff7f", "#ff7fff", "#7fffff", "#ffa07a", "#000000"
+            // Add more colors or URLs for background images
+        ];
+    
+        let currentQuoteIndex = 0;
+        const quoteElement = document.getElementById("quote");
+        const quoteSection = document.getElementById("quote-section");
+    
+        function showQuote(index) {
+            const { text, author } = quotes[index];
+            const background = backgrounds[index % backgrounds.length]; // Loop through backgrounds
+    
+            quoteElement.style.opacity = 0; // Fade out the current quote
+            setTimeout(() => {
+                quoteElement.innerHTML = `<div class="quote-container">"${text}"<div class="quote-author">- ${author}</div></div>`;
+                quoteSection.style.backgroundColor = background; // Change background color
+                quoteElement.style.opacity = 1; // Fade in the new quote
+            }, 500);
+        }
+    
+        function cycleQuotes() {
+            showQuote(currentQuoteIndex);
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
+    
+        // Initial display
+        showQuote(currentQuoteIndex);
+        setInterval(cycleQuotes, 5000); // Change quote every 5 seconds
+    });
+    
 </script>
 {% endblock %}

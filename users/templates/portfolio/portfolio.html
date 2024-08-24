@@ -25,18 +25,22 @@
                     <button type="button" id="add-folder-button" class="btn btn-success mr-2" data-toggle="modal" data-target="#addFolderModal">
                         <i class="fas fa-folder-plus"></i> Add Folder
                     </button>
+
                     <!-- Add Upload Image Button -->
-                    <a href="{% url 'users:upload_image' %}" class="btn btn-secondary">
-                        <i class="fas fa-upload"></i> Upload Image to folder
-                    </a>
+                    <button type="button" id="upload-image-button" class="btn btn-secondary">
+                        <i class="fas fa-upload"></i> Upload Image to Folder
+                    </button>
+
                     <!-- Rename Folder Button -->
                     <button type="button" id="rename-folder-button" class="btn btn-primary mr-2">
                         <i class="fas fa-edit"></i> Rename Selected Folder
                     </button>
+                    
                     <!-- Delete Folder Button -->
-                    <button type="submit" formaction="{% url 'users:delete_folders' %}" class="btn btn-danger mr-2">
+                    <button type="button" id="delete-folder-button" class="btn btn-danger mr-2">
                         <i class="fas fa-trash"></i> Delete Selected Folders
                     </button>
+
                     <!-- Generate Folder URL Button -->
                     <button type="button" id="generate-url-button" class="btn btn-info">
                         <i class="fas fa-link"></i> Generate Folder URL
@@ -181,6 +185,32 @@
                     alert('Please select a folder to rename.');
                 }
             });
+
+            // Upload Image button click event
+            $('#upload-image-button').click(function() {
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
+                    // Redirect to the upload image page
+                    var uploadUrl = "{% url 'users:upload_image' %}";
+                    window.location.href = uploadUrl;
+                } else {
+                    alert('Please select a folder to upload an image.');
+                }
+            });
+
+             // Delete Folder Button
+             $('#delete-folder-button').click(function() {
+                var selectedFolders = $('.folder-checkbox:checked');
+                if (selectedFolders.length > 0) {
+                    var confirmed = confirm('Are you sure you want to delete the selected folders?');
+                    if (confirmed) {
+                        $('#folder-actions-form').attr('action', '{% url "users:delete_folders" %}');
+                        $('#folder-actions-form').submit();
+                    }
+                } else {
+                    alert('Please select a folder to delete.');
+                }
+            })
     
             // Generate URL button click event
 

@@ -17,38 +17,32 @@
             </ul>
         {% endif %}
 
-        {% if lessons %}
-            <h2>Lessons</h2>
+        {% if articles %}
             <ul>
-                {% for lesson in lessons %}
-                    <li><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></li>
+                {% for article in articles %}
+                    <li>
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|truncatewords:30 }}</p>
+                        <!-- Ensure you pass the article.id to the URL -->
+                        <a href="{% url 'fitness:article_detail' article.id %}">Read more</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No articles found.</p>
+        {% endif %}
+
+        {% if tips %}
+            <h2>Tips</h2>
+            <ul>
+                {% for item in tips %}
+                    <li>{{ item.title }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
 
-        {% if courses %}
-            <h2>Courses</h2>
-            <ul>
-                {% for course in courses %}
-                    <li><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {% if posts %}
-            <h2>Posts</h2>
-            <ul>
-                {% for post in posts %}
-                    <li><a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-
-        {% if not fitness and not lessons and not courses and not posts %}
-            <p>No results found</p>
-        {% endif %}
     </section>
-    <p>Back to <a href="{% url 'fitness:fitness_items' %}">Fitness Items</a></p>
+    <p>Back to <a href="{% url 'fitness:fitness_home' %}">Fitness</a></p>
 {% endblock %}
 
 {% block content1 %}

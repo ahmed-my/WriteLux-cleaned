@@ -5,9 +5,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .email_utils import send_registration_confirmation_email
 
-class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
-    email = forms.EmailField(required=True, help_text='', label='Email Address',
-                             widget=forms.EmailInput(attrs={'class': 'custom-class'}))
+class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField(
+        required=True,
+        help_text='',
+        widget=forms.EmailInput(attrs={
+            'class': 'custom-class',
+            'placeholder': 'Email Address'  # Set placeholder
+        })
+    )
 
     class Meta:
         model = User
@@ -15,9 +21,19 @@ class UserRegistrationForm(UserCreationForm): # overrideing the UserCreationForm
 
     def __init__(self, *args, **kwargs):
         super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Username'  # Set placeholder
+        })
+        self.fields['password1'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Password'  # Set placeholder
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'custom-class',
+            'placeholder': 'Password Confirmation'  # Set placeholder
+        })
         self.fields['username'].help_text = ''
-        self.fields['password1'].widget.attrs.update({'class': 'custom-class'})
-        self.fields['password2'].widget.attrs.update({'class': 'custom-class'})
         self.fields['password1'].help_text = ''
         self.fields['password2'].help_text = ''
 
@@ -79,8 +95,9 @@ class UserProfileForm(forms.ModelForm):
             self.fields['username'].initial = user.username
             self.fields['first_name'].initial = user.first_name
             self.fields['last_name'].initial = user.last_name
-            self.fields['bio'].initial = user.bio
             self.fields['email'].initial = user.email
+            # Access the bio from the related UserProfile instance
+            self.fields['bio'].initial = user.userprofile.bio
 
     def clean_username(self):
         username = self.cleaned_data.get('username')
@@ -95,6 +112,21 @@ class UserProfileForm(forms.ModelForm):
         return email
 
     def save(self, commit=True):
+        user = self.instance.user  # Access the related User instance
+        user.username = self.cleaned_data['username']
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.email = self.cleaned_data['email']
+        
+        if commit:
+            user.save()
+            user_profile = super(UserProfileForm, self).save(commit=False)  # Save the UserProfile instance without committing to the database yet
+            user_profile.bio = self.cleaned_data['bio']  # Assuming `bio` is part of the UserProfile model
+            user_profile.save()
+        
+        return self.instance
+    """
+    def save(self, commit=True):
         user = self.instance.user
         user.username = self.cleaned_data['username']
         user.first_name = self.cleaned_data['first_name']
@@ -103,6 +135,7 @@ class UserProfileForm(forms.ModelForm):
         user.email = self.cleaned_data['email']
         user.save()
         return super(UserProfileForm, self).save(commit=commit)
+    """
 
 # 02-08-2024
 class MessageForm(forms.ModelForm):

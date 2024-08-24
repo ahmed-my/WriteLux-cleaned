@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from fitness.models import Image
 from posts.models import Post
-from fitness.models import Lesson, Course, Fitness, Home
+from fitness.models import Lesson, Course, Fitness, Home, Quote
 from django.contrib.auth.decorators import login_required
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.urls import reverse_lazy
@@ -52,10 +52,12 @@ def dashboard(request):
     user = request.user
     posts = Post.objects.filter(author=user)
     courses = Course.objects.all()  # Include courses here
+    quotes = Quote.objects.all()
     context = {
         'user': user,
         'posts': posts,
         'courses': courses, # Add courses to the context
+        'quotes': quotes,
     }
     return render(request, 'dashboard.html', context)
 

@@ -111,3 +111,33 @@ button.form-submit:hover {
         width: 90%;
     }
 }
+
+/* adding eye icons to the password field */
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 2.5rem; /* Make space for the eye icon */
+    box-sizing: border-box; /* Include padding and borders in the width */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 0.75rem; /* Position the icon inside the input */
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 0.5rem;
+}
+
+.toggle-password i {
+    color: #555; /* Customize icon color */
+    font-size: 1rem; /* Customize icon size */
+}
