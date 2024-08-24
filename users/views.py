@@ -48,7 +48,7 @@ def password_reset_request(request):
         password_reset_form = PasswordResetForm(request.POST)
         if password_reset_form.is_valid():
             email = password_reset_form.cleaned_data['email']
-            associated_users = UserModel.objects.filter(email=email)
+            associated_users = User.objects.filter(email=email)
             if associated_users.exists():
                 for user in associated_users:
                     subject = "Password Reset Requested"
@@ -56,7 +56,7 @@ def password_reset_request(request):
                     context = {
                         "email": user.email,
                         "domain": request.META['HTTP_HOST'],
-                        "site_name": "Website",
+                        "site_name": "WriteLux",
                         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
                         "user": user,
                         "token": default_token_generator.make_token(user),
@@ -76,13 +76,14 @@ def password_reset_request(request):
                 messages.success(request, "Password reset email has been sent.")
                 return redirect("users:password_reset_done")
             else:
-                messages.error(request, "No user is associated with this email.")
+                # No user found with the provided email, show an error message
+                messages.error(request, "No user found with this email. Please enter a valid registered email")
+                return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
         else:
             messages.error(request, "Invalid email address.")
     else:
         password_reset_form = PasswordResetForm()
     return render(request, "registration/password_reset.html", {"password_reset_form": password_reset_form})
-
 
 @csrf_exempt
 def resend_password_reset_email(request):
@@ -96,7 +97,7 @@ def resend_password_reset_email(request):
             send_mail(
                 "Password Reset",
                 f"Click the link to reset your password: {reset_url}",
-                "from@example.com",
+                "my.writelux@gmail.com",
                 [email],
                 fail_silently=False,
             )
@@ -302,34 +303,6 @@ def edit_profile(request):
     }
     return render(request, 'users/edit_profile.html', context)
 
-"""
-def edit_profile(request):
-    if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile, user=request.user)
-        if profile_form.is_valid():
-            profile_form.save()
-            response = HttpResponseRedirect(reverse('users:user_profile'))
-            response.set_cookie('profile_updated', 'true', max_age=10)
-            return response
-    else:
-        profile_form = UserProfileForm(instance=request.user.userprofile, user=request.user)
-
-    return render(request, 'users/edit_profile.html', {'profile_form': profile_form})
-
-def edit_profile(request):
-    if request.method == 'POST':
-        profile_form = UserProfileForm(request.POST, request.FILES, instance=request.user.userprofile, user=request.user)
-        if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, 'Profile updated successfully.')
-            return redirect('users:user_profile')
-    else:
-        profile_form = UserProfileForm(instance=request.user.userprofile, user=request.user)
-
-    return render(request, 'users/edit_profile.html', {'profile_form': profile_form})
-
-
-"""
 @login_required
 def chat_message(request):
     user_ids = request.GET.get('users', '').split(',')
