@@ -125,18 +125,7 @@ class UserProfileForm(forms.ModelForm):
             user_profile.save()
         
         return self.instance
-    """
-    def save(self, commit=True):
-        user = self.instance.user
-        user.username = self.cleaned_data['username']
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.bio = self.cleaned_data['bio']
-        user.email = self.cleaned_data['email']
-        user.save()
-        return super(UserProfileForm, self).save(commit=commit)
-    """
-
+    
 # 02-08-2024
 class MessageForm(forms.ModelForm):
     recipient_id = forms.IntegerField(widget=forms.HiddenInput)  # Hidden input for recipient_id
