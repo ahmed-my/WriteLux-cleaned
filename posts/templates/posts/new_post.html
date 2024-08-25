@@ -1,4 +1,3 @@
-<!-- templates/posts/new_post.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}New Post{% endblock %}</title>
+    
     <link rel="stylesheet" href="{% static 'css-style/new-post.css' %}">
+    <!-- TinyMCE script -->
+    <script src="https://cdn.tiny.cloud/1/tufugh9b72akt1j26dpeczr00sx5r3drncgiitq3ai212qaa/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea',
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+        height: 400,
+      });
+    </script>
 </head>
 <body>
     {% block content %}

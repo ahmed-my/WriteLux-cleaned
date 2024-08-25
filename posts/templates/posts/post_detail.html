@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>{{ post.title }} - Author: {{ post.author }}</h1>
-    <p>{{ post.body }}</p>
+    <p>{{ post.body|safe }}</p>  <!-- This will render the HTML content properly -->
     <p><a href="{% url 'dashboard' %}">Back</a></p>
 {% endblock %}
 
