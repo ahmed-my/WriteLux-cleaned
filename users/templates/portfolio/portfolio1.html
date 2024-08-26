@@ -45,10 +45,9 @@
                     <button type="button" id="generate-url-button" class="btn btn-info">
                         <i class="fas fa-link"></i> Generate Folder URL
                     </button>
-                    
-                    <!-- Back to Dashboard Button -->
+                    <!-- Dashboard Button -->
                     <a href="{% url 'dashboard' %}" class="btn btn-primary">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="fas fa-arrow-left"></i> Back to dashboard
                     </a>
                 </div>
 
@@ -167,8 +166,8 @@
     <script>
         document.getElementById('folder-search-input').addEventListener('keyup', function() {
             let filter = this.value.toLowerCase();
-            let folderItems = document.querySelectorAll('.form-check'); // Updated selector
-
+            let folderItems = document.querySelectorAll('.form-check');  // Updated selector
+    
             folderItems.forEach(function(item) {
                 let text = item.textContent.toLowerCase();
                 if (text.includes(filter)) {
@@ -183,43 +182,41 @@
     <!-- Custom JS -->
     <script>
         $(document).ready(function() {
-            // Handle folder selection display
-            function updateSelectedFolders() {
-                var selectedFolders = [];
-                $('.folder-checkbox:checked').each(function() {
-                    selectedFolders.push($(this).next('label').text().trim());
-                });
-                $('#selected-folders-list').html(selectedFolders.join(', '));
-            }
-
+            // Handle folder checkbox change event
             $('.folder-checkbox').change(function() {
                 updateSelectedFolders();
             });
 
-            // Handle upload image to folder
-            $('#upload-image-button').click(function() {
-                var selectedFolders = $('.folder-checkbox:checked');
-                
-                if (selectedFolders.length > 0) {
-                    var folderId = selectedFolders.val();
-                    var uploadUrl = "{% url 'users:upload_image' %}?folder_id=" + encodeURIComponent(folderId);
-                    window.location.href = uploadUrl;
-                } else {
-                    alert("No folder selected, please a folder")
-                }
-            });
-            
+            function updateSelectedFolders() {
+                var selectedFoldersList = $('#selected-folders-list');
+                selectedFoldersList.empty(); // Clear previous list
+
+                $('.folder-checkbox:checked').each(function() {
+                    var folderName = $(this).closest('.form-check').find('label').text().trim();
+                    selectedFoldersList.append('<li class="list-group-item">' + folderName + '</li>');
+                });
+            }
 
             $('#rename-folder-button').click(function() {
-                var selectedFolder = $('.folder-checkbox:checked');
-                if (selectedFolder.length === 1) {
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
                     $('#selected_folder_id').val(folderId);
                     $('#renameFolderModal').modal('show');
-                } else if (selectedFolder.length === 0) {
-                    alert('Please select a folder to rename.');
                 } else {
-                    alert('Please select only one folder to rename.');
+                    alert('Please select a folder to rename.');
+                }
+            });
+
+	    // Upload Image button click event
+            $('#upload-image-button').click(function() {
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
+                    // Redirect to the upload image page
+                    var uploadUrl = "{% url 'users:upload_image' %}";
+                    window.location.href = uploadUrl;
+                } else {
+                    alert('Please select a folder to upload an image.');
                 }
             });
 
@@ -239,27 +236,22 @@
 
             // Update the URL generation in the portfolio.html
             $('#generate-url-button').click(function() {
-                var selectedFolders = $('.folder-checkbox:checked'); // This now captures all selected folders
-                
-                if (selectedFolders.length === 1) {
-                    var selectedFolder = selectedFolders.first(); // Get the first (and only) selected folder
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
                     var folderName = selectedFolder.closest('.form-check').find('label').text().trim();
                     var profileId = '{{ user.userprofile.profile_id }}';
-                    
-                    // Ensure the base URL is correctly built
-                    var baseUrl = window.location.origin + '/users/portfolio/' + profileId;
-                    
-                    var publicUrl = baseUrl + '/' + encodeURIComponent(folderName) + '/' + folderId + '/view/';
+            
+                    // Correctly build the base URL
+                    var baseUrl = window.location.origin + '/users'; // Ensure only one '/users' is added
+            
+                    var publicUrl = baseUrl + '/portfolio/' + profileId + '/' + encodeURIComponent(folderName) + '/' + folderId + '/view/';
                     $('#generated_url').val(publicUrl);
                     $('#generateUrlModal').modal('show');
-                } else if (selectedFolders.length === 0) {
-                    alert('Please select a folder to generate the URL.');
                 } else {
-                    alert('Please select only one folder to generate the URL.'); // Specifically handles the case for more than one folder selected
+                    alert('Please select a folder to generate the URL.');
                 }
             });
-                       
         });
     </script>
 </body>

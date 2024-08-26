@@ -215,23 +215,27 @@ def profile_portfolio(request, slug):
 
 @login_required
 def upload_image(request):
+    folder_id = request.GET.get('folder_id')
+    selected_folder = None
+
+    if folder_id:
+        selected_folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+
     if request.method == 'POST':
         form = PortfolioForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             portfolio_image = form.save(commit=False)
             portfolio_image.user = request.user
             
-            # Assign the selected folder, if any
-            selected_folder = form.cleaned_data.get('folder')  # Get the folder from cleaned data
             if selected_folder:
-                portfolio_image.folder = selected_folder  # Assign the selected folder
+                portfolio_image.folder = selected_folder
             
             portfolio_image.save()
-            return redirect('users:portfolio')  # Redirect to portfolio or dashboard
+            return redirect('users:portfolio')
     else:
-        form = PortfolioForm(user=request.user)
-    
-    return render(request, 'portfolio/upload_image.html', {'form': form})
+        form = PortfolioForm(user=request.user, initial={'folder': selected_folder})
+
+    return render(request, 'portfolio/upload_image.html', {'form': form, 'selected_folder': selected_folder})
 
 @login_required
 def user_profile(request):
