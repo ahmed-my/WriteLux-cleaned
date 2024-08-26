@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image</title>
-    <link rel="stylesheet" href="{% static 'css-style/image-upload1.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/image-upload.css' %}">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
@@ -18,7 +18,7 @@
             <h2 class="mb-0">Upload Image</h2>
           </div>
           <div class="card-body">
-            <form id="uploadForm" method="post" enctype="multipart/form-data" data-redirect-url="{% url 'users:portfolio' %}">
+            <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'users:upload_image' %}" data-redirect-url="{% url 'users:portfolio' %}">
               {% csrf_token %}
               <div class="form-group mb-3">
                 {{ form.image.label_tag }} 
@@ -29,15 +29,19 @@
                 {{ form.description|add_class:"form-control" }}
               </div>
               <div class="form-group mb-3">
-                <label for="id_folder">Selected Folder</label>
-                {% if selected_folder %}
-                    <input type="text" class="form-control" value="{{ selected_folder.name }}" readonly>
-                    <input type="hidden" name="folder" value="{{ selected_folder.id }}">
-                {% else %}
+                <label for="id_folder">Selected Folders</label>
+                {% if selected_folders %}
+                    {% for folder in selected_folders %}
+                        <input type="text" class="form-control mb-2" value="{{ folder.name }}" readonly>
+                        <input type="hidden" name="folders" value="{{ folder.id }}">
+                    {% endfor %}
+                {% endif %}
+                <!-- Render the select element if folders are not selected -->
+                {% if not selected_folders %}
                     {{ form.folder|add_class:"form-control" }}
                 {% endif %}
-            </div>
-            
+              </div>
+              
               <button type="submit" class="btn btn-primary w-70">Upload</button>
               <a href="{% url 'users:portfolio' %}" class="btn btn-primary">
                 <i class="fas fa-arrow-left"></i> Back to Portfolio

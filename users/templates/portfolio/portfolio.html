@@ -196,19 +196,22 @@
                 updateSelectedFolders();
             });
 
-            // Handle upload image to folder
+            // Handle upload image to multiple folders
             $('#upload-image-button').click(function() {
                 var selectedFolders = $('.folder-checkbox:checked');
-                
-                if (selectedFolders.length > 0) {
-                    var folderId = selectedFolders.val();
-                    var uploadUrl = "{% url 'users:upload_image' %}?folder_id=" + encodeURIComponent(folderId);
-                    window.location.href = uploadUrl;
+
+                if (selectedFolders.length === 0) {
+                    alert('Please select at least one folder to upload the image.');
                 } else {
-                    alert("No folder selected, please a folder")
+                    var folderIds = selectedFolders.map(function() {
+                        return $(this).val();
+                    }).get().join(',');
+
+                    var uploadUrl = "{% url 'users:upload_image' %}?folder_ids=" + encodeURIComponent(folderIds);
+                    window.location.href = uploadUrl;
                 }
             });
-            
+
 
             $('#rename-folder-button').click(function() {
                 var selectedFolder = $('.folder-checkbox:checked');

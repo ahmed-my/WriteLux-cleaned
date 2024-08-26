@@ -215,27 +215,33 @@ def profile_portfolio(request, slug):
 
 @login_required
 def upload_image(request):
-    folder_id = request.GET.get('folder_id')
-    selected_folder = None
+    folder_ids = request.GET.get('folder_ids')
+    selected_folders = None
 
-    if folder_id:
-        selected_folder = get_object_or_404(Folder, id=folder_id, user=request.user)
+    if folder_ids:
+        folder_ids = folder_ids.split(',')
+        selected_folders = Folder.objects.filter(id__in=folder_ids, user=request.user)
 
     if request.method == 'POST':
         form = PortfolioForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
             portfolio_image = form.save(commit=False)
             portfolio_image.user = request.user
-            
-            if selected_folder:
-                portfolio_image.folder = selected_folder
-            
-            portfolio_image.save()
+
+            if selected_folders:
+                for folder in selected_folders:
+                    portfolio_image.pk = None  # Reset the primary key to create a new instance for each folder
+                    portfolio_image.folder = folder
+                    portfolio_image.save()
+
             return redirect('users:portfolio')
     else:
-        form = PortfolioForm(user=request.user, initial={'folder': selected_folder})
+        form = PortfolioForm(user=request.user)
 
-    return render(request, 'portfolio/upload_image.html', {'form': form, 'selected_folder': selected_folder})
+    return render(request, 'portfolio/upload_image.html', {
+        'form': form,
+        'selected_folders': selected_folders
+    })
 
 @login_required
 def user_profile(request):
