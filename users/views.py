@@ -227,14 +227,16 @@ def upload_image(request):
     if request.method == 'POST':
         form = PortfolioForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
-            portfolio_image = form.save(commit=False)
+            portfolio_image = form.save(commit=False)  # Create but don't save to DB yet
             portfolio_image.user = request.user
-
+            portfolio_image.save()  # Save the Portfolio instance first to get a valid ID
+            
             if selected_folders:
-                for folder in selected_folders:
-                    portfolio_image.pk = None  # Reset the primary key to create a new instance for each folder
-                    portfolio_image.folder = folder
-                    portfolio_image.save()
+                portfolio_image.folder.set(selected_folders)  # Set folders
+                portfolio_image.save()  # Save the relationship
+
+            # Debugging: Log the folders associated with the portfolio_image
+            print(f"Folders associated with {portfolio_image}: {portfolio_image.folder.all()}")
 
             return redirect('users:portfolio')
     else:
@@ -245,6 +247,7 @@ def upload_image(request):
         'selected_folders': selected_folders,
         'folder_count': folder_count  # Pass folder count to the template
     })
+
 
 
 @login_required

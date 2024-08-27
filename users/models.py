@@ -31,7 +31,7 @@ class UserProfile(models.Model):
 
 # creating folders for portfolio images 09-08-2024
 class Folder(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)  # Ensure uniqueness
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='folders')
     created_at = models.DateTimeField(auto_now_add=True)
 
