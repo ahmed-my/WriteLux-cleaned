@@ -71,12 +71,13 @@
 
                     <!-- Selected Folders -->
                     <div class="selected-folders mt-3">
-                        <h4>Selected Folders</h4>
+                        <h4>Selected Folders: <span id="folder-count">0</span></h4>
                         <ul id="selected-folders-list" class="list-group">
                             <!-- Selected folders will be dynamically added here -->
                         </ul>
                     </div>
                 </div>
+
             </div>
         </form>
 
@@ -263,6 +264,41 @@
                 }
             });
                        
+        });
+    </script>
+    
+    <!-- javascript to handle the number of selected folders -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const folderCheckboxes = document.querySelectorAll('.folder-checkbox');
+            const folderCountElement = document.getElementById('folder-count');
+            const selectedFoldersList = document.getElementById('selected-folders-list');
+            let selectedFolderCount = 0; // Variable to store the selected folder count
+        
+            function updateFolderCount() {
+                const selectedFolders = document.querySelectorAll('.folder-checkbox:checked');
+                selectedFolderCount = selectedFolders.length; // Update the variable with the current count
+                folderCountElement.textContent = selectedFolderCount;
+        
+                // Update the hidden input value
+                document.getElementById('folder-count-input').value = selectedFolderCount;
+        
+                // Clear the list of selected folders
+                selectedFoldersList.innerHTML = '';
+        
+                selectedFolders.forEach(function (checkbox) {
+                    const listItem = document.createElement('li');
+                    listItem.classList.add('list-group-item');
+                    listItem.textContent = checkbox.nextElementSibling.textContent.trim();
+                    selectedFoldersList.appendChild(listItem);
+                });
+            }
+        
+            folderCheckboxes.forEach(function (checkbox) {
+                checkbox.addEventListener('change', updateFolderCount);
+            });
+        
+            updateFolderCount(); // Initial update in case of pre-selection
         });
     </script>
 </body>

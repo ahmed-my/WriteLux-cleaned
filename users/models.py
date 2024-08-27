@@ -43,7 +43,8 @@ class Portfolio(models.Model):
     image = models.ImageField(upload_to='portfolio/')
     description = models.TextField(blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
+    folder = models.ManyToManyField(Folder, related_name='portfolio_images', blank=True)  # Changed to ManyToManyField
+    # folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
 
     def __str__(self):
         return f"{self.user.username}'s portfolio image"

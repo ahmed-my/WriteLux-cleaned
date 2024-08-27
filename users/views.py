@@ -222,6 +222,8 @@ def upload_image(request):
         folder_ids = folder_ids.split(',')
         selected_folders = Folder.objects.filter(id__in=folder_ids, user=request.user)
 
+    folder_count = len(selected_folders) if selected_folders else 0
+
     if request.method == 'POST':
         form = PortfolioForm(request.POST, request.FILES, user=request.user)
         if form.is_valid():
@@ -240,8 +242,10 @@ def upload_image(request):
 
     return render(request, 'portfolio/upload_image.html', {
         'form': form,
-        'selected_folders': selected_folders
+        'selected_folders': selected_folders,
+        'folder_count': folder_count  # Pass folder count to the template
     })
+
 
 @login_required
 def user_profile(request):
