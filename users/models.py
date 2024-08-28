@@ -31,9 +31,14 @@ class UserProfile(models.Model):
 
 # creating folders for portfolio images 09-08-2024
 class Folder(models.Model):
-    name = models.CharField(max_length=255, unique=True)  # Ensure uniqueness
+    name = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='folders')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'user'], name='unique_folder_name_per_user')
+        ]
 
     def __str__(self):
         return self.name
@@ -47,7 +52,7 @@ class Portfolio(models.Model):
     # folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
 
     def __str__(self):
-        return f"{self.user.username}'s portfolio image"
+        return f"{self.user.username}'s portfolio"
 
 class Conversation(models.Model):
     participants = models.ManyToManyField(User, related_name='conversations')

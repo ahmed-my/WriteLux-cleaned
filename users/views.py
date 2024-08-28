@@ -159,14 +159,26 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
     # Retrieve images associated with the folder
     images = Portfolio.objects.filter(folder=folder)
 
+    print(images)  # Debugging line
+
+    # Debugging: Print out the details of images retrieved
+    print(f"Folder: {folder.name}")
+    print("Images retrieved:")
+    for image in images:
+        print(f"ID: {image.id}, URL: {image.image.url}, Description: {image.description}")
+
+    # Debugging: Print out the images retrieved
+    print(f"Images in folder '{folder.name}': {[image.image.url for image in images]}")
+
     context = {
-        'profile': user_profile,
         'profile_id': profile_id,  # Explicitly pass profile_id
         'folder': folder,
         'images': images,
         'title': folder.name,
+        'profile': request.user.userprofile  # Ensure this is available in your context
     }
     return render(request, 'portfolio/folder_detail.html', context)
+
 
 @login_required # tested ok under review
 def add_folder(request): # 09-08-2024
@@ -215,6 +227,37 @@ def profile_portfolio(request, slug):
 
 @login_required
 def upload_image(request):
+    if request.method == 'POST':
+        form = PortfolioForm(request.POST, request.FILES)
+        if form.is_valid():
+            portfolio = form.save(commit=False)
+            portfolio.user = request.user
+            portfolio.save()
+
+            # Handling the folder_ids from the hidden input field
+            folder_ids = request.POST.get('folder_ids', '')
+            if folder_ids:
+                folder_ids_list = folder_ids.split(',')
+                folders = Folder.objects.filter(id__in=folder_ids_list, user=request.user)
+                portfolio.folder.set(folders)
+
+            messages.success(request, "Image uploaded successfully!")
+            return redirect('users:portfolio')
+        else:
+            messages.error(request, "Failed to upload image. Please correct the errors below.")
+    else:
+        form = PortfolioForm()
+
+    folders = Folder.objects.filter(user=request.user)
+    return render(request, 'users/upload_image.html', {
+        'form': form,
+        'selected_folders': folders,
+        'folder_count': folders.count(),
+    })
+    
+"""
+@login_required
+def upload_image(request):
     folder_ids = request.GET.get('folder_ids')
     selected_folders = None
 
@@ -230,10 +273,10 @@ def upload_image(request):
             portfolio_image = form.save(commit=False)  # Create but don't save to DB yet
             portfolio_image.user = request.user
             portfolio_image.save()  # Save the Portfolio instance first to get a valid ID
-            
+    
             if selected_folders:
-                portfolio_image.folder.set(selected_folders)  # Set folders
-                portfolio_image.save()  # Save the relationship
+                portfolio_image.folder.set(selected_folders)  # Set the ManyToMany relationship
+                portfolio_image.save()  # Save the relationship                                                                                                                                             
 
             # Debugging: Log the folders associated with the portfolio_image
             print(f"Folders associated with {portfolio_image}: {portfolio_image.folder.all()}")
@@ -247,8 +290,7 @@ def upload_image(request):
         'selected_folders': selected_folders,
         'folder_count': folder_count  # Pass folder count to the template
     })
-
-
+"""
 
 @login_required
 def user_profile(request):
@@ -517,7 +559,9 @@ def delete_image_view(request, profile_id, folder_id, image_id):
             return HttpResponseForbidden("You are not allowed to delete this image.")
         
         # Retrieve the image based on image_id and folder_id
-        image = get_object_or_404(Portfolio, id=image_id, folder_id=folder_id)
+        # views.py
+
+        image = get_object_or_404(Portfolio, id=image_id, folder__id=folder_id)
         
         # Delete the image
         image.delete()
