@@ -264,50 +264,20 @@ def upload_image(request):
             messages.error(request, "Failed to upload image. Please correct the errors below.")
     else:
         form = PortfolioForm()
+        # Get the selected folders passed from the previous view (if any)
+        folder_ids = request.GET.get('folder_ids', '')
+        selected_folders = []
+
+        if folder_ids:
+            folder_ids_list = folder_ids.split(',')
+            selected_folders = Folder.objects.filter(id__in=folder_ids_list, user=request.user)
 
     folders = Folder.objects.filter(user=request.user)
     return render(request, 'users/upload_image.html', {
         'form': form,
-        'selected_folders': folders,
-        'folder_count': folders.count(),
-    })
-    
-"""
-@login_required
-def upload_image(request):
-    folder_ids = request.GET.get('folder_ids')
-    selected_folders = None
-
-    if folder_ids:
-        folder_ids = folder_ids.split(',')
-        selected_folders = Folder.objects.filter(id__in=folder_ids, user=request.user)
-
-    folder_count = len(selected_folders) if selected_folders else 0
-
-    if request.method == 'POST':
-        form = PortfolioForm(request.POST, request.FILES, user=request.user)
-        if form.is_valid():
-            portfolio_image = form.save(commit=False)  # Create but don't save to DB yet
-            portfolio_image.user = request.user
-            portfolio_image.save()  # Save the Portfolio instance first to get a valid ID
-    
-            if selected_folders:
-                portfolio_image.folder.set(selected_folders)  # Set the ManyToMany relationship
-                portfolio_image.save()  # Save the relationship                                                                                                                                             
-
-            # Debugging: Log the folders associated with the portfolio_image
-            print(f"Folders associated with {portfolio_image}: {portfolio_image.folder.all()}")
-
-            return redirect('users:portfolio')
-    else:
-        form = PortfolioForm(user=request.user)
-
-    return render(request, 'portfolio/upload_image.html', {
-        'form': form,
         'selected_folders': selected_folders,
-        'folder_count': folder_count  # Pass folder count to the template
+        'folder_count': len(selected_folders),
     })
-"""
 
 @login_required
 def user_profile(request):

@@ -20,8 +20,8 @@
           <div class="card-body">
             <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'users:upload_image' %}" data-redirect-url="{% url 'users:portfolio' %}">
               {% csrf_token %}
-              <input type="hidden" id="folder-count-input" name="folder_count" value="0">
-              <input type="hidden" id="folder_ids" name="folder_ids" value="">
+              <input type="hidden" id="folder-count-input" name="folder_count" value="{{ folder_count }}">
+              <input type="hidden" id="folder_ids" name="folder_ids" value="{% for folder in selected_folders %}{{ folder.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
 
               <div class="form-group mb-3">
                 {{ form.image.label_tag }} 
@@ -34,9 +34,9 @@
 
               <div class="form-group mb-3">
                 {% if folder_count > 1 %}
-                  <label for="id_folder">Folders</label>
+                  <label for="id_folder">Selected Folders</label>
                 {% else %}
-                  <label for="id_folder">Folder</label>
+                  <label for="id_folder">Selected Folder</label>
                 {% endif %}
                 {% if selected_folders %}
                     {% for folder in selected_folders %}
