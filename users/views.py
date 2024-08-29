@@ -203,9 +203,9 @@ def rename_folder(request, folder_id):
     folder = get_object_or_404(Folder, id=folder_id, user=request.user)  # Ensure the folder belongs to the logged-in user
 
     if request.method == "POST":
-        new_name = request.POST.get('folder_name').strip()  # Get the new folder name and strip whitespace
+        new_name = request.POST.get('folder_name', '').strip()  # Provide a default empty string and strip whitespace
 
-        if new_name:
+        if new_name:  # Proceed only if new_name is not an empty string
             if new_name == folder.name:
                 messages.info(request, "The new name is the same as the current name. Please enter a different name.")
             elif Folder.objects.filter(name=new_name, user=request.user).exists():
@@ -219,6 +219,7 @@ def rename_folder(request, folder_id):
             messages.info(request, "Please enter a valid folder name.")
     
     return render(request, 'portfolio/rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
+
 
 @login_required # 09-08-2024 delete a folder
 def delete_folders(request):
