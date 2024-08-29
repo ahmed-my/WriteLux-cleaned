@@ -198,39 +198,25 @@ def add_folder(request):
 
     return render(request, 'portfolio/add_folder.html')
 
-"""
 @login_required
 def rename_folder(request, folder_id):
-    folder = Folder.objects.get(id=folder_id, user=request.user)
-    if request.method == 'POST':
-        new_name = request.POST.get('new_name')
-        if Folder.objects.filter(name=new_name, user=request.user).exists():
-            messages.error(request, 'Folder name already exists.')
-            return redirect('users:rename_folder', folder_id=folder.id)
-        else:
-            folder.name = new_name
-            folder.save()
-            messages.success(request, 'Folder renamed successfully.')
-            return redirect('users:portfolio')
-    return render(request, 'portfolio/rename_folder.html', {'folder': folder})
-
-"""
-@login_required # 09-08-2024 renaming of a folder
-def rename_folder(request, folder_id):
-    folder = get_object_or_404(Folder, id=folder_id)
+    folder = get_object_or_404(Folder, id=folder_id, user=request.user)  # Ensure the folder belongs to the logged-in user
 
     if request.method == "POST":
-        new_name = request.POST.get('folder_name')
-        if new_name and new_name != folder.name:
-            if Folder.objects.filter(name=new_name).exists():
-                messages.info(request, "Folder name already exists")
+        new_name = request.POST.get('folder_name').strip()  # Get the new folder name and strip whitespace
+
+        if new_name:
+            if new_name == folder.name:
+                messages.info(request, "The new name is the same as the current name. Please enter a different name.")
+            elif Folder.objects.filter(name=new_name, user=request.user).exists():
+                messages.info(request, "A folder with that name already exists. Please choose a different name.")
             else:
                 folder.name = new_name
                 folder.save()
                 messages.success(request, "Folder renamed successfully")
                 return redirect('users:portfolio')
         else:
-            messages.info(request, "Please enter a different folder name")
+            messages.info(request, "Please enter a valid folder name.")
     
     return render(request, 'portfolio/rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
 

@@ -55,8 +55,7 @@
         <form method="post" action="{% url 'users:rename_folder' folder_id=folder.id %}">
             {% csrf_token %}
             <div class="form-group">
-                <label for="folderName">New Folder Name:</label>
-                <input type="text" class="form-control" id="folderName" name="folder_name" placeholder="Enter new folder name" required value="{{ current_folder_name }}">
+                <input type="text" class="form-control" id="folderName" name="folder_name" placeholder="Rename the folder" required value="{{ current_folder_name }}">
             </div>
         
             <button type="submit" class="btn btn-primary btn-block">Rename Folder</button>
