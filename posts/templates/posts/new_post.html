@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}New Post{% endblock %}</title>
+    
+    <link rel="stylesheet" href="{% static 'css-style/new-post.css' %}">
+    <!-- TinyMCE script -->
+    <script src="https://cdn.tiny.cloud/1/tufugh9b72akt1j26dpeczr00sx5r3drncgiitq3ai212qaa/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        tinymce.init({
+          selector: 'textarea',
+          plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak media',
+          toolbar: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media',
+          images_upload_url: '{% url "users:upload_image" %}',  // Correct URL for image upload
+          automatic_uploads: true,
+          file_picker_types: 'image',
+          images_upload_handler: function (blobInfo, success, failure) {
+            console.log('Starting image upload');
+            var xhr, formData;
+            xhr = new XMLHttpRequest();
+            xhr.withCredentials = false;
+            xhr.open('POST', '{% url "users:upload_image" %}');  // Ensure correct URL
+            xhr.setRequestHeader("X-CSRFToken", "{{ csrf_token }}");
+          
+            xhr.onload = function() {
+              var json;
+              if (xhr.status != 200) {
+                console.log('HTTP Error:', xhr.status);
+                failure('HTTP Error: ' + xhr.status);
+                return;
+              }
+              json = JSON.parse(xhr.responseText);
+              if (!json || typeof json.location != 'string') {
+                console.log('Invalid JSON:', xhr.responseText);
+                failure('Invalid JSON: ' + xhr.responseText);
+                return;
+              }
+              console.log('Image uploaded successfully:', json.location);
+              success(json.location);
+            };
+          
+            formData = new FormData();
+            formData.append('file', blobInfo.blob(), blobInfo.filename());
+            xhr.send(formData);
+          }          
+        });
+    </script>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <section class="new-post-section">
+            <h1>New Post</h1>
+            <form class="form-with-validation" action="{% url 'posts:new_post' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.title.label_tag }} {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.body.label_tag }} {{ form.body }}
+                </div>
+                <div class="form-group">
+                    {{ form.slug.label_tag }} {{ form.slug }}
+                </div>
+                <div class="form-group">
+                    {{ form.banner.label_tag }} {{ form.banner }}
+                </div>
+                {% if form.errors %}
+                    <div class="form-errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <button class="form-submit">Publish</button>
+            </form>
+        </section>
+    </div>
+    {% endblock %}
+    <script src="{% static 'js/new-post.js' %}"></script>
+</body>
+</html>

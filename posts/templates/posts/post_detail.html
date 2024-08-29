@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}Post Detail{% endblock %}
+
+{% block content %}
+    <h1>{{ post.title }} - Author: {{ post.author }}</h1>
+    <p>{{ post.body|safe }}</p>  <!-- This will render the HTML content properly -->
+    <p><a href="{% url 'dashboard' %}">Back</a></p>
+{% endblock %}
+
+{% block content1 %}
+    <h2 class="section-title">Amazing Content</h2>
+    <div class="courses">
+        {% for course in courses %}
+            <article class="course-item">
+                <a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content2 %}
+    <h2 class="section-title">Business Plan</h2>
+    <div class="lessons">
+        {% for lesson in lessons %}
+            <article class="lesson-item">
+                <a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a>
+            </article>
+        {% endfor %}
+    </div>
+{% endblock  %}

@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Image gallery 
+{% endblock  %}
+
+{% block content %}
+    <section class="image-gallery-container">
+        <h1>WriteLux Images</h1>
+        <div class="image-gallery">
+            {% for image in images %}
+                <img 
+                    class="gallery-image"
+                    src="{{ image.image.url }}" alt="{{ image.title }}"
+                />
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+<!-- add the grid container for content1 and content2 -->
+{% block content1 %}
+<h1>WriteLux Images</h1>
+<section>
+    {% for post in posts %} 
+        <img 
+            class="banner-images-content1"
+            src="{{ post.banner.url }}" alt="{{ post.title }}" 
+        />
+    {% endfor %}
+    
+    {% for lesson in lessons %} 
+        <img 
+            class="banner-images-content1"
+            src="{{ lesson.banner.url }}" alt="{{ lesson.title }}" 
+        />
+    {% endfor %}
+    <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
+</section>
+{% endblock  %}
+
+{% block content2 %}
+<h1>WriteLux Images</h1>
+<section>
+    {% for course in courses %} 
+    <img 
+        class="banner-images-content2"
+        src="{{ course.banner.url }}" alt="{{ course.title }}" 
+    />
+    {% endfor %}
+    <p>Back to <a href="{% url 'posts:posts_list' %}">WriteLux</a></p>
+</section>
+{% endblock  %}

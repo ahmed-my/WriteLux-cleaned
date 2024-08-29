@@ -1,0 +1,9 @@
+# pack-refs with: peeled fully-peeled sorted 
+2f3a0438e8364631faafd458559bdb0bf04d1f7f refs/heads/main
+206e1a84b07b74678001dba35f0b58bb3e64f5dc refs/heads/master
+c501b2868c8e2f8909f793ab1e3bc08a803285fe refs/heads/yahaya
+d9d964455f38ad52c8a3e47e7cf482cd191f654e refs/remotes/origin/Augustina
+59edd47a19e8a610185b0d5c0f57d8966868849c refs/remotes/origin/Ogoo
+b15d16afd6efaa98ad542d1422e81c2b8c1d39ac refs/remotes/origin/main
+206e1a84b07b74678001dba35f0b58bb3e64f5dc refs/remotes/origin/master
+b48155a245e7721caa10063d55869e510709700e refs/stash

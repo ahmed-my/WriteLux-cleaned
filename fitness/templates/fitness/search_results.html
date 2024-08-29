@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Search Results
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Search Results for "{{ query }}"</h1>
+
+        {% if fitness %}
+            <h2>Fitness</h2>
+            <ul>
+                {% for item in fitness %}
+                    <li>{{ item.name }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if articles %}
+            <ul>
+                {% for article in articles %}
+                    <li>
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content|truncatewords:30 }}</p>
+                        <!-- Ensure you pass the article.id to the URL -->
+                        <a href="{% url 'fitness:article_detail' article.id %}">Read more</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No articles found.</p>
+        {% endif %}
+
+        {% if tips %}
+            <h2>Tips</h2>
+            <ul>
+                {% for item in tips %}
+                    <li>{{ item.title }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    </section>
+    <p>Back to <a href="{% url 'fitness:fitness_home' %}">Fitness</a></p>
+{% endblock %}
+
+{% block content1 %}
+    <h2><a href="/">Contents</a></h2>
+    <p>Contents Area</p>
+{% endblock %}
+
+{% block content2 %}
+    <h2><a href="/">Business</a> Plan</h2>
+    <p>Business Area</p>
+{% endblock %}

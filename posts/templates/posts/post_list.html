@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Post List
+{% endblock %}
+
+{% block content %}
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <h3>{{ post.title }} - posted on {{ post.date }}</h3>
+                <p><a href="{% url 'posts:post_page' param=post.slug %}">Read more</a></p>
+                <p><a href="{% url 'post_update' post.pk %}">Edit Post</a></p>
+                <p><a href="{% url 'post_delete' post.pk %}">Delete Post</a></p>
+            </li>
+        {% empty %}
+            <li>No posts found.</li>
+        {% endfor %}
+    </ul>
+    <p><a href="{% url 'post_create' %}">Create New Post</a></p>
+{% endblock %}

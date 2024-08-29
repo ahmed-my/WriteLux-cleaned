@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    lessons
+{% endblock  %}
+
+{% block content %}
+    <!-- Search form -->
+    <form action="{% url 'posts:search' %}" method="get">
+        <input type="text" name="q" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
+    <h2>Current Post on WriteLux</h2>
+    <p>&nbsp;</p> <!-- leave empty space -->
+    <section>
+        {% for post in posts %} <!-- posts = Post.objects.all().order_by(-date) {'posts': posts} in views.py -->
+            <article>
+                <!-- app_name = 'posts' -->
+                <a href="{% url 'posts:post_page' param=post.slug %}">{{ post.title }}</a>
+                <!-- 'posts:post_page' This means the function post_page in views.py in the app posts -->
+            </article>
+        {% endfor %}
+        <p>Back <a href="/" arial-label="Back to Home" title="Back to Home">Home</a></p>
+    </section>
+{% endblock  %}  
+
+<!-- add the grid container for content1 and content2 -->
+<!-- display content from the database here. sample used from Post. Work In Progress  5/7/24 -->
+{% block content1 %}
+    <h1>Content Area</h1>
+    <p>&nbsp;</p>
+    <section>
+        {% for course in courses %} <!-- courses = Course.objects.all() {'courses': courses} in views.py -->
+            <!-- app_name = 'posts' -->
+            <p><a href="{% url 'fitness:course_page' param=course.slug %}">{{ course.title }}</a></p>
+            <!-- 'posts:course_page' This means the function course_page in views.py in the app posts -->
+        {% endfor %}
+    </section>
+{% endblock  %}
+
+{% block content2 %}
+    <h1>Busness Plan</h1>
+    <p>&nbsp;</p>
+    <section>
+        {% for lesson in lessons %}
+            <p><a href="{% url 'fitness:lesson_page' param=lesson.slug %}">{{ lesson.name }}</a></p>
+        {% endfor %}
+    </section>
+{% endblock  %}

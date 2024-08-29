@@ -1,0 +1,106 @@
+/* Add this to your profile.css */
+
+.profile-container {
+    width: 50%;
+    margin: auto;
+}
+
+.profile-title {
+    text-align: center;
+}
+
+.edit-profile-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.profile-picture {
+    max-width: 150px; /* Adjust the max-width as needed */
+    max-height: 1500px; /* Adjust the max-height as needed */
+    border-radius: 50%; /* Optional: Make the image circular */
+    object-fit: cover; /* Ensure the image fits within the dimensions */
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    width: 150px; /* Adjust this value to control the width of the label */
+    margin-right: 2px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="file"] {
+    flex: 1;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Ensures padding and border are included in the element's total width and height */
+}
+
+.form-group input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-group input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.messages {
+    margin: 20px 0;
+}
+.message {
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+.message-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+.message-error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+/* Style for Back to Dashboard link */
+.back-to-user-profile {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    color: #ffffff;
+    background-color: #007bff; /* Bootstrap primary color or choose your own */
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.back-to-user-profile:hover {
+    background-color: #0056b3; /* Darker shade of primary color for hover effect */
+    color: #ffffff;
+}
+
+.back-to-user-profile:active {
+    background-color: #004080; /* Even darker shade for active state */
+    color: #ffffff;
+}

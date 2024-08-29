@@ -1,0 +1,481 @@
+@keyframes hoverEffect {
+    0% {
+        color: white;
+        transform: scale(1);
+    }
+    10% {
+        color: #FFD700;
+        transform: scale(1.1);
+    }
+    100% {
+        color: green;
+        transform: scale(2);
+    }
+}
+
+/* nav a:hover {
+    animation: hoverEffect 3s ease-in-out;
+    color: green;
+} */
+
+
+.course-image {
+    display: inline-block;
+    margin-right: 1rem;
+    vertical-align: middle;
+    max-width: 200px;
+}
+
+
+.home-image {
+    display: inline-block; 
+    margin-right: 1rem;
+    vertical-align: middle; 
+    max-width: 600px; 
+    margin-bottom: 10px;
+}
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    flex: 1;
+}
+
+.sidebar {
+    background-color: #FCFCFC;
+    padding: 1rem;
+}
+
+main {
+    padding: 1rem;
+    flex: 1;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    text-align: center; /* Center the text */
+    padding: 10px; /* Adjust padding as needed */
+    z-index: 1000; /* Ensure it's above other elements */
+    height: 50px; /* Ensure this height matches the padding added to the content */
+}
+
+section {
+    display: flex;
+    flex-flow: column;
+    gap: 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-left: 0rem;
+    margin-bottom: 5px;
+}
+
+h2 {
+    font-size: 1rem;
+    margin-left: 0rem;
+    margin-bottom: 1px;
+}
+
+p {
+    font-size: 1rem;
+    margin-left: 0rem;
+    margin-bottom: 2px;
+    text-align: justify;
+}
+
+a {
+    text-decoration: none;
+    color: #81dbb8;
+}
+
+a:hover {
+    opacity: .85;
+}
+
+.banner {
+    display: block;
+    width: 600px;
+    margin-bottom: 20px;
+}
+
+.custom-style li {
+    color: #81dbb8;
+}
+
+.custom-style ul {
+    color: #4a1bb6;
+}
+
+.banner-images-content1 {
+    display: block;
+    width: 300px;
+}
+
+.banner-images-content2 {
+    display: block;
+    width: 300px;
+}
+
+.content1 {
+    max-height: 400px; /* Set the maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 5px; /* Optional: add some padding */
+    border: none; /* Remove the border */
+}
+
+.content2 {
+    max-height: 400px; /* Set the maximum height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Disable horizontal scrolling */
+    padding: 5px; /* Optional: add some padding */
+    border: none; /* Remove the border  border: 1px solid #ccc; */
+}
+
+.content1-container {
+    padding: 1px;
+}
+
+.content1-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
+}
+
+.content2-container {
+    padding: 1px;
+}
+
+.content2-container img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    padding: 1px;
+}
+
+.image-gallery {
+    display: block;
+    margin-right: 5px;
+    width: 600px;
+}
+
+.image-gallery-container {
+    width: 550px;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    white-space: nowrap; /* Prevent line breaks */
+}
+
+.image-gallery {
+    display: inline-block;
+}
+
+.gallery-image {
+    width: 550px;
+    display: inline-block;
+    height: 335px; /* Set a fixed height */
+    object-fit: cover; /* Maintain aspect ratio and cover the area */
+    margin-right: 5px; /* Space between images */
+}
+
+.form-with-validation {
+    max-width: 600px;
+    font-size: 1rem;
+    padding: 0rem;
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+.form-with-validation textarea {
+    width: 100%; /* Ensure the textarea takes full width of its container */
+    height: 200px; /* Adjust the height as needed */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.form-with-validation div {
+    display: flex;
+    flex-flow: column;
+    gap: 0.5rem;
+}
+
+.form-with-validation input {
+    padding: 0.25rem;
+    border-radius: 5px;
+    max-width: 200px;
+    background-color: none;
+    margin-left: 0rem;
+}
+
+.form-submit {
+    padding: 0.25rem;
+    border-radius: 20px;
+    width: 150px;
+}
+
+.helptext {
+    font-size: 1rem;
+    margin-left: 0rem;
+}
+
+.helptext ul {
+    list-style-type: none;
+}
+
+.errorlist {
+    color: #F00;
+    margin-left: 2rem;
+}
+
+.errorlist li::marker {
+    content: '🚨 ';
+}
+
+.login {
+    display: inline-block;
+}
+
+.login-button {
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    color: white;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logout {
+    display: inline-block;
+}
+
+.logout-button {
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0);
+    border: none;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.logout-button:hover {
+    opacity: .45;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 5px;
+    font-size: 14px;
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+@keyframes textFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes textFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes imageZoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+}
+
+.text-animation {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.text-animation-home-content1 {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.text-animation-home-content2 {
+    animation: textFadeIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation {
+    animation: imageZoomIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation-home-content1 {
+    animation: imageZoomIn 5s ease-in-out infinite;
+    animation-delay: 2s;
+}
+
+.image-animation-home-content2 {
+    animation: imageZoomIn 10s ease-in-out infinite;
+    animation-delay: 4s;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-25%);
+    }
+    50% {
+        transform: translateX(-50%);
+    }
+    75% {
+        transform: translateX(-75%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* Remove sliding animation from content1-slider */
+.content1-slider {
+    display: flex;
+    width: 100%;
+    animation: none;
+}
+
+.content1-slider img {
+    flex-shrink: 0;
+    opacity: 0;
+    animation: content1DropIn 0.5s forwards;
+    animation-delay: calc(var(--i) * 0.5s); /* Adjust delay for sequential appearance */
+}
+
+/* Ken Burns effect for Content2 */
+@keyframes content2KenBurns {
+    0% {
+        opacity: 0;
+        transform: scale(1.2) translate(10%, 10%);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.2) translate(-10%, -10%);
+    }
+}
+
+.content2-slider img {
+    flex-shrink: 0;
+    opacity: 0;
+    animation: content2KenBurns 20s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 5s); /* Adjust delay for better staggering */
+}
+
+/* Instant Appearance Animation for Content1 */
+@keyframes content1DropIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.dashboard-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.dashboard-list li {
+    margin-bottom: 2px;
+}
+
+/* Ensure the container div takes the same width as the input fields */
+.account-forgot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px; /* Adjust as needed */
+}
+
+/* Style for the "Don't have an account? Sign Up" section */
+#account {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0; /* Adjust as needed */
+}
+
+/* Style for the "Forgot Password?" link */
+.forgot {
+    width: 100%;
+    text-align: center;
+}
+
+.forgot a p {
+    margin: 10px 0; /* Adjust as needed */
+}
+.drop-down {
+    background-color: #000000;
+    color: #ccc;
+}
+
+.message {
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}

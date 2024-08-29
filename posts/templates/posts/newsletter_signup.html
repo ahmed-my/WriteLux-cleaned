@@ -1,0 +1,17 @@
+<!-- templates/newsletter_signup.html -->
+{% extends "layout.html" %}
+
+{% block title %}
+    Newsletter Signup
+{% endblock %}
+
+{% block content %}
+<section>
+    <h1>Newsletter Signup</h1>
+    <form action="{% url 'posts:newsletter_signup' %}" method="post">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Enter your email">
+        <button type="submit">Subscribe</button>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css-style/quote.css' %}">
+
+{% block title %}
+    Fitness
+{% endblock %}
+
+{% block content %}
+    <section>
+        <h1>Fitness and Your Well-being</h1>
+        <!-- Search form -->
+        <form action="{% url 'fitness:search' %}" method="get">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Articles Section -->
+        <div class="articles">
+            <h2>Latest Articles</h2>
+            {% for article in articles %}
+                <article>
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.content|truncatewords:50 }}</p>
+                    <a href="{% url 'fitness:article_detail' article.id %}">Read more</a>
+                </article>
+            {% empty %}
+                <p>No articles available.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+
+{% block content1 %}
+<section>
+    <!-- Tips Section -->
+    <div class="tips">
+        <h2>Fitness Tips</h2>
+        <ul>
+            {% for tip in tips %}
+                <li><strong>{{ tip.title }}</strong>: {{ tip.content }}</li>
+            {% empty %}
+                <p>No tips available.</p>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
+
+{% block content2 %}
+<section id="quote-section">
+    <!-- Motivational Quotes -->
+    <h2>Motivational Quotes</h2>
+    <blockquote id="quote">
+        <!-- Quote will be dynamically inserted here -->
+    </blockquote>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const quotes = [
+            {% for quote in quotes %}
+                "{{ quote.content }} - {{ quote.author }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
+
+        console.log("Quotes loaded:", quotes); // Log the quotes array
+
+        if (quotes.length === 0) {
+            console.error("No quotes available.");
+            return;
+        }
+
+        let currentQuoteIndex = 0;
+        const quoteElement = document.getElementById("quote");
+
+        function showQuote(index) {
+            console.log("Showing quote index:", index, quotes[index]); // Log the current quote
+            quoteElement.style.opacity = 0; // Fade out the quote
+            setTimeout(() => {
+                quoteElement.textContent = quotes[index];
+                quoteElement.style.opacity = 1; // Fade in the new quote
+            }, 500);
+        }
+
+        function cycleQuotes() {
+            showQuote(currentQuoteIndex);
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
+
+        // Initial display
+        showQuote(currentQuoteIndex);
+        setInterval(cycleQuotes, 10000); // Change quote every 5 seconds
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,40 @@
+0000000000000000000000000000000000000000 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723219502 +0100	branch: Created from HEAD
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 b3d7694b7d4081c1965e54c2f26d8c8fce2c4c46 ahmed-my <yahaya.mymohammed@gmail.com> 1723262942 +0100	commit: creating custome folder for portfolio
+b3d7694b7d4081c1965e54c2f26d8c8fce2c4c46 a8990a31c9f15191f876b5fdfae05c722811ba9e ahmed-my <yahaya.mymohammed@gmail.com> 1723277314 +0100	commit: creating custome folder for portfolio
+a8990a31c9f15191f876b5fdfae05c722811ba9e 08dc5efd62926bf27d4e26b57a43171d3217634f ahmed-my <yahaya.mymohammed@gmail.com> 1723278683 +0100	commit: creating custome folder for portfolio
+08dc5efd62926bf27d4e26b57a43171d3217634f 04de9f6682a6618012b76762a8cb56e9397cbd51 ahmed-my <yahaya.mymohammed@gmail.com> 1723279159 +0100	commit: creating custome folder for portfolio
+04de9f6682a6618012b76762a8cb56e9397cbd51 98af91dcae311dc8343cee313436b7105b7c65fe ahmed-my <yahaya.mymohammed@gmail.com> 1723291794 +0100	commit: portfolio folder selection working as expected
+98af91dcae311dc8343cee313436b7105b7c65fe 4f8e052197bd63e230f5d27d06b22a387bf7820a ahmed-my <yahaya.mymohammed@gmail.com> 1723368373 +0100	commit: added upload image button to the portfolio templates
+4f8e052197bd63e230f5d27d06b22a387bf7820a f9df43585ebcc41e0d57a50f8746af5d063dcf17 ahmed-my <yahaya.mymohammed@gmail.com> 1723415978 +0100	commit: added live search to the portfoliotemplate
+f9df43585ebcc41e0d57a50f8746af5d063dcf17 634b9f58f182df8e4bc52aa48816afb3c0fe9e88 ahmed-my <yahaya.mymohammed@gmail.com> 1723425224 +0100	commit: implementation of image deletion
+634b9f58f182df8e4bc52aa48816afb3c0fe9e88 215a8eef5f756edc2ee6936f07aa1f05c4b50dce ahmed-my <yahaya.mymohammed@gmail.com> 1723465799 +0100	commit: impletation of image deletion from a folder
+215a8eef5f756edc2ee6936f07aa1f05c4b50dce f45b8fca66c9d6b778e3f8625947236a5210be7d ahmed-my <yahaya.mymohammed@gmail.com> 1723466779 +0100	commit: impletation of image deletion from a folder
+f45b8fca66c9d6b778e3f8625947236a5210be7d 9bef9db1a2ab30900968617304d4f86b6d1b8df9 ahmed-my <yahaya.mymohammed@gmail.com> 1723500001 +0100	commit: folder image deletion completed and working well
+9bef9db1a2ab30900968617304d4f86b6d1b8df9 6aaa2725ffc0d9101e1d7013bb356a5de45d5cad ahmed-my <yahaya.mymohammed@gmail.com> 1723596547 +0100	commit: Project image upload completed
+6aaa2725ffc0d9101e1d7013bb356a5de45d5cad 0d62bd5837417ad61b95a76cce3a3f4454090c47 ahmed-my <yahaya.mymohammed@gmail.com> 1723603169 +0100	commit: FAQ integration done
+0d62bd5837417ad61b95a76cce3a3f4454090c47 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1723655284 +0100	pull origin ahmed: Fast-forward
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 079a2c3f537a0cd779c3c20f04f1419afadc41b1 ahmed-my <yahaya.mymohammed@gmail.com> 1723720097 +0100	pull origin musa: Fast-forward
+079a2c3f537a0cd779c3c20f04f1419afadc41b1 b6e7c262cdc2159e15b029ed27401a285b2ee430 ahmed-my <yahaya.mymohammed@gmail.com> 1723731632 +0100	pull origin musa: Fast-forward
+b6e7c262cdc2159e15b029ed27401a285b2ee430 5c9abce71cb046695b0641657ef2f5ed5be322e3 ahmed-my <yahaya.mymohammed@gmail.com> 1723739098 +0100	pull origin musa: Fast-forward
+5c9abce71cb046695b0641657ef2f5ed5be322e3 35d9c5bde4ce474ca17ff0090989880260d3189f ahmed-my <yahaya.mymohammed@gmail.com> 1723807389 +0100	commit: adding eye icon to the login page
+35d9c5bde4ce474ca17ff0090989880260d3189f 5c5a61a81941def1e7b17a132f62f5b23c23b43e ahmed-my <yahaya.mymohammed@gmail.com> 1723849130 +0100	commit: eye icons added to the register template
+5c5a61a81941def1e7b17a132f62f5b23c23b43e 966c086abd8c832f3efa59602f6c9e54ee72b498 ahmed-my <yahaya.mymohammed@gmail.com> 1723922871 +0100	pull origin musa: Fast-forward
+966c086abd8c832f3efa59602f6c9e54ee72b498 49d41dae7dca149f96152f7bdf9e4d27cf72d7d3 ahmed-my <yahaya.mymohammed@gmail.com> 1723988539 +0100	commit: clean up on the login template
+49d41dae7dca149f96152f7bdf9e4d27cf72d7d3 4b3f9f1da9a976f51077fb802178d172a7d0420f ahmed-my <yahaya.mymohammed@gmail.com> 1724023761 +0100	commit: clean up on the user profile template
+4b3f9f1da9a976f51077fb802178d172a7d0420f 74e3efe9a2153fa4023b3205f8e1051c814c75ad ahmed-my <yahaya.mymohammed@gmail.com> 1724478090 +0100	commit: adjustment made to the signup
+74e3efe9a2153fa4023b3205f8e1051c814c75ad b9336523a9ed6328aebfc76c9a2d22eb4973bc85 ahmed-my <yahaya.mymohammed@gmail.com> 1724479984 +0100	commit: edited the message upon registration
+b9336523a9ed6328aebfc76c9a2d22eb4973bc85 9a7e015c8eb1e5fe862bca856ace506c9603ccf9 ahmed-my <yahaya.mymohammed@gmail.com> 1724500815 +0100	commit: edited the message upon registration
+9a7e015c8eb1e5fe862bca856ace506c9603ccf9 a65caf5215ebe19f5e6b058ed2cc792b92149d4d ahmed-my <yahaya.mymohammed@gmail.com> 1724519857 +0100	commit: code refactoring on the reset password page
+a65caf5215ebe19f5e6b058ed2cc792b92149d4d e296b77f23ab28a9ba58585bd3185f6da5601541 ahmed-my <yahaya.mymohammed@gmail.com> 1724565456 +0100	commit: Markdown editor TinyMCE added
+e296b77f23ab28a9ba58585bd3185f6da5601541 c38bbdb05bb79af7faaea062db2e286bbfdf60bb ahmed-my <yahaya.mymohammed@gmail.com> 1724583806 +0100	commit: improve the working of TinyMCE
+c38bbdb05bb79af7faaea062db2e286bbfdf60bb de6aaa4553db1a202b875b6b3d47ebb77124ac72 ahmed-my <yahaya.mymohammed@gmail.com> 1724700837 +0100	pull origin musa: Fast-forward
+de6aaa4553db1a202b875b6b3d47ebb77124ac72 ebf27068dc60a7467b702e969cfe683bd74abc54 ahmed-my <yahaya.mymohammed@gmail.com> 1724706481 +0100	pull origin musa: Fast-forward
+ebf27068dc60a7467b702e969cfe683bd74abc54 4e85499d433e4693b45f9bc60cd654c0af428eee ahmed-my <yahaya.mymohammed@gmail.com> 1724717357 +0100	commit: resolving issues with image upload to selected folder
+4e85499d433e4693b45f9bc60cd654c0af428eee 4dc72b7c4eaa0b9e674b5faf888f82f47ba32902 ahmed-my <yahaya.mymohammed@gmail.com> 1724770552 +0100	commit: refactoring of selected folder codes
+4dc72b7c4eaa0b9e674b5faf888f82f47ba32902 d75465bf8246d620da02c5ce6fa18b0369dc790f ahmed-my <yahaya.mymohammed@gmail.com> 1724839438 +0100	pull origin musa: Fast-forward
+d75465bf8246d620da02c5ce6fa18b0369dc790f c2effc0ea5bf3e90e5ec5319e13a02c687189bf8 ahmed-my <yahaya.mymohammed@gmail.com> 1724904106 +0100	commit: refactor code on rename folder
+c2effc0ea5bf3e90e5ec5319e13a02c687189bf8 57cc11a70615782937a5cc5bc302e9c7e239f5d0 ahmed-my <yahaya.mymohammed@gmail.com> 1724934296 +0100	commit: refactoring of selected folder codes
+57cc11a70615782937a5cc5bc302e9c7e239f5d0 52024071136b0d64326d7085a931937fc5c3bcc1 ahmed-my <yahaya.mymohammed@gmail.com> 1724934482 +0100	commit: refactoring of selected folder codes
+52024071136b0d64326d7085a931937fc5c3bcc1 c16584dd7be991c798e02b7ed296cd52e6760b80 ahmed-my <yahaya.mymohammed@gmail.com> 1724935290 +0100	commit: refactoring of selected folder codes
+c16584dd7be991c798e02b7ed296cd52e6760b80 ae9f71102a2e50fe35deddce905def0e64bf3340 ahmed-my <yahaya.mymohammed@gmail.com> 1724935581 +0100	commit: refactoring of selected folder codes
+ae9f71102a2e50fe35deddce905def0e64bf3340 c49bf3d64e3764d45013881bef9482cba34c45e5 ahmed-my <yahaya.mymohammed@gmail.com> 1724935702 +0100	commit: refactoring of selected folder codes

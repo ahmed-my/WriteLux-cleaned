@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    color: var(--secondary);
+}
+
+:root {
+    --secondary: #152238;
+    --primary-container: #D7EFDA;
+    --unprimary-colour: #FFF;
+    --error-colour: #E41D1D;
+    --primary-colour: #FABF00;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+.registration-container {
+    width: 40%;
+    background: #FFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid rgba(138, 137, 137, 0.3);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: var(--secondary);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+form p {
+    margin: 0.5rem 0;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--secondary);
+    border-radius: 0.5rem;
+    font-size: 1rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(18, 18, 18, 0.70);
+    font-size: 0.9rem;
+}
+
+button.form-submit {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    background-color: var(--secondary);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+button.form-submit:hover {
+    background-color: var(--primary-colour);
+    color: var(--secondary);
+}
+
+@media (max-width: 1024px) {
+    .registration-container {
+        width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .registration-container {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .registration-container {
+        width: 90%;
+    }
+}

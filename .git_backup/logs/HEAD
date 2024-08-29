@@ -1,0 +1,131 @@
+0000000000000000000000000000000000000000 6eedbd2a48811d9a0122a3b047a67c66ebed00a7 ahmed-my <yahaya.mymohammed@gmail.com> 1721600891 +0100	clone: from github.com:ahmed-my/WriteLux.git
+6eedbd2a48811d9a0122a3b047a67c66ebed00a7 bc2242012886181f18e7b5ffc00fc24c52897cb1 ahmed-my <yahaya.mymohammed@gmail.com> 1721618991 +0100	commit: Social media integraton
+bc2242012886181f18e7b5ffc00fc24c52897cb1 206e1a84b07b74678001dba35f0b58bb3e64f5dc ahmed-my <yahaya.mymohammed@gmail.com> 1721619222 +0100	checkout: moving from main to master
+206e1a84b07b74678001dba35f0b58bb3e64f5dc bc2242012886181f18e7b5ffc00fc24c52897cb1 ahmed-my <yahaya.mymohammed@gmail.com> 1721620006 +0100	checkout: moving from master to main
+bc2242012886181f18e7b5ffc00fc24c52897cb1 bc434712da9d1d22de13a634f086045a0c74978b ahmed-my <yahaya.mymohammed@gmail.com> 1721620054 +0100	pull: Fast-forward
+bc434712da9d1d22de13a634f086045a0c74978b 60bb2f59af2c295176c44e21f82926dc08eed032 ahmed-my <yahaya.mymohammed@gmail.com> 1721664634 +0100	commit: password reset done on forgot password
+60bb2f59af2c295176c44e21f82926dc08eed032 f31865b764f29e447271442cf706503387a5adc8 ahmed-my <yahaya.mymohammed@gmail.com> 1721665435 +0100	commit: password reset done on forgot password
+f31865b764f29e447271442cf706503387a5adc8 4c4dbc887e0573913a98adac453d1fe3bcb7f95e ahmed-my <yahaya.mymohammed@gmail.com> 1721683186 +0100	commit: email feature completed and working well
+4c4dbc887e0573913a98adac453d1fe3bcb7f95e d9a2f606daf67619a4141a5ee932c735c95a01aa ahmed-my <yahaya.mymohammed@gmail.com> 1721684362 +0100	commit: .gitignore updated
+d9a2f606daf67619a4141a5ee932c735c95a01aa cb42261bae90e81f9623e026b959e7771f7c865a ahmed-my <yahaya.mymohammed@gmail.com> 1721685374 +0100	commit: added a Readme.md
+cb42261bae90e81f9623e026b959e7771f7c865a ddea18ccaf3b6733ee1a98157129b2515301e5bb ahmed-my <yahaya.mymohammed@gmail.com> 1721686629 +0100	commit: remove README.md
+ddea18ccaf3b6733ee1a98157129b2515301e5bb 55358c446f80aa5c00871e76ab1606aad25cba40 ahmed-my <yahaya.mymohammed@gmail.com> 1721687405 +0100	commit: add db.sqlite3 to gitignore
+55358c446f80aa5c00871e76ab1606aad25cba40 f892da15b8ad48953da9f0e74765577724afc0c4 ahmed-my <yahaya.mymohammed@gmail.com> 1721692695 +0100	commit: code refactor
+f892da15b8ad48953da9f0e74765577724afc0c4 33b956fe3c44a87c256611479c3fb0f61c4f16c5 ahmed-my <yahaya.mymohammed@gmail.com> 1721698695 +0100	commit: clean up of redundant files
+33b956fe3c44a87c256611479c3fb0f61c4f16c5 555177a044a72db6488a9daa3b16fa2f786b3dda ahmed-my <yahaya.mymohammed@gmail.com> 1721705360 +0100	commit: clean up of redundant files
+555177a044a72db6488a9daa3b16fa2f786b3dda 3959398107eed97800678925fd356f49e2a0195b ahmed-my <yahaya.mymohammed@gmail.com> 1721722999 +0100	commit: adjusting the content area
+3959398107eed97800678925fd356f49e2a0195b c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721746453 +0100	commit: code refactor
+c501b2868c8e2f8909f793ab1e3bc08a803285fe c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721746819 +0100	checkout: moving from main to ahmed
+c501b2868c8e2f8909f793ab1e3bc08a803285fe c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721748166 +0100	checkout: moving from ahmed to main
+c501b2868c8e2f8909f793ab1e3bc08a803285fe c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721748628 +0100	checkout: moving from main to yahaya
+c501b2868c8e2f8909f793ab1e3bc08a803285fe c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721748946 +0100	checkout: moving from yahaya to main
+c501b2868c8e2f8909f793ab1e3bc08a803285fe 022a4814248c6a04485fa8e12fe7ebd3028aa53b ahmed-my <yahaya.mymohammed@gmail.com> 1721749561 +0100	commit (merge): Merge branch 'main' of github.com:ahmed-my/WriteLux
+022a4814248c6a04485fa8e12fe7ebd3028aa53b 27fdbe25629b364c31011aaba2e0eb91bb739e11 ahmed-my <yahaya.mymohammed@gmail.com> 1721749790 +0100	pull --rebase origin main (start): checkout 27fdbe25629b364c31011aaba2e0eb91bb739e11
+27fdbe25629b364c31011aaba2e0eb91bb739e11 3402d32410e65793980aa63ddc75941af7deda53 ahmed-my <yahaya.mymohammed@gmail.com> 1721761904 +0100	rebase (continue): code refactor
+3402d32410e65793980aa63ddc75941af7deda53 3402d32410e65793980aa63ddc75941af7deda53 ahmed-my <yahaya.mymohammed@gmail.com> 1721761994 +0100	rebase (finish): returning to refs/heads/main
+3402d32410e65793980aa63ddc75941af7deda53 c39617006b2c2e762cdbce79c889b5bd256aa45f ahmed-my <yahaya.mymohammed@gmail.com> 1721762867 +0100	commit: conflict resolved
+c39617006b2c2e762cdbce79c889b5bd256aa45f 5d11e12f81316202408c958ec923f0ca4104e83c ahmed-my <yahaya.mymohammed@gmail.com> 1721762901 +0100	rebase (start): checkout origin/ahmed
+5d11e12f81316202408c958ec923f0ca4104e83c 48bbef2ddfdd30fcb34a67a77b922b4724546be9 ahmed-my <yahaya.mymohammed@gmail.com> 1721764715 +0100	rebase (continue): added a Readme.md
+48bbef2ddfdd30fcb34a67a77b922b4724546be9 fa3ec459fd7766eceb607b8642f780e0b29f6ba9 ahmed-my <yahaya.mymohammed@gmail.com> 1721764844 +0100	rebase (pick): added allowed host
+fa3ec459fd7766eceb607b8642f780e0b29f6ba9 e4a30d96b5862bac32cecf3b0b2833bfb15c4b66 ahmed-my <yahaya.mymohammed@gmail.com> 1721764974 +0100	rebase (continue): resolving conflict with login design
+e4a30d96b5862bac32cecf3b0b2833bfb15c4b66 ef4c21d7be2943c6127f87a8a19965aee12368f5 ahmed-my <yahaya.mymohammed@gmail.com> 1721765991 +0100	rebase (pick): resolving conflict with readme.md
+ef4c21d7be2943c6127f87a8a19965aee12368f5 d36a467806241d3de87e96583723ccf6d292d0dd ahmed-my <yahaya.mymohammed@gmail.com> 1721765991 +0100	rebase (pick): conflict resolved
+d36a467806241d3de87e96583723ccf6d292d0dd d36a467806241d3de87e96583723ccf6d292d0dd ahmed-my <yahaya.mymohammed@gmail.com> 1721765991 +0100	rebase (finish): returning to refs/heads/main
+d36a467806241d3de87e96583723ccf6d292d0dd 5cc759ebcc15c3db519c2bdecc1f463017e87086 ahmed-my <yahaya.mymohammed@gmail.com> 1721767310 +0100	commit (merge): Merge remote-tracking branch 'origin/main'
+5cc759ebcc15c3db519c2bdecc1f463017e87086 a80eb0eb71844258cde7b27a175354e956cbb9da ahmed-my <yahaya.mymohammed@gmail.com> 1721921328 +0100	commit: work on user portfolio
+a80eb0eb71844258cde7b27a175354e956cbb9da 58785c276bf67ab3d7d7b3a93a24e4056614afbb ahmed-my <yahaya.mymohammed@gmail.com> 1721938652 +0100	commit: merge with main
+58785c276bf67ab3d7d7b3a93a24e4056614afbb a48994fb1b56d397567946d8c09c7e8589f881c8 ahmed-my <yahaya.mymohammed@gmail.com> 1721940276 +0100	commit (merge): Merge branch 'main' of github.com:ahmed-my/WriteLux
+a48994fb1b56d397567946d8c09c7e8589f881c8 e62a88fcf8dd02684f587bd4e2a1dc6dd7afd678 ahmed-my <yahaya.mymohammed@gmail.com> 1721952899 +0100	commit: User portfolio created
+e62a88fcf8dd02684f587bd4e2a1dc6dd7afd678 5a38bc7bfcb6acb83eba5ee4fdc64dda171b5877 ahmed-my <yahaya.mymohammed@gmail.com> 1721966915 +0100	commit: unique user create
+5a38bc7bfcb6acb83eba5ee4fdc64dda171b5877 b5b525dd31caeddf746af184caf82ae88bc83926 ahmed-my <yahaya.mymohammed@gmail.com> 1721967328 +0100	commit: unique user create
+b5b525dd31caeddf746af184caf82ae88bc83926 e19ed0669f1b8735747444b7bb7c7eb9228e73d0 ahmed-my <yahaya.mymohammed@gmail.com> 1721967860 +0100	commit: customize the admin editor
+e19ed0669f1b8735747444b7bb7c7eb9228e73d0 9d18356d5f51b0f4b654acb1aedaf18ac8aab006 ahmed-my <yahaya.mymohammed@gmail.com> 1721979762 +0100	commit: customize the admin editor
+9d18356d5f51b0f4b654acb1aedaf18ac8aab006 9d18356d5f51b0f4b654acb1aedaf18ac8aab006 ahmed-my <yahaya.mymohammed@gmail.com> 1721993131 +0100	reset: moving to HEAD
+9d18356d5f51b0f4b654acb1aedaf18ac8aab006 51a00208366291f546c618df7a55a489302f27a3 ahmed-my <yahaya.mymohammed@gmail.com> 1721993147 +0100	pull: Fast-forward
+51a00208366291f546c618df7a55a489302f27a3 109af99b62f131fa53883c80a864628fb77e247c ahmed-my <yahaya.mymohammed@gmail.com> 1722122913 +0100	commit: merge with main branch
+109af99b62f131fa53883c80a864628fb77e247c 70afeddf9bfe800913f3c6bdc91a655ff33555ef ahmed-my <yahaya.mymohammed@gmail.com> 1722123368 +0100	commit: Save local changes to db.sqlite3
+70afeddf9bfe800913f3c6bdc91a655ff33555ef fb6cb33ed1f92a17263574373880be6bb443d694 ahmed-my <yahaya.mymohammed@gmail.com> 1722123629 +0100	commit (merge): Resolved conflict by using remote db.sqlite3
+fb6cb33ed1f92a17263574373880be6bb443d694 90438d706608aae23ec0ee4cf9c31923af58f769 ahmed-my <yahaya.mymohammed@gmail.com> 1722124909 +0100	pull origin ahmed: Merge made by the 'ort' strategy.
+90438d706608aae23ec0ee4cf9c31923af58f769 021463dd53c54c1b3893f866a77ee3ad176a01b2 ahmed-my <yahaya.mymohammed@gmail.com> 1722324109 +0100	commit: merge with remote branch
+021463dd53c54c1b3893f866a77ee3ad176a01b2 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1722324711 +0100	commit (merge): Remove .pyc files and db.sqlite3 from version control
+2f3a0438e8364631faafd458559bdb0bf04d1f7f c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1722324930 +0100	checkout: moving from main to ahmed
+c501b2868c8e2f8909f793ab1e3bc08a803285fe 0ccf6302757ed21be1ae4470c7be2bbdfbb807dc ahmed-my <yahaya.mymohammed@gmail.com> 1722325143 +0100	commit: Add .pyc files to .gitignore and remove untracked .pyc files
+0ccf6302757ed21be1ae4470c7be2bbdfbb807dc b867d2e3c76a6d1e15181c0881d35fdaec6331bc ahmed-my <yahaya.mymohammed@gmail.com> 1722325892 +0100	commit (merge): resolving conflict in .gitignore
+b867d2e3c76a6d1e15181c0881d35fdaec6331bc 70c7194d63dccf26a8b25537c705acbd197a3725 ahmed-my <yahaya.mymohammed@gmail.com> 1722326168 +0100	commit: Remove untracked .pyc files
+70c7194d63dccf26a8b25537c705acbd197a3725 d6e0fa0a85853e131eb0c97c2ffcef582a8644b1 ahmed-my <yahaya.mymohammed@gmail.com> 1722328753 +0100	commit: Updated .gitignore to exclude .venv and staged changes
+d6e0fa0a85853e131eb0c97c2ffcef582a8644b1 242c3f1fdffecfb4935312310d872000b5089f37 ahmed-my <yahaya.mymohammed@gmail.com> 1722328890 +0100	pull origin ahmed: Merge made by the 'ort' strategy.
+242c3f1fdffecfb4935312310d872000b5089f37 0fd77234de1e11c5d8b95fb7d9bc312a074e4ef8 ahmed-my <yahaya.mymohammed@gmail.com> 1722458540 +0100	pull origin ahmed: Fast-forward
+0fd77234de1e11c5d8b95fb7d9bc312a074e4ef8 5dd8981d97708379398dde9713971924baf1e8ff ahmed-my <yahaya.mymohammed@gmail.com> 1722613983 +0100	pull origin ahmed: Fast-forward
+5dd8981d97708379398dde9713971924baf1e8ff 277a3158266ec33e2ff961894fd37f46a1d4fd37 ahmed-my <yahaya.mymohammed@gmail.com> 1722633065 +0100	pull origin ahmed: Fast-forward
+277a3158266ec33e2ff961894fd37f46a1d4fd37 88d882b79ba02e54eed8250e397fd54b35a9fc0a ahmed-my <yahaya.mymohammed@gmail.com> 1722693061 +0100	pull origin ahmed: Fast-forward
+88d882b79ba02e54eed8250e397fd54b35a9fc0a dde62879991a688dc889595dd9516c30f3f88210 ahmed-my <yahaya.mymohammed@gmail.com> 1722767968 +0100	pull origin ahmed: Fast-forward
+dde62879991a688dc889595dd9516c30f3f88210 0ca112bba9877c559aff5f172c8af40f70b91e9e ahmed-my <yahaya.mymohammed@gmail.com> 1722860407 +0100	pull origin ahmed: Fast-forward
+0ca112bba9877c559aff5f172c8af40f70b91e9e ce2228bc1a4028e425c688258d212aacea7fc1d5 ahmed-my <yahaya.mymohammed@gmail.com> 1722864211 +0100	commit: fixing sending message on form
+ce2228bc1a4028e425c688258d212aacea7fc1d5 6edf8ca934a7bfa028e076ffef5e812de69ca868 ahmed-my <yahaya.mymohammed@gmail.com> 1722865668 +0100	commit: fixed issue with sending message with Ajax script
+6edf8ca934a7bfa028e076ffef5e812de69ca868 67f50cfe6808e432a0490f204fbef15c99b90ab1 ahmed-my <yahaya.mymohammed@gmail.com> 1722867555 +0100	commit: refactoring code for logged in users on to appear on the user lists
+67f50cfe6808e432a0490f204fbef15c99b90ab1 a74d8b3e357b0f69aa0204e27141042342a61516 ahmed-my <yahaya.mymohammed@gmail.com> 1722944318 +0100	pull origin ahmed: Fast-forward
+a74d8b3e357b0f69aa0204e27141042342a61516 d0a8387fe9b5a65f49ab1ea58fb254c3486eaa15 ahmed-my <yahaya.mymohammed@gmail.com> 1723037932 +0100	pull origin ahmed: Fast-forward
+d0a8387fe9b5a65f49ab1ea58fb254c3486eaa15 e8ea1f680dd4db095058150665a9a75831fa38d6 ahmed-my <yahaya.mymohammed@gmail.com> 1723070091 +0100	commit: update on the dashboard
+e8ea1f680dd4db095058150665a9a75831fa38d6 ea2c914e8350a03698eda36c2a67a7d23661d3c0 ahmed-my <yahaya.mymohammed@gmail.com> 1723111089 +0100	commit: code refactored on dashboard
+ea2c914e8350a03698eda36c2a67a7d23661d3c0 9340ee4694fc1f4121763a945350b3703ffdc78e ahmed-my <yahaya.mymohammed@gmail.com> 1723176526 +0100	commit: portfolio folder creation
+9340ee4694fc1f4121763a945350b3703ffdc78e 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723218422 +0100	commit: clean up on image folder selection
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723219502 +0100	checkout: moving from ahmed to musa
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 b3d7694b7d4081c1965e54c2f26d8c8fce2c4c46 ahmed-my <yahaya.mymohammed@gmail.com> 1723262942 +0100	commit: creating custome folder for portfolio
+b3d7694b7d4081c1965e54c2f26d8c8fce2c4c46 a8990a31c9f15191f876b5fdfae05c722811ba9e ahmed-my <yahaya.mymohammed@gmail.com> 1723277314 +0100	commit: creating custome folder for portfolio
+a8990a31c9f15191f876b5fdfae05c722811ba9e 08dc5efd62926bf27d4e26b57a43171d3217634f ahmed-my <yahaya.mymohammed@gmail.com> 1723278683 +0100	commit: creating custome folder for portfolio
+08dc5efd62926bf27d4e26b57a43171d3217634f 04de9f6682a6618012b76762a8cb56e9397cbd51 ahmed-my <yahaya.mymohammed@gmail.com> 1723279159 +0100	commit: creating custome folder for portfolio
+04de9f6682a6618012b76762a8cb56e9397cbd51 98af91dcae311dc8343cee313436b7105b7c65fe ahmed-my <yahaya.mymohammed@gmail.com> 1723291794 +0100	commit: portfolio folder selection working as expected
+98af91dcae311dc8343cee313436b7105b7c65fe 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723291865 +0100	checkout: moving from musa to ahmed
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 98af91dcae311dc8343cee313436b7105b7c65fe ahmed-my <yahaya.mymohammed@gmail.com> 1723292002 +0100	checkout: moving from ahmed to musa
+98af91dcae311dc8343cee313436b7105b7c65fe 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723293002 +0100	checkout: moving from musa to ahmed
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 ahmed-my <yahaya.mymohammed@gmail.com> 1723293693 +0100	checkout: moving from ahmed to ahmed
+9b4fb5eb2860f78f534a1b02b21c20a16c6fdb28 98af91dcae311dc8343cee313436b7105b7c65fe ahmed-my <yahaya.mymohammed@gmail.com> 1723293701 +0100	checkout: moving from ahmed to musa
+98af91dcae311dc8343cee313436b7105b7c65fe 4f8e052197bd63e230f5d27d06b22a387bf7820a ahmed-my <yahaya.mymohammed@gmail.com> 1723368373 +0100	commit: added upload image button to the portfolio templates
+4f8e052197bd63e230f5d27d06b22a387bf7820a f9df43585ebcc41e0d57a50f8746af5d063dcf17 ahmed-my <yahaya.mymohammed@gmail.com> 1723415978 +0100	commit: added live search to the portfoliotemplate
+f9df43585ebcc41e0d57a50f8746af5d063dcf17 634b9f58f182df8e4bc52aa48816afb3c0fe9e88 ahmed-my <yahaya.mymohammed@gmail.com> 1723425224 +0100	commit: implementation of image deletion
+634b9f58f182df8e4bc52aa48816afb3c0fe9e88 215a8eef5f756edc2ee6936f07aa1f05c4b50dce ahmed-my <yahaya.mymohammed@gmail.com> 1723465799 +0100	commit: impletation of image deletion from a folder
+215a8eef5f756edc2ee6936f07aa1f05c4b50dce f45b8fca66c9d6b778e3f8625947236a5210be7d ahmed-my <yahaya.mymohammed@gmail.com> 1723466779 +0100	commit: impletation of image deletion from a folder
+f45b8fca66c9d6b778e3f8625947236a5210be7d 9bef9db1a2ab30900968617304d4f86b6d1b8df9 ahmed-my <yahaya.mymohammed@gmail.com> 1723500001 +0100	commit: folder image deletion completed and working well
+9bef9db1a2ab30900968617304d4f86b6d1b8df9 6aaa2725ffc0d9101e1d7013bb356a5de45d5cad ahmed-my <yahaya.mymohammed@gmail.com> 1723596547 +0100	commit: Project image upload completed
+6aaa2725ffc0d9101e1d7013bb356a5de45d5cad 0d62bd5837417ad61b95a76cce3a3f4454090c47 ahmed-my <yahaya.mymohammed@gmail.com> 1723603169 +0100	commit: FAQ integration done
+0d62bd5837417ad61b95a76cce3a3f4454090c47 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1723650906 +0100	checkout: moving from musa to main
+2f3a0438e8364631faafd458559bdb0bf04d1f7f 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1723652341 +0100	checkout: moving from main to ahmed
+2f3a0438e8364631faafd458559bdb0bf04d1f7f 6bce79e4a7d705d3b8dff16ddafc4cfd981a553e ahmed-my <yahaya.mymohammed@gmail.com> 1723652496 +0100	commit (merge): resolves db.sqlite3 conflict
+6bce79e4a7d705d3b8dff16ddafc4cfd981a553e 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1723654791 +0100	commit: contact form working well
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 0d62bd5837417ad61b95a76cce3a3f4454090c47 ahmed-my <yahaya.mymohammed@gmail.com> 1723655260 +0100	checkout: moving from ahmed to musa
+0d62bd5837417ad61b95a76cce3a3f4454090c47 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1723655284 +0100	pull origin ahmed: Fast-forward
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 079a2c3f537a0cd779c3c20f04f1419afadc41b1 ahmed-my <yahaya.mymohammed@gmail.com> 1723720097 +0100	pull origin musa: Fast-forward
+079a2c3f537a0cd779c3c20f04f1419afadc41b1 b6e7c262cdc2159e15b029ed27401a285b2ee430 ahmed-my <yahaya.mymohammed@gmail.com> 1723731632 +0100	pull origin musa: Fast-forward
+b6e7c262cdc2159e15b029ed27401a285b2ee430 5c9abce71cb046695b0641657ef2f5ed5be322e3 ahmed-my <yahaya.mymohammed@gmail.com> 1723739098 +0100	pull origin musa: Fast-forward
+5c9abce71cb046695b0641657ef2f5ed5be322e3 35d9c5bde4ce474ca17ff0090989880260d3189f ahmed-my <yahaya.mymohammed@gmail.com> 1723807389 +0100	commit: adding eye icon to the login page
+35d9c5bde4ce474ca17ff0090989880260d3189f 5c5a61a81941def1e7b17a132f62f5b23c23b43e ahmed-my <yahaya.mymohammed@gmail.com> 1723849130 +0100	commit: eye icons added to the register template
+5c5a61a81941def1e7b17a132f62f5b23c23b43e 966c086abd8c832f3efa59602f6c9e54ee72b498 ahmed-my <yahaya.mymohammed@gmail.com> 1723922871 +0100	pull origin musa: Fast-forward
+966c086abd8c832f3efa59602f6c9e54ee72b498 49d41dae7dca149f96152f7bdf9e4d27cf72d7d3 ahmed-my <yahaya.mymohammed@gmail.com> 1723988539 +0100	commit: clean up on the login template
+49d41dae7dca149f96152f7bdf9e4d27cf72d7d3 4b3f9f1da9a976f51077fb802178d172a7d0420f ahmed-my <yahaya.mymohammed@gmail.com> 1724023761 +0100	commit: clean up on the user profile template
+4b3f9f1da9a976f51077fb802178d172a7d0420f 74e3efe9a2153fa4023b3205f8e1051c814c75ad ahmed-my <yahaya.mymohammed@gmail.com> 1724478090 +0100	commit: adjustment made to the signup
+74e3efe9a2153fa4023b3205f8e1051c814c75ad 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1724478154 +0100	checkout: moving from musa to ahmed
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 74e3efe9a2153fa4023b3205f8e1051c814c75ad ahmed-my <yahaya.mymohammed@gmail.com> 1724479695 +0100	checkout: moving from ahmed to musa
+74e3efe9a2153fa4023b3205f8e1051c814c75ad b9336523a9ed6328aebfc76c9a2d22eb4973bc85 ahmed-my <yahaya.mymohammed@gmail.com> 1724479984 +0100	commit: edited the message upon registration
+b9336523a9ed6328aebfc76c9a2d22eb4973bc85 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1724480269 +0100	checkout: moving from musa to main
+2f3a0438e8364631faafd458559bdb0bf04d1f7f b9336523a9ed6328aebfc76c9a2d22eb4973bc85 ahmed-my <yahaya.mymohammed@gmail.com> 1724480460 +0100	checkout: moving from main to musa
+b9336523a9ed6328aebfc76c9a2d22eb4973bc85 9a7e015c8eb1e5fe862bca856ace506c9603ccf9 ahmed-my <yahaya.mymohammed@gmail.com> 1724500815 +0100	commit: edited the message upon registration
+9a7e015c8eb1e5fe862bca856ace506c9603ccf9 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1724500916 +0100	checkout: moving from musa to ahmed
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 9a7e015c8eb1e5fe862bca856ace506c9603ccf9 ahmed-my <yahaya.mymohammed@gmail.com> 1724501020 +0100	checkout: moving from ahmed to musa
+9a7e015c8eb1e5fe862bca856ace506c9603ccf9 7bb6f3379f8ad08a8d64599644aa0742089a41aa ahmed-my <yahaya.mymohammed@gmail.com> 1724501166 +0100	checkout: moving from musa to ahmed
+7bb6f3379f8ad08a8d64599644aa0742089a41aa 9a7e015c8eb1e5fe862bca856ace506c9603ccf9 ahmed-my <yahaya.mymohammed@gmail.com> 1724501228 +0100	checkout: moving from ahmed to musa
+9a7e015c8eb1e5fe862bca856ace506c9603ccf9 a65caf5215ebe19f5e6b058ed2cc792b92149d4d ahmed-my <yahaya.mymohammed@gmail.com> 1724519857 +0100	commit: code refactoring on the reset password page
+a65caf5215ebe19f5e6b058ed2cc792b92149d4d e296b77f23ab28a9ba58585bd3185f6da5601541 ahmed-my <yahaya.mymohammed@gmail.com> 1724565456 +0100	commit: Markdown editor TinyMCE added
+e296b77f23ab28a9ba58585bd3185f6da5601541 c38bbdb05bb79af7faaea062db2e286bbfdf60bb ahmed-my <yahaya.mymohammed@gmail.com> 1724583806 +0100	commit: improve the working of TinyMCE
+c38bbdb05bb79af7faaea062db2e286bbfdf60bb 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1724693922 +0100	checkout: moving from musa to main
+2f3a0438e8364631faafd458559bdb0bf04d1f7f c38bbdb05bb79af7faaea062db2e286bbfdf60bb ahmed-my <yahaya.mymohammed@gmail.com> 1724698952 +0100	checkout: moving from main to musa
+c38bbdb05bb79af7faaea062db2e286bbfdf60bb de6aaa4553db1a202b875b6b3d47ebb77124ac72 ahmed-my <yahaya.mymohammed@gmail.com> 1724700837 +0100	pull origin musa: Fast-forward
+de6aaa4553db1a202b875b6b3d47ebb77124ac72 ebf27068dc60a7467b702e969cfe683bd74abc54 ahmed-my <yahaya.mymohammed@gmail.com> 1724706481 +0100	pull origin musa: Fast-forward
+ebf27068dc60a7467b702e969cfe683bd74abc54 4e85499d433e4693b45f9bc60cd654c0af428eee ahmed-my <yahaya.mymohammed@gmail.com> 1724717357 +0100	commit: resolving issues with image upload to selected folder
+4e85499d433e4693b45f9bc60cd654c0af428eee 4dc72b7c4eaa0b9e674b5faf888f82f47ba32902 ahmed-my <yahaya.mymohammed@gmail.com> 1724770552 +0100	commit: refactoring of selected folder codes
+4dc72b7c4eaa0b9e674b5faf888f82f47ba32902 d75465bf8246d620da02c5ce6fa18b0369dc790f ahmed-my <yahaya.mymohammed@gmail.com> 1724839438 +0100	pull origin musa: Fast-forward
+d75465bf8246d620da02c5ce6fa18b0369dc790f c2effc0ea5bf3e90e5ec5319e13a02c687189bf8 ahmed-my <yahaya.mymohammed@gmail.com> 1724904106 +0100	commit: refactor code on rename folder
+c2effc0ea5bf3e90e5ec5319e13a02c687189bf8 57cc11a70615782937a5cc5bc302e9c7e239f5d0 ahmed-my <yahaya.mymohammed@gmail.com> 1724934296 +0100	commit: refactoring of selected folder codes
+57cc11a70615782937a5cc5bc302e9c7e239f5d0 52024071136b0d64326d7085a931937fc5c3bcc1 ahmed-my <yahaya.mymohammed@gmail.com> 1724934482 +0100	commit: refactoring of selected folder codes
+52024071136b0d64326d7085a931937fc5c3bcc1 c16584dd7be991c798e02b7ed296cd52e6760b80 ahmed-my <yahaya.mymohammed@gmail.com> 1724935290 +0100	commit: refactoring of selected folder codes
+c16584dd7be991c798e02b7ed296cd52e6760b80 ae9f71102a2e50fe35deddce905def0e64bf3340 ahmed-my <yahaya.mymohammed@gmail.com> 1724935581 +0100	commit: refactoring of selected folder codes
+ae9f71102a2e50fe35deddce905def0e64bf3340 c49bf3d64e3764d45013881bef9482cba34c45e5 ahmed-my <yahaya.mymohammed@gmail.com> 1724935702 +0100	commit: refactoring of selected folder codes

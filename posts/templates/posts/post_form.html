@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% if form.instance.pk %}Update Post{% else %}New Post{% endif %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css-style/post_form.css' %}">
+    <!-- TinyMCE script -->
+    <script src="https://cdn.tiny.cloud/1/tufugh9b72akt1j26dpeczr00sx5r3drncgiitq3ai212qaa/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+      tinymce.init({
+        selector: 'textarea[name="body"]', // Targeting the specific textarea with the name attribute
+        plugins: 'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+        toolbar_mode: 'floating',
+        height: 400,
+      });
+    </script>
+</head>
+<body>
+    {% block content %}
+    <div class="container">
+        <section class="new-post-section">
+            <h1>{% if form.instance.pk %}Update Post{% else %}New Post{% endif %}</h1>
+            
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="{{ message.tags }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <form class="form-with-validation" action="{% if form.instance.pk %}{% url 'posts:post_update' pk=form.instance.pk %}{% else %}{% url 'posts:new_post' %}{% endif %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    {{ form.title.label_tag }} {{ form.title }}
+                </div>
+                <div class="form-group">
+                    {{ form.body.label_tag }} {{ form.body }}
+                </div>
+                <div class="form-group">
+                    {{ form.slug.label_tag }} {{ form.slug }}
+                </div>
+                <div class="form-group">
+                    {{ form.banner.label_tag }} {{ form.banner }}
+                </div>
+
+                {% if form.errors %}
+                    <div class="form-errors">
+                        {% for field in form %}
+                            {% for error in field.errors %}
+                                <p class="error-message">{{ error }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        {% for error in form.non_field_errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                <button class="form-submit">
+                    {% if form.instance.pk %}
+                        Update
+                    {% else %}
+                        Publish
+                    {% endif %}
+                </button>
+            </form>
+
+            <a href="{% url 'dashboard' %}" class="back-link">Back to dashboard</a>
+        </section>
+    </div>
+    {% endblock %}
+    <script src="{% static 'js/new-post.js' %}"></script>
+</body>
+</html>

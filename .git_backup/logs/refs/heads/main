@@ -1,0 +1,35 @@
+0000000000000000000000000000000000000000 6eedbd2a48811d9a0122a3b047a67c66ebed00a7 ahmed-my <yahaya.mymohammed@gmail.com> 1721600891 +0100	clone: from github.com:ahmed-my/WriteLux.git
+6eedbd2a48811d9a0122a3b047a67c66ebed00a7 bc2242012886181f18e7b5ffc00fc24c52897cb1 ahmed-my <yahaya.mymohammed@gmail.com> 1721618991 +0100	commit: Social media integraton
+bc2242012886181f18e7b5ffc00fc24c52897cb1 bc434712da9d1d22de13a634f086045a0c74978b ahmed-my <yahaya.mymohammed@gmail.com> 1721620054 +0100	pull: Fast-forward
+bc434712da9d1d22de13a634f086045a0c74978b 60bb2f59af2c295176c44e21f82926dc08eed032 ahmed-my <yahaya.mymohammed@gmail.com> 1721664634 +0100	commit: password reset done on forgot password
+60bb2f59af2c295176c44e21f82926dc08eed032 f31865b764f29e447271442cf706503387a5adc8 ahmed-my <yahaya.mymohammed@gmail.com> 1721665435 +0100	commit: password reset done on forgot password
+f31865b764f29e447271442cf706503387a5adc8 4c4dbc887e0573913a98adac453d1fe3bcb7f95e ahmed-my <yahaya.mymohammed@gmail.com> 1721683186 +0100	commit: email feature completed and working well
+4c4dbc887e0573913a98adac453d1fe3bcb7f95e d9a2f606daf67619a4141a5ee932c735c95a01aa ahmed-my <yahaya.mymohammed@gmail.com> 1721684362 +0100	commit: .gitignore updated
+d9a2f606daf67619a4141a5ee932c735c95a01aa cb42261bae90e81f9623e026b959e7771f7c865a ahmed-my <yahaya.mymohammed@gmail.com> 1721685374 +0100	commit: added a Readme.md
+cb42261bae90e81f9623e026b959e7771f7c865a ddea18ccaf3b6733ee1a98157129b2515301e5bb ahmed-my <yahaya.mymohammed@gmail.com> 1721686629 +0100	commit: remove README.md
+ddea18ccaf3b6733ee1a98157129b2515301e5bb 55358c446f80aa5c00871e76ab1606aad25cba40 ahmed-my <yahaya.mymohammed@gmail.com> 1721687405 +0100	commit: add db.sqlite3 to gitignore
+55358c446f80aa5c00871e76ab1606aad25cba40 f892da15b8ad48953da9f0e74765577724afc0c4 ahmed-my <yahaya.mymohammed@gmail.com> 1721692695 +0100	commit: code refactor
+f892da15b8ad48953da9f0e74765577724afc0c4 33b956fe3c44a87c256611479c3fb0f61c4f16c5 ahmed-my <yahaya.mymohammed@gmail.com> 1721698695 +0100	commit: clean up of redundant files
+33b956fe3c44a87c256611479c3fb0f61c4f16c5 555177a044a72db6488a9daa3b16fa2f786b3dda ahmed-my <yahaya.mymohammed@gmail.com> 1721705360 +0100	commit: clean up of redundant files
+555177a044a72db6488a9daa3b16fa2f786b3dda 3959398107eed97800678925fd356f49e2a0195b ahmed-my <yahaya.mymohammed@gmail.com> 1721722999 +0100	commit: adjusting the content area
+3959398107eed97800678925fd356f49e2a0195b c501b2868c8e2f8909f793ab1e3bc08a803285fe ahmed-my <yahaya.mymohammed@gmail.com> 1721746453 +0100	commit: code refactor
+c501b2868c8e2f8909f793ab1e3bc08a803285fe 022a4814248c6a04485fa8e12fe7ebd3028aa53b ahmed-my <yahaya.mymohammed@gmail.com> 1721749561 +0100	commit (merge): Merge branch 'main' of github.com:ahmed-my/WriteLux
+022a4814248c6a04485fa8e12fe7ebd3028aa53b 3402d32410e65793980aa63ddc75941af7deda53 ahmed-my <yahaya.mymohammed@gmail.com> 1721761994 +0100	rebase (finish): refs/heads/main onto 27fdbe25629b364c31011aaba2e0eb91bb739e11
+3402d32410e65793980aa63ddc75941af7deda53 c39617006b2c2e762cdbce79c889b5bd256aa45f ahmed-my <yahaya.mymohammed@gmail.com> 1721762867 +0100	commit: conflict resolved
+c39617006b2c2e762cdbce79c889b5bd256aa45f d36a467806241d3de87e96583723ccf6d292d0dd ahmed-my <yahaya.mymohammed@gmail.com> 1721765991 +0100	rebase (finish): refs/heads/main onto 5d11e12f81316202408c958ec923f0ca4104e83c
+d36a467806241d3de87e96583723ccf6d292d0dd 5cc759ebcc15c3db519c2bdecc1f463017e87086 ahmed-my <yahaya.mymohammed@gmail.com> 1721767310 +0100	commit (merge): Merge remote-tracking branch 'origin/main'
+5cc759ebcc15c3db519c2bdecc1f463017e87086 a80eb0eb71844258cde7b27a175354e956cbb9da ahmed-my <yahaya.mymohammed@gmail.com> 1721921328 +0100	commit: work on user portfolio
+a80eb0eb71844258cde7b27a175354e956cbb9da 58785c276bf67ab3d7d7b3a93a24e4056614afbb ahmed-my <yahaya.mymohammed@gmail.com> 1721938652 +0100	commit: merge with main
+58785c276bf67ab3d7d7b3a93a24e4056614afbb a48994fb1b56d397567946d8c09c7e8589f881c8 ahmed-my <yahaya.mymohammed@gmail.com> 1721940276 +0100	commit (merge): Merge branch 'main' of github.com:ahmed-my/WriteLux
+a48994fb1b56d397567946d8c09c7e8589f881c8 e62a88fcf8dd02684f587bd4e2a1dc6dd7afd678 ahmed-my <yahaya.mymohammed@gmail.com> 1721952899 +0100	commit: User portfolio created
+e62a88fcf8dd02684f587bd4e2a1dc6dd7afd678 5a38bc7bfcb6acb83eba5ee4fdc64dda171b5877 ahmed-my <yahaya.mymohammed@gmail.com> 1721966915 +0100	commit: unique user create
+5a38bc7bfcb6acb83eba5ee4fdc64dda171b5877 b5b525dd31caeddf746af184caf82ae88bc83926 ahmed-my <yahaya.mymohammed@gmail.com> 1721967328 +0100	commit: unique user create
+b5b525dd31caeddf746af184caf82ae88bc83926 e19ed0669f1b8735747444b7bb7c7eb9228e73d0 ahmed-my <yahaya.mymohammed@gmail.com> 1721967860 +0100	commit: customize the admin editor
+e19ed0669f1b8735747444b7bb7c7eb9228e73d0 9d18356d5f51b0f4b654acb1aedaf18ac8aab006 ahmed-my <yahaya.mymohammed@gmail.com> 1721979762 +0100	commit: customize the admin editor
+9d18356d5f51b0f4b654acb1aedaf18ac8aab006 51a00208366291f546c618df7a55a489302f27a3 ahmed-my <yahaya.mymohammed@gmail.com> 1721993147 +0100	pull: Fast-forward
+51a00208366291f546c618df7a55a489302f27a3 109af99b62f131fa53883c80a864628fb77e247c ahmed-my <yahaya.mymohammed@gmail.com> 1722122913 +0100	commit: merge with main branch
+109af99b62f131fa53883c80a864628fb77e247c 70afeddf9bfe800913f3c6bdc91a655ff33555ef ahmed-my <yahaya.mymohammed@gmail.com> 1722123368 +0100	commit: Save local changes to db.sqlite3
+70afeddf9bfe800913f3c6bdc91a655ff33555ef fb6cb33ed1f92a17263574373880be6bb443d694 ahmed-my <yahaya.mymohammed@gmail.com> 1722123629 +0100	commit (merge): Resolved conflict by using remote db.sqlite3
+fb6cb33ed1f92a17263574373880be6bb443d694 90438d706608aae23ec0ee4cf9c31923af58f769 ahmed-my <yahaya.mymohammed@gmail.com> 1722124909 +0100	pull origin ahmed: Merge made by the 'ort' strategy.
+90438d706608aae23ec0ee4cf9c31923af58f769 021463dd53c54c1b3893f866a77ee3ad176a01b2 ahmed-my <yahaya.mymohammed@gmail.com> 1722324109 +0100	commit: merge with remote branch
+021463dd53c54c1b3893f866a77ee3ad176a01b2 2f3a0438e8364631faafd458559bdb0bf04d1f7f ahmed-my <yahaya.mymohammed@gmail.com> 1722324711 +0100	commit (merge): Remove .pyc files and db.sqlite3 from version control

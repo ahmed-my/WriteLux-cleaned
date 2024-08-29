@@ -1,0 +1,40 @@
+{% load static %}
+{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <!-- Add the following in your <head> section -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css-style/new-login.css' %}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Log In</h2>
+        <div class="social-login">
+            <a href="{% provider_login_url 'google' %}">
+                <img src="/media/Icons/google-icon1.png" alt="Google Icon"> Continue with Google
+            </a>
+        </div>
+        <p style="text-align: center; margin: 1rem 0;">OR LOG IN WITH EMAIL</p>
+        <form method="post" action="{% url 'users:login_user' %}">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <input type="text" name="username" placeholder="Username" required>
+            <div class="error">{{ form.username.errors }}</div>
+            <div class="password-field">
+                <input type="password" name="password" id="password" placeholder="Password" required>
+                <i class="fa fa-eye" id="togglePassword" style="cursor: pointer;"></i>
+            </div>
+            <div class="error">{{ form.password.errors }}</div>
+            <a href="{% url 'users:password_reset' %}">Reset Password</a>
+            <button type="submit">Log In</button>
+        </form>
+        <p style="text-align: center;">Don't have an account? <a href="{% url 'users:register' %}">Sign Up</a></p>
+    </div>
+    <!-- add javaScript for the eye icon -->
+    <script src="{% static 'js/login.js' %}"></script>
+</body>
+</html>
