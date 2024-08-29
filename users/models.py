@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 import uuid
 
 
@@ -40,8 +41,10 @@ class Folder(models.Model):
             models.UniqueConstraint(fields=['name', 'user'], name='unique_folder_name_per_user')
         ]
 
-    def __str__(self):
-        return self.name
+    def save(self, *args, **kwargs):
+        if Folder.objects.filter(name=self.name, user=self.user).exists():
+            raise ValidationError("A folder with this name already exists.")
+        super(Folder, self).save(*args, **kwargs)
     
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

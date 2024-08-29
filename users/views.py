@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse 
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -22,7 +23,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
-from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
+from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm, Folder # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
 
@@ -179,30 +180,59 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-
-@login_required # tested ok under review
-def add_folder(request): # 09-08-2024
+@login_required
+def add_folder(request):
     if request.method == 'POST':
         folder_name = request.POST.get('folder_name')
-        if folder_name:  # Make sure the folder name is not empty
-            Folder.objects.create(user=request.user, name=folder_name)
-            return redirect('users:portfolio')  # Redirect to the portfolio page after adding
+        user = request.user
+
+        # Check if a folder with the same name already exists for this user
+        if Folder.objects.filter(user=user, name=folder_name).exists():
+            messages.error(request, 'Folder name already exists')
+            return redirect('users:add_folder')  # Redirect back to the Add Folder page
+
+        # If the folder does not exist, create a new folder
+        Folder.objects.create(user=user, name=folder_name)
+        messages.success(request, 'Folder added successfully')
+        return redirect('users:portfolio')  # Redirect to the portfolio page
+
     return render(request, 'portfolio/add_folder.html')
 
-@login_required # 09-08-2024 renaming of a folder
-def rename_folder(request):
+"""
+@login_required
+def rename_folder(request, folder_id):
+    folder = Folder.objects.get(id=folder_id, user=request.user)
     if request.method == 'POST':
-        folder_id = request.POST.get('folder_id')
         new_name = request.POST.get('new_name')
-        
-        if not folder_id or not new_name:
-            return HttpResponseBadRequest("Invalid request parameters.")
-        
-        folder = Folder.objects.filter(id=folder_id, user=request.user).first()
-        if folder:
+        if Folder.objects.filter(name=new_name, user=request.user).exists():
+            messages.error(request, 'Folder name already exists.')
+            return redirect('users:rename_folder', folder_id=folder.id)
+        else:
             folder.name = new_name
             folder.save()
-    return redirect('users:portfolio')
+            messages.success(request, 'Folder renamed successfully.')
+            return redirect('users:portfolio')
+    return render(request, 'portfolio/rename_folder.html', {'folder': folder})
+
+"""
+@login_required # 09-08-2024 renaming of a folder
+def rename_folder(request, folder_id):
+    folder = get_object_or_404(Folder, id=folder_id)
+
+    if request.method == "POST":
+        new_name = request.POST.get('folder_name')
+        if new_name and new_name != folder.name:
+            if Folder.objects.filter(name=new_name).exists():
+                messages.info(request, "Folder name already exists")
+            else:
+                folder.name = new_name
+                folder.save()
+                messages.success(request, "Folder renamed successfully")
+                return redirect('users:portfolio')
+        else:
+            messages.info(request, "Please enter a different folder name")
+    
+    return render(request, 'rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
 
 @login_required # 09-08-2024 delete a folder
 def delete_folders(request):

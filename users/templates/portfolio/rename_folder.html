@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Folder</title>
+    <title>Rename Folder</title>
     <!-- Include Bootstrap CSS for styling -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
@@ -40,7 +40,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Add a New Folder</h2>
+        <h2>Rename Folder</h2>
 
         <!-- Display any messages (e.g., success or error messages) -->
         {% if messages %}
@@ -51,14 +51,15 @@
             </div>
         {% endif %}
 
-        <!-- Form for adding a new folder -->
-        <form method="post">
+        <!-- Form for renaming the folder -->
+        <form method="post" action="{% url 'users:rename_folder' folder_id=folder.id %}">
             {% csrf_token %}
             <div class="form-group">
-                <input type="text" class="form-control" id="folderName" name="folder_name" placeholder="Enter folder name" required>
+                <label for="folderName">New Folder Name:</label>
+                <input type="text" class="form-control" id="folderName" name="folder_name" placeholder="Enter new folder name" required value="{{ current_folder_name }}">
             </div>
-
-            <button type="submit" class="btn btn-primary btn-block">Add Folder</button>
+        
+            <button type="submit" class="btn btn-primary btn-block">Rename Folder</button>
         </form>
 
         <!-- Link back to the portfolio page -->
