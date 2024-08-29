@@ -216,7 +216,7 @@ def rename_folder(request, folder_id):
                 messages.success(request, "Folder renamed successfully")
                 return redirect('users:portfolio')
         else:
-            messages.info(request, "Please enter a valid folder name.")
+            messages.info(request, "folder name exist, please enter a different name.")
     
     return render(request, 'portfolio/rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
 
