@@ -106,30 +106,35 @@
             </div>
         </div>
 
-
         <!-- Rename Folder Modal -->
-        <form method="post" id="rename-folder-form" action="{% url 'users:rename_folder' 0 %}">
-            {% csrf_token %}
-            <div class="modal-header">
-                <h5 class="modal-title" id="renameFolderModalLabel">Rename Folder</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <label for="new_name">New Folder Name:</label>
-                    <input type="text" id="new_name" name="new_name" class="form-control" required>
+        <div class="modal fade" id="renameFolderModal" tabindex="-1" role="dialog" aria-labelledby="renameFolderModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" id="rename-folder-form">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="renameFolderModalLabel">Rename Folder</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="new_name">New Folder Name:</label>
+                                <input type="text" id="new_name" name="new_name" class="form-control" required>
+                            </div>
+                            <input type="hidden" id="selected_folder_id" name="folder_id">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Rename Folder</button>
+                        </div>
+                    </form>
                 </div>
-                <input type="hidden" id="selected_folder_id" name="folder_id">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Rename Folder</button>
-            </div>
-        </form>
-        
+        </div>
 
+        
         <!-- Generate URL Modal -->
         <div class="modal fade" id="generateUrlModal" tabindex="-1" role="dialog" aria-labelledby="generateUrlModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -208,12 +213,21 @@
             });
 
             $('#rename-folder-button').click(function() {
-                var selectedFolder = $('.folder-checkbox:checked');
+                var selectedFolder = $('.folder-checkbox:checked'); // Ensure you have checkboxes with class 'folder-checkbox'
+                
                 if (selectedFolder.length === 1) {
-                    var folderId = selectedFolder.val();
-                    var renameUrl = "{% url 'users:rename_folder' 'folder_id' %}".replace('folder_id', folderId);
-                    $('#renameFolderModal form').attr('action', renameUrl);
+                    var folderId = selectedFolder.val(); // Get the value of the selected folder checkbox
+                    
+                    // Construct the URL for renaming, replacing '0' with the actual folder ID
+                    var renameUrl = "{% url 'users:rename_folder' 0 %}".replace('0', folderId);
+                    
+                    // Set the form's action attribute to the generated URL
+                    $('#rename-folder-form').attr('action', renameUrl);
+                    
+                    // Set the hidden input field with the folder ID
                     $('#selected_folder_id').val(folderId);
+                    
+                    // Show the modal
                     $('#renameFolderModal').modal('show');
                 } else if (selectedFolder.length === 0) {
                     alert('Please select a folder to rename.');
@@ -221,7 +235,7 @@
                     alert('Please select only one folder to rename.');
                 }
             });
-            
+                  
             // Delete Folder Button
             $('#delete-folder-button').click(function() {
                 var selectedFolders = $('.folder-checkbox:checked');
