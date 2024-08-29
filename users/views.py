@@ -232,7 +232,7 @@ def rename_folder(request, folder_id):
         else:
             messages.info(request, "Please enter a different folder name")
     
-    return render(request, 'rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
+    return render(request, 'portfolio/rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
 
 @login_required # 09-08-2024 delete a folder
 def delete_folders(request):
