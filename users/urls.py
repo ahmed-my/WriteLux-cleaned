@@ -22,7 +22,7 @@ urlpatterns = [
     # Portfolio URLs
     path('portfolio/upload/', upload_image, name='upload_image'),
     path('portfolio/add-folder/', add_folder, name='add_folder'),
-    path('portfolio/rename-folder/', rename_folder, name='rename_folder'),
+    path('portfolio/rename-folder/<int:folder_id>/', rename_folder, name='rename_folder'),
     path('portfolio/delete-folders/', delete_folders, name='delete_folders'),
     
     # Specific folder view by profile_id and folder_id

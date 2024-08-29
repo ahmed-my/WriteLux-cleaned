@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.utils.text import slugify
+from django.core.exceptions import ValidationError
 import uuid
 
 
@@ -35,18 +36,26 @@ class Folder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='folders')
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return self.name
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['name', 'user'], name='unique_folder_name_per_user')
+        ]
+
+    def save(self, *args, **kwargs):
+        if Folder.objects.filter(name=self.name, user=self.user).exists():
+            raise ValidationError("A folder with this name already exists.")
+        super(Folder, self).save(*args, **kwargs)
     
 class Portfolio(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='portfolio/')
     description = models.TextField(blank=True)
     uploaded_at = models.DateTimeField(auto_now_add=True)
-    folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
+    folder = models.ManyToManyField(Folder, related_name='portfolio_images', blank=True)  # Changed to ManyToManyField
+    # folder = models.ForeignKey(Folder, on_delete=models.CASCADE, related_name='portfolio_images', null=True, blank=True)  # Add this field
 
     def __str__(self):
-        return f"{self.user.username}'s portfolio image"
+        return f"{self.user.username}'s portfolio"
 
 class Conversation(models.Model):
     participants = models.ManyToManyField(User, related_name='conversations')

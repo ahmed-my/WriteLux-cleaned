@@ -11,6 +11,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.urls import reverse 
 from django.contrib import messages
+from django.core.exceptions import ValidationError
 from django.contrib.auth.views import PasswordResetView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetDoneView
 from django.urls import reverse_lazy
 from django.views.decorators.csrf import csrf_exempt
@@ -22,7 +23,7 @@ from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
 from .models import UserProfile, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
-from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm # MessageForm added 02-08-2024
+from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm, Folder # MessageForm added 02-08-2024
 from itertools import groupby
 import uuid
 
@@ -159,38 +160,66 @@ def folder_detail_view(request, profile_id, folder_name, folder_id):
     # Retrieve images associated with the folder
     images = Portfolio.objects.filter(folder=folder)
 
+    print(images)  # Debugging line
+
+    # Debugging: Print out the details of images retrieved
+    print(f"Folder: {folder.name}")
+    print("Images retrieved:")
+    for image in images:
+        print(f"ID: {image.id}, URL: {image.image.url}, Description: {image.description}")
+
+    # Debugging: Print out the images retrieved
+    print(f"Images in folder '{folder.name}': {[image.image.url for image in images]}")
+
     context = {
-        'profile': user_profile,
         'profile_id': profile_id,  # Explicitly pass profile_id
         'folder': folder,
         'images': images,
         'title': folder.name,
+        'profile': request.user.userprofile  # Ensure this is available in your context
     }
     return render(request, 'portfolio/folder_detail.html', context)
 
-@login_required # tested ok under review
-def add_folder(request): # 09-08-2024
+@login_required
+def add_folder(request):
     if request.method == 'POST':
         folder_name = request.POST.get('folder_name')
-        if folder_name:  # Make sure the folder name is not empty
-            Folder.objects.create(user=request.user, name=folder_name)
-            return redirect('users:portfolio')  # Redirect to the portfolio page after adding
+        user = request.user
+
+        # Check if a folder with the same name already exists for this user
+        if Folder.objects.filter(user=user, name=folder_name).exists():
+            messages.error(request, 'Folder name already exists')
+            return redirect('users:add_folder')  # Redirect back to the Add Folder page
+
+        # If the folder does not exist, create a new folder
+        Folder.objects.create(user=user, name=folder_name)
+        messages.success(request, 'Folder added successfully')
+        return redirect('users:portfolio')  # Redirect to the portfolio page
+
     return render(request, 'portfolio/add_folder.html')
 
-@login_required # 09-08-2024 renaming of a folder
-def rename_folder(request):
-    if request.method == 'POST':
-        folder_id = request.POST.get('folder_id')
-        new_name = request.POST.get('new_name')
-        
-        if not folder_id or not new_name:
-            return HttpResponseBadRequest("Invalid request parameters.")
-        
-        folder = Folder.objects.filter(id=folder_id, user=request.user).first()
-        if folder:
-            folder.name = new_name
-            folder.save()
-    return redirect('users:portfolio')
+@login_required
+def rename_folder(request, folder_id):
+    folder = get_object_or_404(Folder, id=folder_id, user=request.user)  # Ensure the folder belongs to the logged-in user
+
+    if request.method == "POST":
+        new_name = request.POST.get('folder_name', '').strip()  # Provide a default empty string and strip whitespace
+
+        if new_name:  # Proceed only if new_name is not an empty string
+            if new_name == folder.name:
+                messages.info(request, "The new name is the same as the current name. Please enter a different name.")
+            elif Folder.objects.filter(name=new_name, user=request.user).exists():
+                messages.info(request, "A folder with that name already exists. Please choose a different name.")
+            else:
+                folder.name = new_name
+                folder.save()
+                messages.success(request, "Folder renamed successfully")
+                return redirect('users:portfolio')
+        else:
+            messages.info(request, "folder name exist, please enter a different name.")
+    
+    return render(request, 'portfolio/rename_folder.html', {'current_folder_name': folder.name, 'folder': folder})
+
 
 @login_required # 09-08-2024 delete a folder
 def delete_folders(request):
@@ -216,22 +245,39 @@ def profile_portfolio(request, slug):
 @login_required
 def upload_image(request):
     if request.method == 'POST':
-        form = PortfolioForm(request.POST, request.FILES, user=request.user)
+        form = PortfolioForm(request.POST, request.FILES)
         if form.is_valid():
-            portfolio_image = form.save(commit=False)
-            portfolio_image.user = request.user
-            
-            # Assign the selected folder, if any
-            selected_folder = form.cleaned_data.get('folder')  # Get the folder from cleaned data
-            if selected_folder:
-                portfolio_image.folder = selected_folder  # Assign the selected folder
-            
-            portfolio_image.save()
-            return redirect('users:portfolio')  # Redirect to portfolio or dashboard
+            portfolio = form.save(commit=False)
+            portfolio.user = request.user
+            portfolio.save()
+
+            # Handling the folder_ids from the hidden input field
+            folder_ids = request.POST.get('folder_ids', '')
+            if folder_ids:
+                folder_ids_list = folder_ids.split(',')
+                folders = Folder.objects.filter(id__in=folder_ids_list, user=request.user)
+                portfolio.folder.set(folders)
+
+            messages.success(request, "Image uploaded successfully!")
+            return redirect('users:portfolio')
+        else:
+            messages.error(request, "Failed to upload image. Please correct the errors below.")
     else:
-        form = PortfolioForm(user=request.user)
-    
-    return render(request, 'portfolio/upload_image.html', {'form': form})
+        form = PortfolioForm()
+        # Get the selected folders passed from the previous view (if any)
+        folder_ids = request.GET.get('folder_ids', '')
+        selected_folders = []
+
+        if folder_ids:
+            folder_ids_list = folder_ids.split(',')
+            selected_folders = Folder.objects.filter(id__in=folder_ids_list, user=request.user)
+
+    folders = Folder.objects.filter(user=request.user)
+    return render(request, 'users/upload_image.html', {
+        'form': form,
+        'selected_folders': selected_folders,
+        'folder_count': len(selected_folders),
+    })
 
 @login_required
 def user_profile(request):
@@ -500,7 +546,9 @@ def delete_image_view(request, profile_id, folder_id, image_id):
             return HttpResponseForbidden("You are not allowed to delete this image.")
         
         # Retrieve the image based on image_id and folder_id
-        image = get_object_or_404(Portfolio, id=image_id, folder_id=folder_id)
+        # views.py
+
+        image = get_object_or_404(Portfolio, id=image_id, folder__id=folder_id)
         
         # Delete the image
         image.delete()

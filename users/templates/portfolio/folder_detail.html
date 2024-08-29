@@ -71,7 +71,7 @@
             <div class="portfolio-section">
                 <h2 class="text-left">{{ title }} Portfolio</h2>
                 <div class="portfolio-grid">
-                    {% for image in images %}
+                    {% for image in folder.portfolio_images.all %}
                         <div class="portfolio-item" id="image-{{ image.id }}">
                             <img src="{{ image.image.url }}" alt="{{ image.description }}" class="portfolio-image">
                             <p>{{ image.description }}</p>
@@ -80,6 +80,8 @@
                                 <button onclick="confirmDelete({{ image.id }})" class="btn btn-danger">Delete</button>
                             {% endif %}
                         </div>
+                    {% empty %}
+                        <p>No images found in this folder.</p>
                     {% endfor %}
                 </div>
             </div>

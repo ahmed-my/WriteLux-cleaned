@@ -45,10 +45,9 @@
                     <button type="button" id="generate-url-button" class="btn btn-info">
                         <i class="fas fa-link"></i> Generate Folder URL
                     </button>
-                    
-                    <!-- Back to Dashboard Button -->
+                    <!-- Dashboard Button -->
                     <a href="{% url 'dashboard' %}" class="btn btn-primary">
-                        <i class="fas fa-arrow-left"></i> Back to Dashboard
+                        <i class="fas fa-arrow-left"></i> Back to dashboard
                     </a>
                 </div>
 
@@ -59,7 +58,7 @@
 
                 <!-- Folder Selection and Selected Folders Section -->
                 <div class="folder-checkboxes">
-                    <h3>Folders Selected: <span id="folder-count">0</span></h3>
+                    <h3>Select Folders</h3>
                     {% for folder in folders %}
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input folder-checkbox" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}">
@@ -68,14 +67,15 @@
                             </label>
                         </div>
                     {% endfor %}
+
                     <!-- Selected Folders -->
                     <div class="selected-folders mt-3">
+                        <h4>Selected Folders</h4>
                         <ul id="selected-folders-list" class="list-group">
                             <!-- Selected folders will be dynamically added here -->
                         </ul>
                     </div>
                 </div>
-
             </div>
         </form>
 
@@ -110,7 +110,7 @@
         <div class="modal fade" id="renameFolderModal" tabindex="-1" role="dialog" aria-labelledby="renameFolderModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <form method="post" id="rename-folder-form">
+                    <form method="post" action="{% url 'users:rename_folder' %}">
                         {% csrf_token %}
                         <div class="modal-header">
                             <h5 class="modal-title" id="renameFolderModalLabel">Rename Folder</h5>
@@ -133,7 +133,7 @@
                 </div>
             </div>
         </div>
-         
+
         <!-- Generate URL Modal -->
         <div class="modal fade" id="generateUrlModal" tabindex="-1" role="dialog" aria-labelledby="generateUrlModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -166,8 +166,8 @@
     <script>
         document.getElementById('folder-search-input').addEventListener('keyup', function() {
             let filter = this.value.toLowerCase();
-            let folderItems = document.querySelectorAll('.form-check'); // Updated selector
-
+            let folderItems = document.querySelectorAll('.form-check');  // Updated selector
+    
             folderItems.forEach(function(item) {
                 let text = item.textContent.toLowerCase();
                 if (text.includes(filter)) {
@@ -182,59 +182,44 @@
     <!-- Custom JS -->
     <script>
         $(document).ready(function() {
-            // Handle folder selection display
-            function updateSelectedFolders() {
-                var selectedFolders = [];
-                $('.folder-checkbox:checked').each(function() {
-                    selectedFolders.push($(this).next('label').text().trim());
-                });
-                $('#selected-folders-list').html(selectedFolders.join(', '));
-            }
-
+            // Handle folder checkbox change event
             $('.folder-checkbox').change(function() {
                 updateSelectedFolders();
             });
 
-            // Handle upload image to multiple folders
-            $('#upload-image-button').click(function() {
-                var selectedFolders = $('.folder-checkbox:checked');
+            function updateSelectedFolders() {
+                var selectedFoldersList = $('#selected-folders-list');
+                selectedFoldersList.empty(); // Clear previous list
 
-                if (selectedFolders.length === 0) {
-                    alert('Please select at least one folder to upload the image.');
-                } else {
-                    var folderIds = selectedFolders.map(function() {
-                        return $(this).val();
-                    }).get().join(',');
-
-                    var uploadUrl = "{% url 'users:upload_image' %}?folder_ids=" + encodeURIComponent(folderIds);
-                    window.location.href = uploadUrl;
-                }
-            });
+                $('.folder-checkbox:checked').each(function() {
+                    var folderName = $(this).closest('.form-check').find('label').text().trim();
+                    selectedFoldersList.append('<li class="list-group-item">' + folderName + '</li>');
+                });
+            }
 
             $('#rename-folder-button').click(function() {
-                var selectedFolder = $('.folder-checkbox:checked'); // Ensure you have checkboxes with class 'folder-checkbox'
-                
-                if (selectedFolder.length === 1) {
-                    var folderId = selectedFolder.val(); // Get the value of the selected folder checkbox
-                    
-                    // Construct the URL for renaming, replacing '0' with the actual folder ID
-                    var renameUrl = "{% url 'users:rename_folder' 0 %}".replace('0', folderId);
-                    
-                    // Set the form's action attribute to the generated URL
-                    $('#rename-folder-form').attr('action', renameUrl);
-                    
-                    // Set the hidden input field with the folder ID
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
+                    var folderId = selectedFolder.val();
                     $('#selected_folder_id').val(folderId);
-                    
-                    // Show the modal
                     $('#renameFolderModal').modal('show');
-                } else if (selectedFolder.length === 0) {
-                    alert('Please select a folder to rename.');
                 } else {
-                    alert('Please select only one folder to rename.');
+                    alert('Please select a folder to rename.');
                 }
             });
-                  
+
+	    // Upload Image button click event
+            $('#upload-image-button').click(function() {
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
+                    // Redirect to the upload image page
+                    var uploadUrl = "{% url 'users:upload_image' %}";
+                    window.location.href = uploadUrl;
+                } else {
+                    alert('Please select a folder to upload an image.');
+                }
+            });
+
             // Delete Folder Button
             $('#delete-folder-button').click(function() {
                 var selectedFolders = $('.folder-checkbox:checked');
@@ -251,62 +236,22 @@
 
             // Update the URL generation in the portfolio.html
             $('#generate-url-button').click(function() {
-                var selectedFolders = $('.folder-checkbox:checked'); // This now captures all selected folders
-                
-                if (selectedFolders.length === 1) {
-                    var selectedFolder = selectedFolders.first(); // Get the first (and only) selected folder
+                var selectedFolder = $('.folder-checkbox:checked').first();
+                if (selectedFolder.length > 0) {
                     var folderId = selectedFolder.val();
                     var folderName = selectedFolder.closest('.form-check').find('label').text().trim();
                     var profileId = '{{ user.userprofile.profile_id }}';
-                    
-                    // Ensure the base URL is correctly built
-                    var baseUrl = window.location.origin + '/users/portfolio/' + profileId;
-                    
-                    var publicUrl = baseUrl + '/' + encodeURIComponent(folderName) + '/' + folderId + '/view/';
+            
+                    // Correctly build the base URL
+                    var baseUrl = window.location.origin + '/users'; // Ensure only one '/users' is added
+            
+                    var publicUrl = baseUrl + '/portfolio/' + profileId + '/' + encodeURIComponent(folderName) + '/' + folderId + '/view/';
                     $('#generated_url').val(publicUrl);
                     $('#generateUrlModal').modal('show');
-                } else if (selectedFolders.length === 0) {
-                    alert('Please select a folder to generate the URL.');
                 } else {
-                    alert('Please select only one folder to generate the URL.'); // Specifically handles the case for more than one folder selected
+                    alert('Please select a folder to generate the URL.');
                 }
             });
-                       
-        });
-    </script>
-    
-    <!-- javascript to handle the number of selected folders -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const folderCheckboxes = document.querySelectorAll('.folder-checkbox');
-            const folderCountElement = document.getElementById('folder-count');
-            const selectedFoldersList = document.getElementById('selected-folders-list');
-            let selectedFolderCount = 0; // Variable to store the selected folder count
-        
-            function updateFolderCount() {
-                const selectedFolders = document.querySelectorAll('.folder-checkbox:checked');
-                selectedFolderCount = selectedFolders.length; // Update the variable with the current count
-                folderCountElement.textContent = selectedFolderCount;
-        
-                // Update the hidden input value
-                document.getElementById('folder-count-input').value = selectedFolderCount;
-        
-                // Clear the list of selected folders
-                selectedFoldersList.innerHTML = '';
-        
-                selectedFolders.forEach(function (checkbox) {
-                    const listItem = document.createElement('li');
-                    listItem.classList.add('list-group-item');
-                    listItem.textContent = checkbox.nextElementSibling.textContent.trim();
-                    selectedFoldersList.appendChild(listItem);
-                });
-            }
-        
-            folderCheckboxes.forEach(function (checkbox) {
-                checkbox.addEventListener('change', updateFolderCount);
-            });
-        
-            updateFolderCount(); // Initial update in case of pre-selection
         });
     </script>
 </body>
