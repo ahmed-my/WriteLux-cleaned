@@ -20,40 +20,47 @@
           <div class="card-body">
             <form id="uploadForm" method="post" enctype="multipart/form-data" action="{% url 'users:upload_image' %}" data-redirect-url="{% url 'users:portfolio' %}">
               {% csrf_token %}
-              <input type="hidden" id="folder-count-input" name="folder_count" value="0">
-              <input type="hidden" id="folder_ids" name="folder_ids" value="">
+              <input type="hidden" id="folder-count-input" name="folder_count" value="{{ folder_count }}">
+              <input type="hidden" id="folder_ids" name="folder_ids" value="{% for folder in selected_folders %}{{ folder.id }}{% if not forloop.last %},{% endif %}{% endfor %}">
 
-              <div class="form-group mb-3">
+              <div class="form-group mb-4">
                 {{ form.image.label_tag }} 
                 {{ form.image|add_class:"form-control" }}
               </div>
-              <div class="form-group mb-3">
+              <div class="form-group mb-4">
                 {{ form.description.label_tag }} 
                 {{ form.description|add_class:"form-control" }}
               </div>
 
-              <div class="form-group mb-3">
+              <!-- Selected Folders Card -->
+              <div class="folders-card">
                 {% if folder_count > 1 %}
-                  <label for="id_folder">Folders</label>
+                  <h5>Selected Folders</h5>
                 {% else %}
-                  <label for="id_folder">Folder</label>
+                  <h5>Selected Folder</h5>
                 {% endif %}
                 {% if selected_folders %}
                     {% for folder in selected_folders %}
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input" name="folders" value="{{ folder.id }}" id="folder-{{ folder.id }}" checked>
-                            <label class="form-check-label" for="folder-{{ folder.id }}">{{ folder.name }}</label>
-                        </div>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" name="folders" value="{{ folder.id }}" id="folder-{{ folder.id }}" checked disabled>
+                            <span class="custom-checkbox-box"></span>
+                            <span class="custom-checkbox-label">{{ folder.name }}</span>
+                        </label>
                     {% endfor %}
                 {% else %}
                     {{ form.folder|add_class:"form-control" }}
                 {% endif %}
               </div>
 
-              <button type="submit" class="btn btn-primary w-70">Upload</button>
-              <a href="{% url 'users:portfolio' %}" class="btn btn-primary">
-                <i class="fas fa-arrow-left"></i> Back to Portfolio
-              </a>
+              <div class="text-center">
+                <button type="submit" class="btn btn-primary w-50 mb-2">
+                  <i class="fas fa-upload"></i> Upload
+                </button>
+                <br>
+                <a href="{% url 'users:portfolio' %}" class="btn btn-secondary w-50">
+                  <i class="fas fa-arrow-left"></i> Back to Portfolio
+                </a>
+              </div>
             </form>
           </div>
         </div>

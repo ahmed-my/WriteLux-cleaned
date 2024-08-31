@@ -183,7 +183,8 @@
                 uploadButton.disabled = false;
                 renameButton.disabled = folderCount === 1 ? false : true;
                 deleteButton.disabled = false;
-                generateUrlButton.disabled = false;
+                // generateUrlButton.disabled = false;
+                generateUrlButton.disabled = folderCount === 1 ? false : true;
             } else {
                 uploadButton.disabled = true;
                 renameButton.disabled = true;
