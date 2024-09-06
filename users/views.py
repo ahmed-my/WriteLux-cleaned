@@ -1,8 +1,8 @@
 # users/views.py
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm, SetPasswordForm
-from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.models import User
+from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -21,9 +21,10 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponseRedirect, HttpResponseNotFound, HttpResponseForbidden, HttpResponseBadRequest # to implement chat 04-08-2024
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin # to exclude a user on the lists of users
-from .models import UserProfile, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
+from .models import UserProfile, EmailConfirmationToken, Portfolio, Message, Conversation, User, Folder, ContactQuery # message added 02-08-2024
 from django.utils import timezone # using time and day for chat
 from .forms import UserCreationForm, UserProfileForm, UserRegistrationForm, AuthenticationForm, UserAuthenticationForm, MessageForm, ReplyMessageForm, PortfolioForm, Folder # MessageForm added 02-08-2024
+from .utils import send_registration_confirmation_email, generate_confirmation_token
 from itertools import groupby
 import uuid
 
@@ -110,11 +111,60 @@ def register(request):
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('users:login_user')
+            user = form.save(commit=False)
+            user.is_active = False  # Deactivate user until email confirmation
+            user.save()
+
+            # Generate the email confirmation token
+            token = generate_confirmation_token(user)
+
+            # Send the registration confirmation email
+            send_registration_confirmation_email(user, token)
+
+            # Display success message
+            messages.success(request, 'Registration successful! Please check your email to confirm your account.')
+            
+            # Render the template with a success message and email field for the confirmation button
+            return render(request, 'users/register.html', {
+                'registration_success': True,
+                'user_email': user.email,
+                'form': UserRegistrationForm()  # Reinitialize form to clear fields
+            })
     else:
         form = UserRegistrationForm()
+
     return render(request, 'users/register.html', {'form': form})
+
+def email_confirm(request, uidb64, token):
+    try:
+        # Decode the user ID from the base64 string
+        user_id = force_str(urlsafe_base64_decode(uidb64))
+
+        # Get the user by their ID
+        user = get_object_or_404(User, pk=user_id)
+
+        # Check if the token matches
+        if default_token_generator.check_token(user, token):
+            # Activate the user
+            user.is_active = True
+            user.save()
+
+            # Optionally, delete the token
+            EmailConfirmationToken.objects.filter(user=user).delete()
+
+            # Display a success message
+            messages.success(request, 'Your email has been confirmed! You can now log in.')
+
+            # Redirect to the login page
+            return redirect('users:login_user')
+
+        else:
+            messages.error(request, 'Invalid or expired confirmation token.')
+            return redirect('users:register')
+
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        messages.error(request, 'Invalid confirmation link.')
+        return redirect('users:register')
 
 def login_user(request):
     if request.method == 'POST':

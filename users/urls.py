@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (
     password_reset_request, CustomPasswordResetConfirmView,
     CustomPasswordResetCompleteView, CustomPasswordResetDoneView,
-    register, login_user, logout_user, resend_password_reset_email,
+    register, email_confirm, login_user, logout_user, resend_password_reset_email,
     portfolio_view, profile_portfolio, upload_image, user_profile,
     UserListView, user_profile_list, profile_detail, edit_profile,
     inbox, message_detail, delete_message, reply_message,
@@ -16,6 +16,7 @@ app_name = 'users'
 urlpatterns = [
     # Authentication
     path('registration/', register, name='register'),
+    path('confirm-email/<uidb64>/<token>/', email_confirm, name='email_confirm'),
     path('login/', login_user, name='login_user'),
     path('logout/', logout_user, name='logout_user'),
 

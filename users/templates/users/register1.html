@@ -13,14 +13,6 @@
     <div class="registration-container">
         {% block content %}
             <h1>Registration</h1>
-
-            <!-- Success pop-up if registration is successful -->
-            {% if registration_success %}
-            <div class="alert alert-success">
-                Registration successful! Please check your email ({{ user_email }}) to confirm your account.
-            </div>
-            <button onclick="redirectToEmail()" class="btn btn-primary">Check Your Mail</button>
-            {% else %}
             <form class="form-with-validation" method="post" action="{% url 'users:register' %}">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
@@ -41,48 +33,31 @@
                 {% endfor %}
                 <button class="form-submit">Register</button>
             </form>
-            {% endif %}
         {% endblock %}
     </div>
 
     <script>
         function togglePassword(fieldId) {
+            // Get the password field element by ID
             const field = document.getElementById(fieldId);
+            
+            // Get the icon element associated with this field
             const icon = document.getElementById(`${fieldId}-icon`);
             
-            if (field && icon) {
+            // Check if the field type is password and toggle accordingly
+            if (field && icon) {  // Ensure both elements exist
                 if (field.type === "password") {
-                    field.type = "text";
-                    icon.classList.remove('fa-eye');
+                    field.type = "text";  // Show password
+                    icon.classList.remove('fa-eye');  // Change icon to indicate visibility
                     icon.classList.add('fa-eye-slash');
                 } else {
-                    field.type = "password";
-                    icon.classList.remove('fa-eye-slash');
+                    field.type = "password";  // Hide password
+                    icon.classList.remove('fa-eye-slash');  // Change icon back to eye
                     icon.classList.add('fa-eye');
                 }
             } else {
                 console.error('TogglePassword: Field or icon not found for ID:', fieldId);
             }
-        }
-
-        // Redirect to user's email provider
-        function redirectToEmail() {
-            const email = "{{ user_email }}";  // Fetch user email from the context
-            const emailProvider = email.split('@')[1];
-            let mailUrl;
-
-            // Handle common email providers
-            if (emailProvider === "gmail.com") {
-                mailUrl = "https://mail.google.com";
-            } else if (emailProvider === "yahoo.com") {
-                mailUrl = "https://mail.yahoo.com";
-            } else if (emailProvider === "outlook.com" || emailProvider === "hotmail.com") {
-                mailUrl = "https://outlook.live.com";
-            } else {
-                mailUrl = `https://mail.${emailProvider}`;
-            }
-
-            window.location.href = mailUrl;
         }
     </script>
 </body>

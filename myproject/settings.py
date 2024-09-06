@@ -30,6 +30,10 @@ SECRET_KEY = env('SECRET_KEY', default="django-insecure-c%@sd(t6n*^q&uew-dxu$cjq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
 
+# Add your actual domain or localhost for development
+SITE_URL = 'http://127.0.0.1:8000'  # Replace with your actual domain in production
+
+
 ALLOWED_HOSTS = ['*']
 
 # Application definition

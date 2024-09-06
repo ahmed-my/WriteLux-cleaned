@@ -6,6 +6,14 @@ from django.core.exceptions import ValidationError
 import uuid
 
 
+# Email token generation and model
+class EmailConfirmationToken(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    token = models.CharField(max_length=100, unique=True, default=uuid.uuid4)
+    
+    def __str__(self):
+        return self.token
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)

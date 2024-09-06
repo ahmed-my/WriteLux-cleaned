@@ -141,3 +141,21 @@ button.form-submit:hover {
     color: #555; /* Customize icon color */
     font-size: 1rem; /* Customize icon size */
 }
+
+/* Success alert styles */
+.alert {
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-success .btn {
+    margin-top: 10px;
+}

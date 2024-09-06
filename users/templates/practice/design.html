@@ -1,0 +1,143 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static 'css-style/profile-user.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/profile-portfolio.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/portfolio.css' %}">
+    <link rel="stylesheet" href="{% static 'css-style/folder-display.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center">{{ title }}</h2>
+        <!-- Folder Actions -->
+        <form id="folder-actions-form" method="post">
+            {% csrf_token %}
+            <div class="folder-actions">
+                <!-- Folder Actions with Icons -->
+                <div class="folder-buttons mb-4">
+
+                    <!-- Add Folder Button -->
+                    <button type="button" id="add-folder-button" class="btn btn-success mr-2" data-toggle="modal" data-target="#addFolderModal">
+                        <i class="fas fa-folder-plus"></i> Add Folder
+                    </button>
+                    
+                    <!-- Delete Folder Button -->
+                    <button type="button" id="delete-folder-button" class="btn btn-danger mr-2" disabled>
+                        <i class="fas fa-trash"></i> Delete Selected Folders
+                    </button>
+                    </a>
+                </div>
+                <!-- Folder Display Section -->
+                <h3>Selected Folders: <span id="folder-count">0</span></h3>
+                <div class="row">
+                    {% for folder in folders %}
+                    <div class="col-md-4">
+                        <div class="card folder-card mb-4">
+                            <div class="card-body text-center">
+                                <input type="checkbox" class="folder-checkbox" id="folder-{{ folder.id }}" name="folders" value="{{ folder.id }}" onchange="updateFolderSelection()">
+                                <label for="folder-{{ folder.id }}" class="folder-label">
+                                    <a href="{% url 'users:folder_detail' user.userprofile.profile_id folder.name folder.id %}" class="folder-link">
+                                        <i class="fas fa-folder fa-2x text-primary"></i>
+                                        <h5 class="mt-2">{{ folder.name }}</h5>
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </form>
+
+        <!-- Add Folder Modal -->
+        <div class="modal fade" id="addFolderModal" tabindex="-1" role="dialog" aria-labelledby="addFolderModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="post" action="{% url 'users:add_folder' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addFolderModalLabel">Add New Folder</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="folder_name">Folder Name:</label>
+                                <input type="text" id="folder_name" name="folder_name" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Add Folder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Add Font Awesome -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateFolderSelection() {
+            const checkboxes = document.querySelectorAll('.folder-checkbox');
+            const selectedFolders = [...checkboxes].filter(checkbox => checkbox.checked);
+            const folderCount = selectedFolders.length;
+    
+            // Update the folder count display
+            document.getElementById('folder-count').innerText = folderCount;
+    
+            // Enable or disable buttons based on selection
+            const deleteButton = document.getElementById('delete-folder-button');
+    
+            if (folderCount > 0) {
+                deleteButton.disabled = false;
+                
+            } else {
+                deleteButton.disabled = true;
+            }
+        }
+    </script>
+    <!-- Custom JS -->
+    <script>
+        $(document).ready(function() { 
+            // Handle folder selection display
+            function updateSelectedFolders() {
+                var selectedFolders = [];
+                $('.folder-checkbox:checked').each(function() {
+                    selectedFolders.push($(this).next('label').text().trim());
+                });
+                $('#selected-folders-list').html(selectedFolders.join(', '));
+            }
+
+            $('.folder-checkbox').change(function() {
+                updateSelectedFolders();
+            });
+            
+            // Delete Folder Button
+            $('#delete-folder-button').click(function() {
+                var selectedFolders = $('.folder-checkbox:checked');
+                if (selectedFolders.length > 0) {
+                    var confirmed = confirm('Are you sure you want to delete the selected folders?');
+                    if (confirmed) {
+                        $('#folder-actions-form').attr('action', '{% url "users:delete_folders" %}');
+                        $('#folder-actions-form').submit();
+                    }
+                } else {
+                    alert('Please select a folder to delete.');
+                }
+            })               
+        });
+    </script>
+</body>
+</html>
